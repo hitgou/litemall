@@ -31,117 +31,116 @@ import static org.linlinjava.litemall.admin.util.AdminResponseCode.ADMIN_INVALID
 @RequestMapping("/admin/auth")
 @Validated
 public class AdminAuthController {
-    private final Log logger = LogFactory.getLog(AdminAuthController.class);
+	private final Log logger = LogFactory.getLog(AdminAuthController.class);
 
-    @Autowired
-    private LitemallAdminService adminService;
-    @Autowired
-    private LitemallRoleService roleService;
-    @Autowired
-    private LitemallPermissionService permissionService;
+	@Autowired
+	private LitemallAdminService adminService;
+	@Autowired
+	private LitemallRoleService roleService;
+	@Autowired
+	private LitemallPermissionService permissionService;
 
-    /*
-     *  { username : value, password : value }
-     */
-    @PostMapping("/login")
-    public Object login(@RequestBody String body) {
-        String username = JacksonUtil.parseString(body, "username");
-        String password = JacksonUtil.parseString(body, "password");
+	/*
+	 * { username : value, password : value }
+	 */
+	@PostMapping("/login")
+	public Object login(@RequestBody String body) {
+		String username = JacksonUtil.parseString(body, "username");
+		String password = JacksonUtil.parseString(body, "password");
 
-        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
-            return ResponseUtil.badArgument();
-        }
+		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+			return ResponseUtil.badArgument();
+		}
 
-        Subject currentUser = SecurityUtils.getSubject();
-        try {
-            currentUser.login(new UsernamePasswordToken(username, password));
-        } catch (UnknownAccountException uae) {
-            return ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "用户帐号或密码不正确");
-        } catch (LockedAccountException lae) {
-            return ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "用户帐号已锁定不可用");
+		Subject currentUser = SecurityUtils.getSubject();
+		try {
+			currentUser.login(new UsernamePasswordToken(username, password));
+		} catch (UnknownAccountException uae) {
+			return ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "用户帐号或密码不正确");
+		} catch (LockedAccountException lae) {
+			return ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "用户帐号已锁定不可用");
 
-        } catch (AuthenticationException ae) {
-            return ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, ae.getMessage());
-        }
-        return ResponseUtil.ok(currentUser.getSession().getId());
-    }
+		} catch (AuthenticationException ae) {
+			return ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, ae.getMessage());
+		}
+		return ResponseUtil.ok(currentUser.getSession().getId());
+	}
 
-    /*
-     *
-     */
-    @RequiresAuthentication
-    @PostMapping("/logout")
-    public Object login() {
-        Subject currentUser = SecurityUtils.getSubject();
-        currentUser.logout();
-        return ResponseUtil.ok();
-    }
+	/*
+	 *
+	 */
+	@RequiresAuthentication
+	@PostMapping("/logout")
+	public Object login() {
+		Subject currentUser = SecurityUtils.getSubject();
+		currentUser.logout();
+		return ResponseUtil.ok();
+	}
 
+	@RequiresAuthentication
+	@GetMapping("/info")
+	public Object info() {
+		Subject currentUser = SecurityUtils.getSubject();
+		LitemallAdmin admin = (LitemallAdmin) currentUser.getPrincipal();
 
-    @RequiresAuthentication
-    @GetMapping("/info")
-    public Object info() {
-        Subject currentUser = SecurityUtils.getSubject();
-        LitemallAdmin admin = (LitemallAdmin) currentUser.getPrincipal();
+		Map<String, Object> data = new HashMap<>();
+		data.put("name", admin.getUsername());
+		data.put("avatar", admin.getAvatar());
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("name", admin.getUsername());
-        data.put("avatar", admin.getAvatar());
+		Integer[] roleIds = admin.getRoleIds();
+		Set<String> roles = roleService.queryByIds(roleIds);
+		Set<String> permissions = permissionService.queryByRoleIds(roleIds);
+		data.put("roles", roles);
+		// NOTE
+		// 这里需要转换perms结构，因为对于前端而已API形式的权限更容易理解
+		data.put("perms", toAPI(permissions));
+		return ResponseUtil.ok(data);
+	}
 
-        Integer[] roleIds = admin.getRoleIds();
-        Set<String> roles = roleService.queryByIds(roleIds);
-        Set<String> permissions = permissionService.queryByRoleIds(roleIds);
-        data.put("roles", roles);
-        // NOTE
-        // 这里需要转换perms结构，因为对于前端而已API形式的权限更容易理解
-        data.put("perms", toAPI(permissions));
-        return ResponseUtil.ok(data);
-    }
+	@Autowired
+	private ApplicationContext context;
+	private HashMap<String, String> systemPermissionsMap = null;
 
-    @Autowired
-    private ApplicationContext context;
-    private HashMap<String, String> systemPermissionsMap = null;
+	private Collection<String> toAPI(Set<String> permissions) {
+		if (systemPermissionsMap == null) {
+			systemPermissionsMap = new HashMap<>();
+			final String basicPackage = "org.linlinjava.litemall.admin";
+			List<Permission> systemPermissions = PermissionUtil.listPermission(context, basicPackage);
+			for (Permission permission : systemPermissions) {
+				String perm = permission.getRequiresPermissions().value()[0];
+				String api = permission.getApi();
+				systemPermissionsMap.put(perm, api);
+			}
+		}
 
-    private Collection<String> toAPI(Set<String> permissions) {
-        if (systemPermissionsMap == null) {
-            systemPermissionsMap = new HashMap<>();
-            final String basicPackage = "org.linlinjava.litemall.admin";
-            List<Permission> systemPermissions = PermissionUtil.listPermission(context, basicPackage);
-            for (Permission permission : systemPermissions) {
-                String perm = permission.getRequiresPermissions().value()[0];
-                String api = permission.getApi();
-                systemPermissionsMap.put(perm, api);
-            }
-        }
+		Collection<String> apis = new HashSet<>();
+		for (String perm : permissions) {
+			String api = systemPermissionsMap.get(perm);
+			apis.add(api);
 
-        Collection<String> apis = new HashSet<>();
-        for (String perm : permissions) {
-            String api = systemPermissionsMap.get(perm);
-            apis.add(api);
+			if (perm.equals("*")) {
+				apis.clear();
+				apis.add("*");
+				return apis;
+				// return systemPermissionsMap.values();
 
-            if (perm.equals("*")) {
-                apis.clear();
-                apis.add("*");
-                return apis;
-//                return systemPermissionsMap.values();
+			}
+		}
+		return apis;
+	}
 
-            }
-        }
-        return apis;
-    }
+	@GetMapping("/401")
+	public Object page401() {
+		return ResponseUtil.unlogin();
+	}
 
-    @GetMapping("/401")
-    public Object page401() {
-        return ResponseUtil.unlogin();
-    }
+	@GetMapping("/index")
+	public Object pageIndex() {
+		return ResponseUtil.ok();
+	}
 
-    @GetMapping("/index")
-    public Object pageIndex() {
-        return ResponseUtil.ok();
-    }
-
-    @GetMapping("/403")
-    public Object page403() {
-        return ResponseUtil.unauthz();
-    }
+	@GetMapping("/403")
+	public Object page403() {
+		return ResponseUtil.unauthz();
+	}
 }

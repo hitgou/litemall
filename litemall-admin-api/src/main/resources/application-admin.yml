@@ -1,0 +1,5 @@
+shiro:
+  redis:
+    host: localhost:6379
+    timeout: 1800000
+    password: 123456
