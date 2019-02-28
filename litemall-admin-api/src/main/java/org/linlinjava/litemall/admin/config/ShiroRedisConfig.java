@@ -17,6 +17,7 @@ import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.linlinjava.litemall.admin.shiro.AdminAuthorizingRealm;
 import org.linlinjava.litemall.admin.shiro.AdminWebSessionManager;
+import org.linlinjava.litemall.admin.shiro.ObjRedisSerializer;
 import org.linlinjava.litemall.db.domain.LitemallAdmin;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -119,6 +120,13 @@ public class ShiroRedisConfig {
 		RedisSessionDAO sessionDAO = new RedisSessionDAO(); // crazycake 实现
 		sessionDAO.setRedisManager(redisManager());
 		sessionDAO.setSessionIdGenerator(sessionIdGenerator()); // Session ID 生成器
+		sessionDAO.setValueSerializer(new ObjRedisSerializer());
+		// sessionDAO
+		// .setValueSerializer(new
+		// org.linlinjava.litemall.admin.shiro.Jackson2JsonRedisSerializer<LitemallAdmin>(
+		// LitemallAdmin.class));
+		// sessionDAO.setValueSerializer(new
+		// Jackson2JsonRedisSerializer<LitemallAdmin>(LitemallAdmin.class));
 		return sessionDAO;
 	}
 
@@ -143,7 +151,7 @@ public class ShiroRedisConfig {
 	 * @return
 	 */
 	@Bean
-	public RedisTemplate<String, LitemallAdmin> redisTemplate111(RedisConnectionFactory connectionFactory) {
+	public RedisTemplate<String, LitemallAdmin> redisTemplate(RedisConnectionFactory connectionFactory) {
 		RedisTemplate<String, LitemallAdmin> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(connectionFactory);
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
@@ -151,27 +159,12 @@ public class ShiroRedisConfig {
 		return redisTemplate;
 	}
 
-	/**
-	 * 配置RedisTemplate，充当数据库服务
-	 *
-	 * @return
-	 */
-	// @Bean
-	// public RedisTemplate<String, LitemallAdmin>
-	// redisTemplate(RedisConnectionFactory connectionFactory) {
-	// RedisTemplate<String, LitemallAdmin> redisTemplate = new RedisTemplate<>();
-	// redisTemplate.setConnectionFactory(connectionFactory);
-	// redisTemplate.setKeySerializer(new StringRedisSerializer());
-	// redisTemplate.setValueSerializer(new
-	// Jackson2JsonRedisSerializer<LitemallAdmin>(LitemallAdmin.class));
-	// return redisTemplate;
+	// @Bean(name = "redisTemplate")
+	// public RedisTemplate<byte[], Object> redisTemplate(RedisConnectionFactory
+	// connectionFactory) {
+	// RedisTemplate<byte[], Object> template = new RedisTemplate<>();
+	// template.setConnectionFactory(connectionFactory);
+	// return template;
 	// }
-
-	@Bean(name = "redisTemplate")
-	public RedisTemplate<byte[], Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-		RedisTemplate<byte[], Object> template = new RedisTemplate<>();
-		template.setConnectionFactory(connectionFactory);
-		return template;
-	}
 
 }

@@ -81,6 +81,7 @@ public class AdminAuthController {
 	@GetMapping("/info")
 	public Object info() {
 		Subject currentUser = SecurityUtils.getSubject();
+
 		LitemallAdmin admin = (LitemallAdmin) currentUser.getPrincipal();
 
 		Map<String, Object> data = new HashMap<>();
@@ -123,7 +124,6 @@ public class AdminAuthController {
 				apis.add("*");
 				return apis;
 				// return systemPermissionsMap.values();
-
 			}
 		}
 		return apis;
