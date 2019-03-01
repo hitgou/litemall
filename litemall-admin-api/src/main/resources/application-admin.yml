@@ -2,4 +2,10 @@ shiro:
   redis:
     host: localhost:6379
     timeout: 1800000
-    password: 123456
+    password: 123456    
+
+redis:
+  host: localhost
+  port: 6379
+  timeout: 1800000
+  password: 123456

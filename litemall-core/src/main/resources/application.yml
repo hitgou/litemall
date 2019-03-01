@@ -10,3 +10,9 @@ logging:
     org.springframework:  ERROR
     org.mybatis:  ERROR
     org.linlinjava.litemall.core:  DEBUG
+    
+redis:
+  host: localhost
+  port: 6379
+  timeout: 1800000
+  password: 123456

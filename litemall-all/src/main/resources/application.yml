@@ -17,3 +17,9 @@ logging:
     org.linlinjava.litemall.admin:  ERROR
     org.linlinjava.litemall.wx:  ERROR
     org.linlinjava.litemall:  ERROR
+    
+redis:
+  host: localhost
+  port: 6379
+  timeout: 1800000
+  password: 123456

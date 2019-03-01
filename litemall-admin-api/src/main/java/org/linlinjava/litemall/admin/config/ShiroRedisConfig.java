@@ -18,15 +18,10 @@ import org.crazycake.shiro.RedisSessionDAO;
 import org.linlinjava.litemall.admin.shiro.AdminAuthorizingRealm;
 import org.linlinjava.litemall.admin.shiro.AdminWebSessionManager;
 import org.linlinjava.litemall.admin.shiro.ObjRedisSerializer;
-import org.linlinjava.litemall.db.domain.LitemallAdmin;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class ShiroRedisConfig {
@@ -59,7 +54,7 @@ public class ShiroRedisConfig {
 		// return mySessionManager;
 		// DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 		DefaultWebSessionManager sessionManager = new AdminWebSessionManager();
-		sessionManager.setGlobalSessionTimeout(redisConfig().getTimeout()); // 设置session超时
+		sessionManager.setGlobalSessionTimeout(shiroRedisConfigEntity().getTimeout()); // 设置session超时
 		sessionManager.setDeleteInvalidSessions(true); // 删除无效session
 		sessionManager.setSessionIdCookie(cookie()); // 设置JSESSIONID
 		sessionManager.setSessionDAO(sessionDAO()); // 设置sessionDAO
@@ -97,16 +92,16 @@ public class ShiroRedisConfig {
 
 	// ========================== 以下为 Redis 配置 ==============================
 	@Bean
-	public RedisConfig redisConfig() {
-		return new RedisConfig();
+	public ShiroRedisConfigEntity shiroRedisConfigEntity() {
+		return new ShiroRedisConfigEntity();
 	}
 
 	@Bean
 	public RedisManager redisManager() {
 		RedisManager redisManager = new RedisManager(); // crazycake 实现
-		redisManager.setHost(redisConfig().getHost());
-		redisManager.setPassword(redisConfig().getPassword());
-		redisManager.setTimeout(redisConfig().getTimeout());
+		redisManager.setHost(shiroRedisConfigEntity().getHost());
+		redisManager.setPassword(shiroRedisConfigEntity().getPassword());
+		redisManager.setTimeout(shiroRedisConfigEntity().getTimeout());
 		return redisManager;
 	}
 
@@ -150,14 +145,16 @@ public class ShiroRedisConfig {
 	 *
 	 * @return
 	 */
-	@Bean
-	public RedisTemplate<String, LitemallAdmin> redisTemplate(RedisConnectionFactory connectionFactory) {
-		RedisTemplate<String, LitemallAdmin> redisTemplate = new RedisTemplate<>();
-		redisTemplate.setConnectionFactory(connectionFactory);
-		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<LitemallAdmin>(LitemallAdmin.class));
-		return redisTemplate;
-	}
+	// @Bean
+	// public RedisTemplate<String, LitemallAdmin>
+	// redisTemplate(RedisConnectionFactory connectionFactory) {
+	// RedisTemplate<String, LitemallAdmin> redisTemplate = new RedisTemplate<>();
+	// redisTemplate.setConnectionFactory(connectionFactory);
+	// redisTemplate.setKeySerializer(new StringRedisSerializer());
+	// redisTemplate.setValueSerializer(new
+	// Jackson2JsonRedisSerializer<LitemallAdmin>(LitemallAdmin.class));
+	// return redisTemplate;
+	// }
 
 	// @Bean(name = "redisTemplate")
 	// public RedisTemplate<byte[], Object> redisTemplate(RedisConnectionFactory

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 // @PropertySource("classpath:config/redis.properties")
-public class RedisConfig {
+public class ShiroRedisConfigEntity {
 
 	@Value("${shiro.redis.host}")
 	private String host;
