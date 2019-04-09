@@ -47,8 +47,7 @@ public class AdminGoodsService {
     @Autowired
     private QCodeService qCodeService;
 
-    public Object list(String goodsSn, String name,
-                       Integer page, Integer limit, String sort, String order) {
+    public Object list(String goodsSn, String name, Integer page, Integer limit, String sort, String order) {
         List<LitemallGoods> goodsList = goodsService.querySelective(goodsSn, name, page, limit, sort, order);
         long total = PageInfo.of(goodsList).getTotal();
         Map<String, Object> data = new HashMap<>();
@@ -131,18 +130,13 @@ public class AdminGoodsService {
     /**
      * 编辑商品
      * <p>
-     * TODO
-     * 目前商品修改的逻辑是
-     * 1. 更新litemall_goods表
-     * 2. 逻辑删除litemall_goods_specification、litemall_goods_attribute、litemall_goods_product
-     * 3. 添加litemall_goods_specification、litemall_goods_attribute、litemall_goods_product
+     * TODO 目前商品修改的逻辑是 1. 更新litemall_goods表
+     * 2.逻辑删除litemall_goods_specification、litemall_goods_attribute、litemall_goods_product
+     * 3.添加litemall_goods_specification、litemall_goods_attribute、litemall_goods_product
      * <p>
-     * 这里商品三个表的数据采用删除再添加的策略是因为
-     * 商品编辑页面，支持管理员添加删除商品规格、添加删除商品属性，因此这里仅仅更新是不可能的，
-     * 只能删除三个表旧的数据，然后添加新的数据。
-     * 但是这里又会引入新的问题，就是存在订单商品货品ID指向了失效的商品货品表。
-     * 因此这里会拒绝管理员编辑商品，如果订单或购物车中存在商品。
-     * 所以这里可能需要重新设计。
+     * 这里商品三个表的数据采用删除再添加的策略是因为 商品编辑页面，支持管理员添加删除商品规格、添加删除商品属性，因此这里仅仅更新是不可能的，
+     * 只能删除三个表旧的数据，然后添加新的数据。 但是这里又会引入新的问题，就是存在订单商品货品ID指向了失效的商品货品表。
+     * 因此这里会拒绝管理员编辑商品，如果订单或购物车中存在商品。 所以这里可能需要重新设计。
      */
     @Transactional
     public Object update(GoodsAllinone goodsAllinone) {
@@ -166,7 +160,7 @@ public class AdminGoodsService {
             return ResponseUtil.fail(GOODS_UPDATE_NOT_ALLOWED, "商品已经在购物车中，不能修改");
         }
 
-        //将生成的分享图片地址写入数据库
+        // 将生成的分享图片地址写入数据库
         String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
         goods.setShareUrl(url);
 
@@ -237,7 +231,7 @@ public class AdminGoodsService {
         // 商品基本信息表litemall_goods
         goodsService.add(goods);
 
-        //将生成的分享图片地址写入数据库
+        // 将生成的分享图片地址写入数据库
         String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
         if (!StringUtils.isEmpty(url)) {
             goods.setShareUrl(url);
@@ -315,10 +309,10 @@ public class AdminGoodsService {
 
         Integer categoryId = goods.getCategoryId();
         LitemallCategory category = categoryService.findById(categoryId);
-        Integer[] categoryIds = new Integer[]{};
+        Integer[] categoryIds = new Integer[] {};
         if (category != null) {
             Integer parentCategoryId = category.getPid();
-            categoryIds = new Integer[]{parentCategoryId, categoryId};
+            categoryIds = new Integer[] { parentCategoryId, categoryId };
         }
 
         Map<String, Object> data = new HashMap<>();

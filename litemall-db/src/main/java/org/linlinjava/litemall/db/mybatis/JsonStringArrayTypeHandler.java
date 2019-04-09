@@ -16,7 +16,8 @@ public class JsonStringArrayTypeHandler extends BaseTypeHandler<String[]> {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, String[] parameter, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(PreparedStatement ps, int i, String[] parameter, JdbcType jdbcType)
+            throws SQLException {
         ps.setString(i, toJson(parameter));
     }
 

@@ -119,6 +119,8 @@ export default {
 }
 </script>
 
+<!--<script src="../../../static/codeDirect.js"></script>-->
+
 <style rel="stylesheet/scss" lang="scss">
 $bg:#2d3a4b;
 $light_gray:#eee;

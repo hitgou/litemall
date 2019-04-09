@@ -1,0 +1,23 @@
+$53.data('mobile_chat', {
+  'is_open': '0',
+  'chat_type': '0',
+  'chat_window': '1',
+  'chat_pop_time': '5',
+  'chat_is_reauto': '0',
+  'chat_reauto_time': '5',
+  'chat_pop_num': '100',
+  'invite_pop_time': '5',
+  'invite_is_reauto': '0',
+  'invite_reauto_time': '5',
+  'invite_pop_num': '100',
+  'chat_bottom': '0',
+  'chat_air': '0',
+  'chat_content_color': '#ffffff',
+  'chat_air_bg_color': '#3A3C4C',
+  'chat_num_show': '1',
+  'open_sdk': '0',
+  'chat_off': '1',
+  'invite_off': '0',
+  'mobile_chat_data': '{"advice":"advice"}',
+  'content': '<div style="width:100%;background:#b0b0b0;color:#000000;float:left;height:50px;position: relative;text-align: center;font-size: 0;cursor: pointer;padding:0 8px;line-height: 50px;white-space:nowrap;border-box: box-sizing;" class="icon_module" event="{bindEvent|advice}"><span class="icon_bottom_box_53kf" style="display: inline-block;overflow: hidden;width: 100%;"><span class="icon_bottom_img_53kf" style="position: relative;width: 24px;height: 24px;display: inline-block;margin-right: 4px;vertical-align: -5px;"><span class="info_num_53kf" style="display:none;width:16px;height:16px;border-radius:50%;background:red;color:#fff;position:absolute;right:-6px;font-size:12px;line-height:16px;text-align:center;top:-4px" id="msg_tip">1</span><img src="/style/setting/ver07/img/mobile_config/icon2.png" alt="" style="width:24px;height:24px;"></span><span class="icon_bottom_tit_53kf" style="display: inline-block;height:100%;line-height: 50px;font-size: 14px;white-space:nowrap;position: relative;">在线咨询</span></div>'
+});

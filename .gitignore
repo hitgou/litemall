@@ -3,3 +3,6 @@
 /storage/
 /litemall.iml
 .idea
+.DS_Store
+litemall-net
+.settings

@@ -1,0 +1,46 @@
+spring:
+  profiles:
+    active: db, core, admin, wx
+  messages:
+    encoding: UTF-8
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root:  INFO
+    org.springframework:  INFO
+    org.mybatis:  INFO
+    org.linlinjava.litemall.core:  INFO
+    org.linlinjava.litemall.db:  INFO
+    org.linlinjava.litemall.admin:  INFO
+    org.linlinjava.litemall.wx:  INFO
+    org.linlinjava.litemall:  INFO
+
+#logging:
+#  config: classpath:log4j2.yml
+    
+redis:
+  host: localhost
+  port: 6379
+  timeout: 1800000
+  password: 123456
+
+shiro:
+  redis:
+    host: localhost:6379
+    timeout: 1800000
+    password: 123456    
+
+aliyun: 
+  accessKeyId: LTAIaUIhUePCKGwn
+  accessSecret: OmSsuIk1JWAuYxZ3u0miuLWLZFfKEi
+  sms:
+    templatecode: SMS_162737918
+    signname: 奇点软件
+  
+tencent:
+  appId: 2025139147
+  appSecretKey: 05c9QznX80ZZgB9PiAm_PHA**
+    

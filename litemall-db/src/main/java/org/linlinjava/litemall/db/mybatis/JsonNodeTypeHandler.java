@@ -18,9 +18,9 @@ import java.sql.SQLException;
 public class JsonNodeTypeHandler extends BaseTypeHandler<com.fasterxml.jackson.databind.JsonNode> {
     private static final ObjectMapper mapper = new ObjectMapper();
 
-
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, JsonNode parameter, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(PreparedStatement ps, int i, JsonNode parameter, JdbcType jdbcType)
+            throws SQLException {
         String str = null;
         try {
             str = mapper.writeValueAsString(parameter);

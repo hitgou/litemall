@@ -3,7 +3,7 @@ package org.linlinjava.litemall.core.system;
 import java.math.BigDecimal;
 
 /**
- * 系统设置,其他配置请参考该类的实现
+ * 系统设置,其他配置请参考该类的实现, TODO 这里要改为存到 redis 中
  */
 public class SystemConfig extends BaseConfig {
     public static final String PRE_FIX = "litemall.system.";
@@ -63,6 +63,15 @@ public class SystemConfig extends BaseConfig {
     public static boolean isAutoCreateShareImage() {
         int autoCreate = getConfigInt(PRE_FIX + "shareimage.autocreate");
         return autoCreate == 0 ? false : true;
+    }
+
+    /**
+     * 获取sms验证码短信过期时间，以毫秒为单位
+     * 
+     * @return
+     */
+    public static Integer getSmsValidateMS() {
+        return getConfigInt(PRE_FIX + "cache.sms.validatems");
     }
 
     @Override

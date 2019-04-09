@@ -10,7 +10,7 @@ import java.util.Map;
  */
 abstract class BaseConfig {
 
-    //所有的配置均保存在该 HashMap 中
+    // 所有的配置均保存在该 HashMap 中
     protected static Map<String, String> configs = new HashMap<>();
 
     /**
@@ -27,8 +27,8 @@ abstract class BaseConfig {
      * 重载配置,传入子类的prefix
      */
     public static void reloadConfig(String prefix) {
-        //先遍历删除该 prefix 所有配置
-        for (Iterator<Map.Entry<String, String>> it = configs.entrySet().iterator(); it.hasNext(); ) {
+        // 先遍历删除该 prefix 所有配置
+        for (Iterator<Map.Entry<String, String>> it = configs.entrySet().iterator(); it.hasNext();) {
             Map.Entry<String, String> item = it.next();
             if (item.getKey().startsWith(prefix))
                 it.remove();

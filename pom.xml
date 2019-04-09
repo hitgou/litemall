@@ -24,11 +24,37 @@
 		<module>litemall-db</module>
 		<module>litemall-wx-api</module>
 		<module>litemall-admin-api</module>
+		<module>litemall-net</module>
 		<module>litemall-all</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- 包含 mvc,aop 等jar资源 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>2.0.4.RELEASE</version>
+				<exclusions>
+					<!-- 切换log4j2日志读取 -->
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- 配置 log4j2 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-log4j2</artifactId>
+			</dependency>
+			<!-- 加上这个才能辨认到log4j2.yml文件 -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-yaml</artifactId>
+				<version>2.9.8</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.linlinjava</groupId>
 				<artifactId>litemall-core</artifactId>
@@ -169,6 +195,14 @@
 				<artifactId>shiro-redis</artifactId>
 				<version>3.2.2</version>
 			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio -->
+			<dependency>
+				<groupId>com.corundumstudio.socketio</groupId>
+				<artifactId>netty-socketio</artifactId>
+				<version>1.7.17</version>
+			</dependency>
+
 
 		</dependencies>
 	</dependencyManagement>

@@ -31,7 +31,6 @@ public class OrderUtil {
     public static final Short STATUS_REFUND_CONFIRM = 203;
     public static final Short STATUS_AUTO_CONFIRM = 402;
 
-
     public static String orderStatusText(LitemallOrder order) {
         int status = order.getOrderStatus().intValue();
 
@@ -73,7 +72,6 @@ public class OrderUtil {
 
         throw new IllegalStateException("orderStatus不支持");
     }
-
 
     public static OrderHandleOption build(LitemallOrder order) {
         int status = order.getOrderStatus().intValue();
@@ -130,15 +128,14 @@ public class OrderUtil {
         } else if (showType.equals(4)) {
             // 待评价订单
             status.add((short) 401);
-//            系统超时自动取消，此时应该不支持评价
-//            status.add((short)402);
+            // 系统超时自动取消，此时应该不支持评价
+            // status.add((short)402);
         } else {
             return null;
         }
 
         return status;
     }
-
 
     public static boolean isCreateStatus(LitemallOrder litemallOrder) {
         return OrderUtil.STATUS_CREATE == litemallOrder.getOrderStatus().shortValue();
