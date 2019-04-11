@@ -1,0 +1,120 @@
+package org.linlinjava.litemall.qwfb.web;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
+import org.linlinjava.litemall.core.util.ResponseUtil;
+import org.linlinjava.litemall.core.validator.Order;
+import org.linlinjava.litemall.core.validator.Sort;
+import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
+import org.linlinjava.litemall.db.domain.LitemallUser;
+import org.linlinjava.litemall.db.service.LitemallQwfbAccountService;
+import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.github.pagehelper.PageInfo;
+
+@RestController
+@RequestMapping("/qwfb/account")
+@Validated
+public class QwfbAccountController {
+    private final Log logger = LogFactory.getLog(QwfbAccountController.class);
+
+    @Autowired
+    private LitemallQwfbAccountService qwfbAccountService;
+
+    @RequiresPermissions("admin:ad:list")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
+    @GetMapping("/list")
+    public Object list(Integer platformId, Integer accountGroupId, @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer limit,
+            @Sort @RequestParam(defaultValue = "add_time") String sort,
+            @Order @RequestParam(defaultValue = "desc") String order) {
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        List<LitemallQwfbAccount> adList = qwfbAccountService.querySelective(user.getId(), platformId, accountGroupId,
+                page, limit, sort, order);
+        long total = PageInfo.of(adList).getTotal();
+        Map<String, Object> data = new HashMap<>();
+        data.put("total", total);
+        data.put("items", adList);
+
+        return ResponseUtil.ok(data);
+    }
+
+    private Object validate(LitemallQwfbAccount ad) {
+        String name = ad.getLoginName();
+        if (StringUtils.isEmpty(name)) {
+            return ResponseUtil.badArgument();
+        }
+        Integer content = ad.getPlatformId();
+        if (StringUtils.isEmpty(content)) {
+            return ResponseUtil.badArgument();
+        }
+        return null;
+    }
+
+    @RequiresPermissions("admin:ad:create")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "添加")
+    @PostMapping("/create")
+    public Object create(@RequestBody LitemallQwfbAccount ad) {
+        Object error = validate(ad);
+        if (error != null) {
+            return error;
+        }
+        qwfbAccountService.add(ad);
+        return ResponseUtil.ok(ad);
+    }
+
+    @RequiresPermissions("admin:ad:read")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "详情")
+    @GetMapping("/read")
+    public Object read(@NotNull Integer id) {
+        LitemallQwfbAccount brand = qwfbAccountService.findById(id);
+        return ResponseUtil.ok(brand);
+    }
+
+    @RequiresPermissions("admin:ad:update")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "编辑")
+    @PostMapping("/update")
+    public Object update(@RequestBody LitemallQwfbAccount ad) {
+        Object error = validate(ad);
+        if (error != null) {
+            return error;
+        }
+        if (qwfbAccountService.updateById(ad) == 0) {
+            return ResponseUtil.updatedDataFailed();
+        }
+
+        return ResponseUtil.ok(ad);
+    }
+
+    @RequiresPermissions("admin:ad:delete")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "删除")
+    @PostMapping("/delete")
+    public Object delete(@RequestBody LitemallQwfbAccount ad) {
+        Integer id = ad.getId();
+        if (id == null) {
+            return ResponseUtil.badArgument();
+        }
+        qwfbAccountService.deleteById(id);
+        return ResponseUtil.ok();
+    }
+
+}
