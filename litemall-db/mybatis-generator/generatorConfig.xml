@@ -15,6 +15,8 @@
 		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 		<!-- 自动生成equals方法和hashcode方法 -->
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<!-- 序列化 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 
 		<!-- 非官方插件 https://github.com/itfsw/mybatis-generator-plugin -->
 		<!-- 查询单条数据插件 -->
@@ -56,6 +58,7 @@
 			targetProject="src/main/resources" />
 		<javaClientGenerator type="XMLMAPPER"
 			targetPackage="org.linlinjava.litemall.db.dao" targetProject="src/main/java" />
+
 		<!--表名 -->
 		<table tableName="litemall_ad">
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />

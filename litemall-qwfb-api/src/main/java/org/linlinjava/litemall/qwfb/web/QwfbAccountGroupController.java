@@ -14,7 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
 import org.linlinjava.litemall.db.domain.LitemallUser;
-import org.linlinjava.litemall.db.service.LitemallQwfbAccountGroupService;
+import org.linlinjava.litemall.db.service.QwfbAccountGroupService;
 import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -32,7 +32,7 @@ public class QwfbAccountGroupController {
     private final Log logger = LogFactory.getLog(QwfbAccountGroupController.class);
 
     @Autowired
-    private LitemallQwfbAccountGroupService qwfbAccountGroupService;
+    private QwfbAccountGroupService qwfbAccountGroupService;
 
     @RequiresPermissions("admin:qwfbAccountGroup:list")
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")

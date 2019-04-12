@@ -11,7 +11,7 @@ import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroupExample;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LitemallQwfbAccountGroupService {
+public class QwfbAccountGroupService {
     @Resource
     private LitemallQwfbAccountGroupMapper qwfbAccountMapper;
 

@@ -11,12 +11,13 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
+import org.linlinjava.litemall.core.util.JacksonUtil;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
 import org.linlinjava.litemall.db.domain.LitemallUser;
-import org.linlinjava.litemall.db.service.LitemallQwfbAccountService;
+import org.linlinjava.litemall.db.service.QwfbAccountService;
 import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -37,7 +38,7 @@ public class QwfbAccountController {
     private final Log logger = LogFactory.getLog(QwfbAccountController.class);
 
     @Autowired
-    private LitemallQwfbAccountService qwfbAccountService;
+    private QwfbAccountService qwfbAccountService;
 
     @RequiresPermissions("admin:ad:list")
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
@@ -103,6 +104,23 @@ public class QwfbAccountController {
         }
 
         return ResponseUtil.ok(ad);
+    }
+
+    @RequiresPermissions("admin:ad:update")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "编辑")
+    @PostMapping("/changeGroup")
+    public Object changeGroup(@RequestBody String body) {
+        Integer id = JacksonUtil.parseInteger(body, "id");
+        Integer accountGroupId = JacksonUtil.parseInteger(body, "accountGroupId");
+        if (id <= 0 || accountGroupId <= 0) {
+            return ResponseUtil.badArgument();
+        }
+
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        qwfbAccountService.changeGroup(id, accountGroupId, user.getId());
+
+        return ResponseUtil.ok();
     }
 
     @RequiresPermissions("admin:ad:delete")

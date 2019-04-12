@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
 import com.github.pagehelper.PageHelper;
 
 @Service
-public class LitemallQwfbAccountService {
+public class QwfbAccountService {
     @Resource
     private LitemallQwfbAccountMapper qwfbAccountMapper;
 
@@ -47,6 +47,18 @@ public class LitemallQwfbAccountService {
     public int updateById(LitemallQwfbAccount ad) {
         ad.setUpdateTime(LocalDateTime.now());
         return qwfbAccountMapper.updateByPrimaryKeySelective(ad);
+    }
+
+    public int changeGroup(Integer id, Integer accountGroupId, Integer userId) {
+        LitemallQwfbAccountExample example = new LitemallQwfbAccountExample();
+        LitemallQwfbAccountExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andIdEqualTo(id);
+
+        LitemallQwfbAccount updated = new LitemallQwfbAccount();
+        updated.setAccountGroupId(accountGroupId);
+        updated.setUpdateTime(LocalDateTime.now());
+
+        return qwfbAccountMapper.updateByExampleSelective(updated, example);
     }
 
     public void deleteById(Integer id) {
