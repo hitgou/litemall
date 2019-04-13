@@ -73,6 +73,16 @@ public class QwfbAccountController {
 
     @RequiresPermissions("admin:ad:create")
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "添加")
+    @PostMapping("/precreate")
+    public Object precreate(Integer platformId) {
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        LitemallQwfbAccount account = qwfbAccountService.precreate(user, platformId);
+        return ResponseUtil.ok(account);
+    }
+
+    @RequiresPermissions("admin:ad:create")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "添加")
     @PostMapping("/create")
     public Object create(@RequestBody LitemallQwfbAccount ad) {
         Object error = validate(ad);
@@ -112,7 +122,7 @@ public class QwfbAccountController {
     public Object changeGroup(@RequestBody String body) {
         Integer id = JacksonUtil.parseInteger(body, "id");
         Integer accountGroupId = JacksonUtil.parseInteger(body, "accountGroupId");
-        if (id <= 0 || accountGroupId <= 0) {
+        if (id <= 0 || accountGroupId < 0) {
             return ResponseUtil.badArgument();
         }
 

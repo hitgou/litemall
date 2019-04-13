@@ -7,14 +7,19 @@ import javax.annotation.Resource;
 
 import org.linlinjava.litemall.db.dao.LitemallQwfbAccountMapper;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
+import org.linlinjava.litemall.db.domain.LitemallQwfbAccount.Column;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountExample;
+import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.github.pagehelper.PageHelper;
 
 @Service
 public class QwfbAccountService {
+    private final Column[] columnsAccount = Column.excludes(Column.deleted, Column.sorted, Column.userId);
+
     @Resource
     private LitemallQwfbAccountMapper qwfbAccountMapper;
 
@@ -65,6 +70,20 @@ public class QwfbAccountService {
         qwfbAccountMapper.logicalDeleteByPrimaryKey(id);
     }
 
+    @Transactional
+    public LitemallQwfbAccount precreate(LitemallUser user, Integer platformId) {
+        LitemallQwfbAccount account = new LitemallQwfbAccount();
+        account.setAddTime(LocalDateTime.now());
+        account.setUpdateTime(LocalDateTime.now());
+        account.setUserId(user.getId());
+        account.setPlatformId(platformId);
+
+        int accountId = qwfbAccountMapper.insertSelective(account);
+        account = qwfbAccountMapper.selectByPrimaryKeySelective(accountId, columnsAccount);
+
+        return account;
+    }
+
     public void add(LitemallQwfbAccount ad) {
         ad.setAddTime(LocalDateTime.now());
         ad.setUpdateTime(LocalDateTime.now());
@@ -74,4 +93,5 @@ public class QwfbAccountService {
     public LitemallQwfbAccount findById(Integer id) {
         return qwfbAccountMapper.selectByPrimaryKey(id);
     }
+
 }

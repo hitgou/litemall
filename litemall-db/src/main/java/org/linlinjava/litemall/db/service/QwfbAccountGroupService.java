@@ -25,7 +25,7 @@ public class QwfbAccountGroupService {
 
         criteria.andDeletedEqualTo(false);
 
-        example.orderBy(LitemallQwfbAccountGroup.Column.isDefault.desc(), LitemallQwfbAccountGroup.Column.id.desc());
+        example.orderBy(LitemallQwfbAccountGroup.Column.id.desc());
 
         return qwfbAccountMapper.selectByExample(example);
     }
@@ -58,8 +58,6 @@ public class QwfbAccountGroupService {
         if (id != null && id > 0) {
             criteria.andIdEqualTo(id);
         }
-
-        criteria.andIsDefaultEqualTo(false);
 
         qwfbAccountMapper.logicalDeleteByExample(example);
     }

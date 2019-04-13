@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LitemallPlatformService {
-    private final Column[] result = new Column[] { Column.id, Column.name, Column.shortName, Column.status };
-    
+    private final Column[] result = new Column[] { Column.id, Column.name, Column.shortName, Column.status,
+            Column.loginUrl, Column.homeUrl, Column.publishArticleUrl, Column.publishVedioUrl, Column.des,
+            Column.extraDes };
+
     @Resource
     private LitemallPlatformMapper platformMapper;
 
