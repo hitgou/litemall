@@ -17,8 +17,8 @@ import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
 import org.linlinjava.litemall.db.domain.LitemallUser;
-import org.linlinjava.litemall.db.service.QwfbAccountService;
 import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
+import org.linlinjava.litemall.qwfb.service.QwfbAccountBLLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -38,7 +38,7 @@ public class QwfbAccountController {
     private final Log logger = LogFactory.getLog(QwfbAccountController.class);
 
     @Autowired
-    private QwfbAccountService qwfbAccountService;
+    private QwfbAccountBLLService qwfbAccountBLLService;
 
     @RequiresPermissions("admin:ad:list")
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
@@ -49,8 +49,8 @@ public class QwfbAccountController {
             @Order @RequestParam(defaultValue = "desc") String order) {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
-        List<LitemallQwfbAccount> adList = qwfbAccountService.querySelective(user.getId(), platformId, accountGroupId,
-                page, limit, sort, order);
+        List<LitemallQwfbAccount> adList = qwfbAccountBLLService.querySelective(user.getId(), platformId,
+                accountGroupId, page, limit, sort, order);
         long total = PageInfo.of(adList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
@@ -77,8 +77,19 @@ public class QwfbAccountController {
     public Object precreate(Integer platformId) {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
-        LitemallQwfbAccount account = qwfbAccountService.precreate(user, platformId);
+        LitemallQwfbAccount account = qwfbAccountBLLService.precreate(user, platformId);
         return ResponseUtil.ok(account);
+    }
+
+    @RequiresPermissions("admin:ad:create")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "添加")
+    @PostMapping("/updateLoginInfo")
+    public Object updateLoginInfo(@NotNull Integer accountId, @NotNull String accountName, String headIcon,
+            String loginName, String password, String authToken) {
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        qwfbAccountBLLService.updateLoginInfo(user, accountId, accountName, headIcon, loginName, password, authToken);
+        return ResponseUtil.ok();
     }
 
     @RequiresPermissions("admin:ad:create")
@@ -89,7 +100,11 @@ public class QwfbAccountController {
         if (error != null) {
             return error;
         }
-        qwfbAccountService.add(ad);
+
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+
+        qwfbAccountBLLService.add(ad, user.getId());
         return ResponseUtil.ok(ad);
     }
 
@@ -97,7 +112,10 @@ public class QwfbAccountController {
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "详情")
     @GetMapping("/read")
     public Object read(@NotNull Integer id) {
-        LitemallQwfbAccount brand = qwfbAccountService.findById(id);
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+
+        LitemallQwfbAccount brand = qwfbAccountBLLService.findById(id, user.getId());
         return ResponseUtil.ok(brand);
     }
 
@@ -109,7 +127,11 @@ public class QwfbAccountController {
         if (error != null) {
             return error;
         }
-        if (qwfbAccountService.updateById(ad) == 0) {
+
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+
+        if (qwfbAccountBLLService.updateById(ad, user.getId()) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
 
@@ -128,7 +150,7 @@ public class QwfbAccountController {
 
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
-        qwfbAccountService.changeGroup(id, accountGroupId, user.getId());
+        qwfbAccountBLLService.changeGroup(id, accountGroupId, user.getId());
 
         return ResponseUtil.ok();
     }
@@ -141,7 +163,9 @@ public class QwfbAccountController {
         if (id == null) {
             return ResponseUtil.badArgument();
         }
-        qwfbAccountService.deleteById(id);
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        qwfbAccountBLLService.deleteById(id, user.getId());
         return ResponseUtil.ok();
     }
 

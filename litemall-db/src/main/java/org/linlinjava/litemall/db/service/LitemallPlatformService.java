@@ -6,8 +6,8 @@ import javax.annotation.Resource;
 
 import org.linlinjava.litemall.db.dao.LitemallPlatformMapper;
 import org.linlinjava.litemall.db.domain.LitemallPlatform;
-import org.linlinjava.litemall.db.domain.LitemallPlatformExample;
 import org.linlinjava.litemall.db.domain.LitemallPlatform.Column;
+import org.linlinjava.litemall.db.domain.LitemallPlatformExample;
 import org.springframework.stereotype.Service;
 
 @Service

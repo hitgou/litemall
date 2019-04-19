@@ -33,8 +33,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 @Service
-public class UserAuthService {
-    private final Log logger = LogFactory.getLog(UserAuthService.class);
+public class UserAuthBLLService {
+    private final Log logger = LogFactory.getLog(UserAuthBLLService.class);
 
     @Autowired
     private LitemallUserService userService;

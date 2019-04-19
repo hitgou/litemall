@@ -32,92 +32,92 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class ObjRedisSerializer<T> implements RedisSerializer<T> {
 
-	private static Logger logger = LoggerFactory.getLogger(ObjectSerializer.class);
+    private static Logger logger = LoggerFactory.getLogger(ObjectSerializer.class);
 
-	public static final int BYTE_ARRAY_OUTPUT_STREAM_SIZE = 128;
+    public static final int BYTE_ARRAY_OUTPUT_STREAM_SIZE = 128;
 
-	@Override
-	public byte[] serialize(Object object) throws SerializationException {
-		byte[] result = new byte[0];
+    @Override
+    public byte[] serialize(Object object) throws SerializationException {
+        byte[] result = new byte[0];
 
-		if (object == null) {
-			return result;
-		}
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream(BYTE_ARRAY_OUTPUT_STREAM_SIZE);
-		if (!(object instanceof Serializable)) {
-			throw new SerializationException("requires a Serializable payload " + "but received an object of type ["
-					+ object.getClass().getName() + "]");
-		}
-		try {
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteStream);
-			objectOutputStream.writeObject(object);
-			objectOutputStream.flush();
-			result = byteStream.toByteArray();
-		} catch (IOException e) {
-			throw new SerializationException("serialize error, object=" + object, e);
-		}
+        if (object == null) {
+            return result;
+        }
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream(BYTE_ARRAY_OUTPUT_STREAM_SIZE);
+        if (!(object instanceof Serializable)) {
+            throw new SerializationException("requires a Serializable payload " + "but received an object of type ["
+                    + object.getClass().getName() + "]");
+        }
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteStream);
+            objectOutputStream.writeObject(object);
+            objectOutputStream.flush();
+            result = byteStream.toByteArray();
+        } catch (IOException e) {
+            throw new SerializationException("serialize error, object=" + object, e);
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	@Override
-	public T deserialize(byte[] bytes) throws SerializationException {
-		T result = null;
+    @Override
+    public T deserialize(byte[] bytes) throws SerializationException {
+        T result = null;
 
-		if (bytes == null || bytes.length == 0) {
-			return result;
-		}
+        if (bytes == null || bytes.length == 0) {
+            return result;
+        }
 
-		try {
-			ByteArrayInputStream byteStream = new ByteArrayInputStream(bytes);
-			CustomObjectInputStream objectInputStream = new CustomObjectInputStream(byteStream,
-					this.getClass().getClassLoader());
-			result = (T) objectInputStream.readObject();
-		} catch (IOException e) {
-			throw new SerializationException("deserialize error ", e);
-		} catch (ClassNotFoundException e) {
-			throw new SerializationException("deserialize error", e);
-		}
+        try {
+            ByteArrayInputStream byteStream = new ByteArrayInputStream(bytes);
+            CustomObjectInputStream objectInputStream = new CustomObjectInputStream(byteStream,
+                    this.getClass().getClassLoader());
+            result = (T) objectInputStream.readObject();
+        } catch (IOException e) {
+            throw new SerializationException("deserialize error ", e);
+        } catch (ClassNotFoundException e) {
+            throw new SerializationException("deserialize error", e);
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	/**
-	 * 增加 classloader 参数，解决devtools重新加载后，classloader变化的问题：<br>
-	 * https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-devtools-known-restart-limitations<br>
-	 * https://www.jianshu.com/p/32d38a7fd20a<br>
-	 * 
-	 * @author fengzilin
-	 *
-	 */
-	public static class CustomObjectInputStream extends ObjectInputStream {
-		protected ClassLoader classLoader = this.getClass().getClassLoader();
+    /**
+     * 增加 classloader 参数，解决devtools重新加载后，classloader变化的问题：<br>
+     * https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-devtools-known-restart-limitations<br>
+     * https://www.jianshu.com/p/32d38a7fd20a<br>
+     * 
+     * @author fengzilin
+     *
+     */
+    public static class CustomObjectInputStream extends ObjectInputStream {
+        protected ClassLoader classLoader = this.getClass().getClassLoader();
 
-		public CustomObjectInputStream(InputStream in) throws IOException {
-			super(in);
-			// TODO Auto-generated constructor stub
-		}
+        public CustomObjectInputStream(InputStream in) throws IOException {
+            super(in);
+            // TODO Auto-generated constructor stub
+        }
 
-		public CustomObjectInputStream(InputStream in, ClassLoader cl) throws IOException {
-			super(in);
-			// TODO Auto-generated constructor stub
-			this.classLoader = cl;
-		}
+        public CustomObjectInputStream(InputStream in, ClassLoader cl) throws IOException {
+            super(in);
+            // TODO Auto-generated constructor stub
+            this.classLoader = cl;
+        }
 
-		/*
-		 * * (non-Javadoc) * * @see
-		 * java.io.ObjectInputStream#resolveClass(java.io.ObjectStreamClass)
-		 */
-		@Override
-		protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
-			// TODO Auto-generated method stub
-			String name = desc.getName();
-			try {
-				return Class.forName(name, false, this.classLoader);
-			} catch (ClassNotFoundException ex) {
-				return super.resolveClass(desc);
-			}
-		}
+        /*
+         * * (non-Javadoc) * * @see
+         * java.io.ObjectInputStream#resolveClass(java.io.ObjectStreamClass)
+         */
+        @Override
+        protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+            // TODO Auto-generated method stub
+            String name = desc.getName();
+            try {
+                return Class.forName(name, false, this.classLoader);
+            } catch (ClassNotFoundException ex) {
+                return super.resolveClass(desc);
+            }
+        }
 
-	}
+    }
 }

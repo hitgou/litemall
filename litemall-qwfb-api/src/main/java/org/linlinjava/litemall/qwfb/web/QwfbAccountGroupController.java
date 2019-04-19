@@ -14,8 +14,10 @@ import org.apache.shiro.subject.Subject;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
 import org.linlinjava.litemall.db.domain.LitemallUser;
-import org.linlinjava.litemall.db.service.QwfbAccountGroupService;
 import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
+import org.linlinjava.litemall.qwfb.service.QwfbAccountGroupBLLService;
+import org.linlinjava.litemall.qwfb.service.QwfbPublishBLLService;
+import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -32,20 +34,40 @@ public class QwfbAccountGroupController {
     private final Log logger = LogFactory.getLog(QwfbAccountGroupController.class);
 
     @Autowired
-    private QwfbAccountGroupService qwfbAccountGroupService;
+    private QwfbPublishBLLService qwfbPublishService;
 
-    @RequiresPermissions("admin:qwfbAccountGroup:list")
+    @Autowired
+    private QwfbAccountGroupBLLService qwfbAccountGroupBLLService;
+
+    // @RequiresPermissions("admin:qwfbAccountGroup:list")
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
     @GetMapping("/list")
     public Object list() {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
 
-        List<LitemallQwfbAccountGroup> adList = qwfbAccountGroupService.querySelective(user.getId());
+        List<LitemallQwfbAccountGroup> adList = qwfbAccountGroupBLLService.querySelective(user.getId());
         Map<String, Object> data = new HashMap<>();
         data.put("items", adList);
 
         return ResponseUtil.ok(data);
+    }
+
+    /**
+     * 返回账号分组、带平台信息
+     * 
+     * @return
+     */
+    // @RequiresPermissions("admin:qwfbAccountGroup:list")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
+    @GetMapping("/listWithAccount")
+    public Object listWithAccount() {
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+
+        List<PublishAccountGroupVM> adList = qwfbPublishService.getAccountGroupList(user.getId());
+
+        return ResponseUtil.ok(adList);
     }
 
     private Object validate(LitemallQwfbAccountGroup qwfbAccountGroup) {
@@ -68,9 +90,7 @@ public class QwfbAccountGroupController {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
 
-        qwfbAccountGroup.setUserId(user.getId());
-
-        qwfbAccountGroupService.add(qwfbAccountGroup);
+        qwfbAccountGroupBLLService.add(qwfbAccountGroup, user.getId());
         return ResponseUtil.ok(qwfbAccountGroup);
     }
 
@@ -81,7 +101,7 @@ public class QwfbAccountGroupController {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
 
-        LitemallQwfbAccountGroup brand = qwfbAccountGroupService.findById(user.getId(), id);
+        LitemallQwfbAccountGroup brand = qwfbAccountGroupBLLService.findById(user.getId(), id);
 
         return ResponseUtil.ok(brand);
     }
@@ -98,7 +118,7 @@ public class QwfbAccountGroupController {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
 
-        if (qwfbAccountGroupService.updateById(qwfbAccountGroup, user.getId()) == 0) {
+        if (qwfbAccountGroupBLLService.updateById(qwfbAccountGroup, user.getId()) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
 
@@ -117,7 +137,7 @@ public class QwfbAccountGroupController {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
 
-        qwfbAccountGroupService.deleteById(user.getId(), id);
+        qwfbAccountGroupBLLService.deleteById(user.getId(), id);
 
         return ResponseUtil.ok();
     }

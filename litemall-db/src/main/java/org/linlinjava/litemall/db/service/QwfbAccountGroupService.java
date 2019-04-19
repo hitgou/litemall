@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.linlinjava.litemall.db.dao.LitemallQwfbAccountGroupMapper;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
+import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup.Column;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroupExample;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,21 @@ public class QwfbAccountGroupService {
         example.orderBy(LitemallQwfbAccountGroup.Column.id.desc());
 
         return qwfbAccountMapper.selectByExample(example);
+    }
+
+    public List<LitemallQwfbAccountGroup> querySelective(Integer userId, Column... columns) {
+        LitemallQwfbAccountGroupExample example = new LitemallQwfbAccountGroupExample();
+        LitemallQwfbAccountGroupExample.Criteria criteria = example.createCriteria();
+
+        if (userId != null && userId > 0) {
+            criteria.andUserIdEqualTo(userId);
+        }
+
+        criteria.andDeletedEqualTo(false);
+
+        example.orderBy(LitemallQwfbAccountGroup.Column.id.desc());
+
+        return qwfbAccountMapper.selectByExampleSelective(example, columns);
     }
 
     public int updateById(LitemallQwfbAccountGroup qwfbAccountGroup, Integer userId) {
@@ -88,4 +104,5 @@ public class QwfbAccountGroupService {
 
         return qwfbAccountMapper.selectOneByExample(example);
     }
+
 }

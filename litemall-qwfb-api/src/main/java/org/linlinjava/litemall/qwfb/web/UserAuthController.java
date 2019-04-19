@@ -29,7 +29,7 @@ import org.linlinjava.litemall.db.service.LitemallAdminService;
 import org.linlinjava.litemall.db.service.LitemallPermissionService;
 import org.linlinjava.litemall.db.service.LitemallRoleService;
 import org.linlinjava.litemall.db.service.LitemallUserService;
-import org.linlinjava.litemall.qwfb.service.UserAuthService;
+import org.linlinjava.litemall.qwfb.service.UserAuthBLLService;
 import org.linlinjava.litemall.qwfb.util.Permission;
 import org.linlinjava.litemall.qwfb.util.PermissionUtil;
 import org.linlinjava.litemall.qwfb.util.ResponseCode;
@@ -60,7 +60,7 @@ public class UserAuthController {
     private LitemallUserService userService;
 
     @Autowired
-    private UserAuthService userAuthService;
+    private UserAuthBLLService userAuthService;
 
     @Autowired
     private TencentValidator tencentValidator;
