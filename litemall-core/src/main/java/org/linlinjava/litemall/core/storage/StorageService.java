@@ -1,14 +1,14 @@
 package org.linlinjava.litemall.core.storage;
 
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.util.stream.Stream;
+
 import org.linlinjava.litemall.core.util.CharUtil;
 import org.linlinjava.litemall.db.domain.LitemallStorage;
 import org.linlinjava.litemall.db.service.LitemallStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.util.stream.Stream;
 
 /**
  * 提供存储服务类，所有存储服务均由该类对外提供
@@ -38,10 +38,14 @@ public class StorageService {
     /**
      * 存储一个文件对象
      *
-     * @param inputStream   文件输入流
-     * @param contentLength 文件长度
-     * @param contentType   文件类型
-     * @param fileName      文件索引名
+     * @param inputStream
+     *            文件输入流
+     * @param contentLength
+     *            文件长度
+     * @param contentType
+     *            文件类型
+     * @param fileName
+     *            文件索引名
      */
     public String store(InputStream inputStream, long contentLength, String contentType, String fileName) {
         String key = generateKey(fileName);
@@ -69,8 +73,7 @@ public class StorageService {
         do {
             key = CharUtil.getRandomString(20) + suffix;
             storageInfo = litemallStorageService.findByKey(key);
-        }
-        while (storageInfo != null);
+        } while (storageInfo != null);
 
         return key;
     }

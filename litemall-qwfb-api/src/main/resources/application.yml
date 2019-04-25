@@ -3,7 +3,29 @@ spring:
     active: db, core, admin, wx
   messages:
     encoding: UTF-8
-
+  datasource:
+    url:  jdbc:mysql://localhost:3306/litemall
+    username: root
+    password: a1111111
+    driver-class-name:  com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize:  5
+    minIdle:  5
+    maxActive:  20
+    maxWait:  60000
+    timeBetweenEvictionRunsMillis:  60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery:  SELECT 1 FROM DUAL
+    testWhileIdle:  true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize:  20
+    filters:  stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    
+    
+    
 server:
   port: 8080
 
@@ -40,7 +62,20 @@ aliyun:
     templatecode: SMS_162737918
     signname: 奇点软件
   
+# 腾讯图片验证服务配置
 tencent:
   appId: 2025139147
   appSecretKey: 05c9QznX80ZZgB9PiAm_PHA**
     
+litemall:
+  # 对象存储配置
+  storage:
+    # 当前工作的对象存储模式，分别是local、aliyun、tencent、qiniu
+    active: aliyun
+    # 阿里云对象存储配置信息
+    aliyun:
+      endpoint: oss-cn-hangzhou.aliyuncs.com
+      accessKeyId: LTAIaUIhUePCKGwn
+      accessKeySecret: OmSsuIk1JWAuYxZ3u0miuLWLZFfKEi
+      bucketName: qwfb-img
+

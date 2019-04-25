@@ -58,7 +58,7 @@ public class LitemallQwfbArticleDetail implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer articleId;
+    private Long articleId;
 
     /**
      *
@@ -94,7 +94,7 @@ public class LitemallQwfbArticleDetail implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer categoryId;
+    private String categoryId;
 
     /**
      *
@@ -292,7 +292,7 @@ public class LitemallQwfbArticleDetail implements Serializable {
      *
      * @mbg.generated
      */
-    public Integer getArticleId() {
+    public Long getArticleId() {
         return articleId;
     }
 
@@ -304,7 +304,7 @@ public class LitemallQwfbArticleDetail implements Serializable {
      *
      * @mbg.generated
      */
-    public void setArticleId(Integer articleId) {
+    public void setArticleId(Long articleId) {
         this.articleId = articleId;
     }
 
@@ -388,7 +388,7 @@ public class LitemallQwfbArticleDetail implements Serializable {
      *
      * @mbg.generated
      */
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
@@ -400,7 +400,7 @@ public class LitemallQwfbArticleDetail implements Serializable {
      *
      * @mbg.generated
      */
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -823,11 +823,11 @@ public class LitemallQwfbArticleDetail implements Serializable {
         id("id", "id", "BIGINT", false),
         title("title", "title", "VARCHAR", false),
         userId("user_id", "userId", "INTEGER", false),
-        articleId("article_id", "articleId", "INTEGER", false),
+        articleId("article_id", "articleId", "BIGINT", false),
         accountGroupId("account_group_id", "accountGroupId", "INTEGER", false),
         platformId("platform_id", "platformId", "INTEGER", false),
         accountId("account_id", "accountId", "INTEGER", false),
-        categoryId("category_id", "categoryId", "INTEGER", false),
+        categoryId("category_id", "categoryId", "VARCHAR", false),
         categoryName("category_name", "categoryName", "VARCHAR", false),
         publishedUrl("published_url", "publishedUrl", "VARCHAR", false),
         publishedId("published_id", "publishedId", "VARCHAR", false),

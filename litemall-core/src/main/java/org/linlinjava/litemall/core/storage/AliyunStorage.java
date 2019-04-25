@@ -86,7 +86,6 @@ public class AliyunStorage implements Storage {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     @Override

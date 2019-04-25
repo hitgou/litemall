@@ -654,7 +654,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdEqualTo(Integer value) {
+        public Criteria andArticleIdEqualTo(Long value) {
             addCriterion("article_id =", value, "articleId");
             return (Criteria) this;
         }
@@ -671,7 +671,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotEqualTo(Integer value) {
+        public Criteria andArticleIdNotEqualTo(Long value) {
             addCriterion("article_id <>", value, "articleId");
             return (Criteria) this;
         }
@@ -688,7 +688,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdGreaterThan(Integer value) {
+        public Criteria andArticleIdGreaterThan(Long value) {
             addCriterion("article_id >", value, "articleId");
             return (Criteria) this;
         }
@@ -705,7 +705,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andArticleIdGreaterThanOrEqualTo(Long value) {
             addCriterion("article_id >=", value, "articleId");
             return (Criteria) this;
         }
@@ -722,7 +722,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdLessThan(Integer value) {
+        public Criteria andArticleIdLessThan(Long value) {
             addCriterion("article_id <", value, "articleId");
             return (Criteria) this;
         }
@@ -739,7 +739,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdLessThanOrEqualTo(Integer value) {
+        public Criteria andArticleIdLessThanOrEqualTo(Long value) {
             addCriterion("article_id <=", value, "articleId");
             return (Criteria) this;
         }
@@ -756,22 +756,22 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdIn(List<Integer> values) {
+        public Criteria andArticleIdIn(List<Long> values) {
             addCriterion("article_id in", values, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotIn(List<Integer> values) {
+        public Criteria andArticleIdNotIn(List<Long> values) {
             addCriterion("article_id not in", values, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdBetween(Integer value1, Integer value2) {
+        public Criteria andArticleIdBetween(Long value1, Long value2) {
             addCriterion("article_id between", value1, value2, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andArticleIdNotBetween(Long value1, Long value2) {
             addCriterion("article_id not between", value1, value2, "articleId");
             return (Criteria) this;
         }
@@ -1182,7 +1182,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdEqualTo(Integer value) {
+        public Criteria andCategoryIdEqualTo(String value) {
             addCriterion("category_id =", value, "categoryId");
             return (Criteria) this;
         }
@@ -1199,7 +1199,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdNotEqualTo(Integer value) {
+        public Criteria andCategoryIdNotEqualTo(String value) {
             addCriterion("category_id <>", value, "categoryId");
             return (Criteria) this;
         }
@@ -1216,7 +1216,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdGreaterThan(Integer value) {
+        public Criteria andCategoryIdGreaterThan(String value) {
             addCriterion("category_id >", value, "categoryId");
             return (Criteria) this;
         }
@@ -1233,7 +1233,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCategoryIdGreaterThanOrEqualTo(String value) {
             addCriterion("category_id >=", value, "categoryId");
             return (Criteria) this;
         }
@@ -1250,7 +1250,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdLessThan(Integer value) {
+        public Criteria andCategoryIdLessThan(String value) {
             addCriterion("category_id <", value, "categoryId");
             return (Criteria) this;
         }
@@ -1267,7 +1267,7 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdLessThanOrEqualTo(Integer value) {
+        public Criteria andCategoryIdLessThanOrEqualTo(String value) {
             addCriterion("category_id <=", value, "categoryId");
             return (Criteria) this;
         }
@@ -1284,22 +1284,32 @@ public class LitemallQwfbArticleDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdIn(List<Integer> values) {
+        public Criteria andCategoryIdLike(String value) {
+            addCriterion("category_id like", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdNotLike(String value) {
+            addCriterion("category_id not like", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdIn(List<String> values) {
             addCriterion("category_id in", values, "categoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdNotIn(List<Integer> values) {
+        public Criteria andCategoryIdNotIn(List<String> values) {
             addCriterion("category_id not in", values, "categoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdBetween(Integer value1, Integer value2) {
+        public Criteria andCategoryIdBetween(String value1, String value2) {
             addCriterion("category_id between", value1, value2, "categoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andCategoryIdNotBetween(String value1, String value2) {
             addCriterion("category_id not between", value1, value2, "categoryId");
             return (Criteria) this;
         }

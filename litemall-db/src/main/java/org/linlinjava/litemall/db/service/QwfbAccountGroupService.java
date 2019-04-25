@@ -6,6 +6,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.linlinjava.litemall.db.dao.LitemallQwfbAccountGroupMapper;
+import org.linlinjava.litemall.db.dao.LitemallQwfbAccountMapper;
+import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
+import org.linlinjava.litemall.db.domain.LitemallQwfbAccountExample;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup.Column;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroupExample;
@@ -14,7 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class QwfbAccountGroupService {
     @Resource
-    private LitemallQwfbAccountGroupMapper qwfbAccountMapper;
+    private LitemallQwfbAccountGroupMapper qwfbAccountGroupMapper;
+
+    @Resource
+    private LitemallQwfbAccountMapper qwfbAccountMapper;
 
     public List<LitemallQwfbAccountGroup> querySelective(Integer userId) {
         LitemallQwfbAccountGroupExample example = new LitemallQwfbAccountGroupExample();
@@ -28,7 +34,7 @@ public class QwfbAccountGroupService {
 
         example.orderBy(LitemallQwfbAccountGroup.Column.id.desc());
 
-        return qwfbAccountMapper.selectByExample(example);
+        return qwfbAccountGroupMapper.selectByExample(example);
     }
 
     public List<LitemallQwfbAccountGroup> querySelective(Integer userId, Column... columns) {
@@ -43,7 +49,28 @@ public class QwfbAccountGroupService {
 
         example.orderBy(LitemallQwfbAccountGroup.Column.id.desc());
 
-        return qwfbAccountMapper.selectByExampleSelective(example, columns);
+        return qwfbAccountGroupMapper.selectByExampleSelective(example, columns);
+    }
+
+    public List<LitemallQwfbAccount> queryAccountList(Integer userId, Integer accountGroupId) {
+        LitemallQwfbAccountExample example = new LitemallQwfbAccountExample();
+        LitemallQwfbAccountExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andAccountGroupIdEqualTo(accountGroupId).andDeletedEqualTo(false);
+
+        return qwfbAccountMapper.selectByExample(example);
+    }
+
+    public List<LitemallQwfbAccount> queryAccountList(Integer userId, Integer accountGroupId, Boolean logined) {
+        LitemallQwfbAccountExample example = new LitemallQwfbAccountExample();
+        LitemallQwfbAccountExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andAccountGroupIdEqualTo(accountGroupId).andDeletedEqualTo(false);
+        if (logined) {
+            criteria.andLastLoginTimeIsNotNull();
+        } else {
+            criteria.andLastLoginTimeIsNull();
+        }
+
+        return qwfbAccountMapper.selectByExample(example);
     }
 
     public int updateById(LitemallQwfbAccountGroup qwfbAccountGroup, Integer userId) {
@@ -60,7 +87,7 @@ public class QwfbAccountGroupService {
         updated.setUpdateTime(LocalDateTime.now());
         updated.setName(qwfbAccountGroup.getName());
 
-        return qwfbAccountMapper.updateByExampleSelective(updated, example);
+        return qwfbAccountGroupMapper.updateByExampleSelective(updated, example);
     }
 
     public void deleteById(Integer userId, Integer id) {
@@ -75,7 +102,7 @@ public class QwfbAccountGroupService {
             criteria.andIdEqualTo(id);
         }
 
-        qwfbAccountMapper.logicalDeleteByExample(example);
+        qwfbAccountGroupMapper.logicalDeleteByExample(example);
     }
 
     public void add(LitemallQwfbAccountGroup qwfbAccountGroup) {
@@ -87,22 +114,17 @@ public class QwfbAccountGroupService {
         updated.setUpdateTime(LocalDateTime.now());
         updated.setUserId(qwfbAccountGroup.getUserId());
 
-        qwfbAccountMapper.insertSelective(updated);
+        qwfbAccountGroupMapper.insertSelective(updated);
     }
 
     public LitemallQwfbAccountGroup findById(Integer userId, Integer id) {
         LitemallQwfbAccountGroupExample example = new LitemallQwfbAccountGroupExample();
         LitemallQwfbAccountGroupExample.Criteria criteria = example.createCriteria();
 
-        if (userId != null && userId > 0) {
-            criteria.andUserIdEqualTo(userId);
-        }
+        criteria.andUserIdEqualTo(userId);
+        criteria.andIdEqualTo(id);
 
-        if (id != null && id > 0) {
-            criteria.andIdEqualTo(id);
-        }
-
-        return qwfbAccountMapper.selectOneByExample(example);
+        return qwfbAccountGroupMapper.selectOneByExample(example);
     }
 
 }

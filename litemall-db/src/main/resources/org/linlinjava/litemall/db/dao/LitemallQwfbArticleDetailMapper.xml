@@ -9,11 +9,11 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
     <result column="account_group_id" jdbcType="INTEGER" property="accountGroupId" />
     <result column="platform_id" jdbcType="INTEGER" property="platformId" />
     <result column="account_id" jdbcType="INTEGER" property="accountId" />
-    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     <result column="published_url" jdbcType="VARCHAR" property="publishedUrl" />
     <result column="published_id" jdbcType="VARCHAR" property="publishedId" />
@@ -278,9 +278,9 @@
       last_published_time, `status`, statusHint, 
       add_time, update_time, deleted, 
       content)
-    values (#{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
+    values (#{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=BIGINT}, 
       #{accountGroupId,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER}, 
-      #{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{publishedUrl,jdbcType=VARCHAR}, 
+      #{categoryId,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, #{publishedUrl,jdbcType=VARCHAR}, 
       #{publishedId,jdbcType=VARCHAR}, #{publishedType,jdbcType=INTEGER}, #{publishedAttemptTimes,jdbcType=INTEGER}, 
       #{lastPublishedTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{statushint,jdbcType=VARCHAR}, 
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
@@ -362,7 +362,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
+        #{articleId,jdbcType=BIGINT},
       </if>
       <if test="accountGroupId != null">
         #{accountGroupId,jdbcType=INTEGER},
@@ -374,7 +374,7 @@
         #{accountId,jdbcType=INTEGER},
       </if>
       <if test="categoryId != null">
-        #{categoryId,jdbcType=INTEGER},
+        #{categoryId,jdbcType=VARCHAR},
       </if>
       <if test="categoryName != null">
         #{categoryName,jdbcType=VARCHAR},
@@ -441,7 +441,7 @@
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.articleId != null">
-        article_id = #{record.articleId,jdbcType=INTEGER},
+        article_id = #{record.articleId,jdbcType=BIGINT},
       </if>
       <if test="record.accountGroupId != null">
         account_group_id = #{record.accountGroupId,jdbcType=INTEGER},
@@ -453,7 +453,7 @@
         account_id = #{record.accountId,jdbcType=INTEGER},
       </if>
       <if test="record.categoryId != null">
-        category_id = #{record.categoryId,jdbcType=INTEGER},
+        category_id = #{record.categoryId,jdbcType=VARCHAR},
       </if>
       <if test="record.categoryName != null">
         category_name = #{record.categoryName,jdbcType=VARCHAR},
@@ -505,11 +505,11 @@
     set id = #{record.id,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
-      article_id = #{record.articleId,jdbcType=INTEGER},
+      article_id = #{record.articleId,jdbcType=BIGINT},
       account_group_id = #{record.accountGroupId,jdbcType=INTEGER},
       platform_id = #{record.platformId,jdbcType=INTEGER},
       account_id = #{record.accountId,jdbcType=INTEGER},
-      category_id = #{record.categoryId,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=VARCHAR},
       category_name = #{record.categoryName,jdbcType=VARCHAR},
       published_url = #{record.publishedUrl,jdbcType=VARCHAR},
       published_id = #{record.publishedId,jdbcType=VARCHAR},
@@ -535,11 +535,11 @@
     set id = #{record.id,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
-      article_id = #{record.articleId,jdbcType=INTEGER},
+      article_id = #{record.articleId,jdbcType=BIGINT},
       account_group_id = #{record.accountGroupId,jdbcType=INTEGER},
       platform_id = #{record.platformId,jdbcType=INTEGER},
       account_id = #{record.accountId,jdbcType=INTEGER},
-      category_id = #{record.categoryId,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=VARCHAR},
       category_name = #{record.categoryName,jdbcType=VARCHAR},
       published_url = #{record.publishedUrl,jdbcType=VARCHAR},
       published_id = #{record.publishedId,jdbcType=VARCHAR},
@@ -569,7 +569,7 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="articleId != null">
-        article_id = #{articleId,jdbcType=INTEGER},
+        article_id = #{articleId,jdbcType=BIGINT},
       </if>
       <if test="accountGroupId != null">
         account_group_id = #{accountGroupId,jdbcType=INTEGER},
@@ -581,7 +581,7 @@
         account_id = #{accountId,jdbcType=INTEGER},
       </if>
       <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=INTEGER},
+        category_id = #{categoryId,jdbcType=VARCHAR},
       </if>
       <if test="categoryName != null">
         category_name = #{categoryName,jdbcType=VARCHAR},
@@ -630,11 +630,11 @@
     update litemall_qwfb_article_detail
     set title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
-      article_id = #{articleId,jdbcType=INTEGER},
+      article_id = #{articleId,jdbcType=BIGINT},
       account_group_id = #{accountGroupId,jdbcType=INTEGER},
       platform_id = #{platformId,jdbcType=INTEGER},
       account_id = #{accountId,jdbcType=INTEGER},
-      category_id = #{categoryId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=VARCHAR},
       category_name = #{categoryName,jdbcType=VARCHAR},
       published_url = #{publishedUrl,jdbcType=VARCHAR},
       published_id = #{publishedId,jdbcType=VARCHAR},
@@ -657,11 +657,11 @@
     update litemall_qwfb_article_detail
     set title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
-      article_id = #{articleId,jdbcType=INTEGER},
+      article_id = #{articleId,jdbcType=BIGINT},
       account_group_id = #{accountGroupId,jdbcType=INTEGER},
       platform_id = #{platformId,jdbcType=INTEGER},
       account_id = #{accountId,jdbcType=INTEGER},
-      category_id = #{categoryId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=VARCHAR},
       category_name = #{categoryName,jdbcType=VARCHAR},
       published_url = #{publishedUrl,jdbcType=VARCHAR},
       published_id = #{publishedId,jdbcType=VARCHAR},

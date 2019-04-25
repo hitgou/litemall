@@ -200,9 +200,14 @@
 		<table tableName="litemall_qwfb_article">
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
+		<table tableName="litemall_qwfb_article_attach">
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
 		<table tableName="litemall_qwfb_article_detail">
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
+
+
 
 	</context>
 </generatorConfiguration>
