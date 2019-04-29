@@ -260,7 +260,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andIdEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andIdEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("id = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -277,7 +277,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andIdNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andIdNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("id <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -294,7 +294,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andIdGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andIdGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("id > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -311,7 +311,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andIdGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andIdGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("id >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -328,7 +328,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andIdLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andIdLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("id < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -345,7 +345,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andIdLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andIdLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("id <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -392,7 +392,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andNameEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andNameEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`name` = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -409,7 +409,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andNameNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andNameNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`name` <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -426,7 +426,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andNameGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andNameGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`name` > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -443,7 +443,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andNameGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andNameGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`name` >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -460,7 +460,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andNameLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andNameLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`name` < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -477,7 +477,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andNameLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andNameLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`name` <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -534,7 +534,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andShortNameEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andShortNameEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("short_name = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -551,7 +551,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andShortNameNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andShortNameNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("short_name <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -568,7 +568,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andShortNameGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andShortNameGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("short_name > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -585,7 +585,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andShortNameGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andShortNameGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("short_name >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -602,7 +602,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andShortNameLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andShortNameLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("short_name < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -619,7 +619,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andShortNameLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andShortNameLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("short_name <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -676,7 +676,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDesEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDesEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("des = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -693,7 +693,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDesNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDesNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("des <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -710,7 +710,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDesGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andDesGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("des > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -727,7 +727,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDesGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDesGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("des >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -744,7 +744,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDesLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andDesLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("des < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -761,7 +761,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDesLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDesLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("des <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -818,7 +818,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andStatusEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andStatusEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`status` = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -835,7 +835,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andStatusNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andStatusNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`status` <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -852,7 +852,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andStatusGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andStatusGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`status` > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -869,7 +869,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andStatusGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andStatusGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`status` >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -886,7 +886,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andStatusLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andStatusLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`status` < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -903,7 +903,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andStatusLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andStatusLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("`status` <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -950,7 +950,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andExtraDesEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andExtraDesEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("extra_des = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -967,7 +967,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andExtraDesNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andExtraDesNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("extra_des <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -984,7 +984,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andExtraDesGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andExtraDesGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("extra_des > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1001,7 +1001,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andExtraDesGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andExtraDesGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("extra_des >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1018,7 +1018,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andExtraDesLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andExtraDesLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("extra_des < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1035,7 +1035,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andExtraDesLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andExtraDesLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("extra_des <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1092,7 +1092,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andLoginUrlEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andLoginUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("login_url = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1109,7 +1109,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andLoginUrlNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andLoginUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("login_url <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1126,7 +1126,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andLoginUrlGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andLoginUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("login_url > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1143,7 +1143,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andLoginUrlGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andLoginUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("login_url >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1160,7 +1160,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andLoginUrlLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andLoginUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("login_url < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1177,7 +1177,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andLoginUrlLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andLoginUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("login_url <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1234,7 +1234,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andHomeUrlEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andHomeUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("home_url = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1251,7 +1251,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andHomeUrlNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andHomeUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("home_url <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1268,7 +1268,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andHomeUrlGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andHomeUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("home_url > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1285,7 +1285,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andHomeUrlGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andHomeUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("home_url >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1302,7 +1302,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andHomeUrlLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andHomeUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("home_url < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1319,7 +1319,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andHomeUrlLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andHomeUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("home_url <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1376,7 +1376,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishArticleUrlEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishArticleUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_article_url = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1393,7 +1393,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishArticleUrlNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishArticleUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_article_url <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1410,7 +1410,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishArticleUrlGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishArticleUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_article_url > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1427,7 +1427,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishArticleUrlGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishArticleUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_article_url >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1444,7 +1444,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishArticleUrlLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishArticleUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_article_url < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1461,7 +1461,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishArticleUrlLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishArticleUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_article_url <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1496,35 +1496,18 @@ public class LitemallPlatformExample {
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlIsNull() {
-            addCriterion("publish_vedio_url is null");
+        public Criteria andPublishVideoUrlIsNull() {
+            addCriterion("publish_video_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlIsNotNull() {
-            addCriterion("publish_vedio_url is not null");
+        public Criteria andPublishVideoUrlIsNotNull() {
+            addCriterion("publish_video_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlEqualTo(String value) {
-            addCriterion("publish_vedio_url =", value, "publishVedioUrl");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table litemall_platform
-         *
-         * @mbg.generated
-         * @project https://github.com/itfsw/mybatis-generator-plugin
-         */
-        public Criteria andPublishVedioUrlEqualToColumn(LitemallPlatform.Column column) {
-            addCriterion(new StringBuilder("publish_vedio_url = ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishVedioUrlNotEqualTo(String value) {
-            addCriterion("publish_vedio_url <>", value, "publishVedioUrl");
+        public Criteria andPublishVideoUrlEqualTo(String value) {
+            addCriterion("publish_video_url =", value, "publishVideoUrl");
             return (Criteria) this;
         }
 
@@ -1535,30 +1518,13 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishVedioUrlNotEqualToColumn(LitemallPlatform.Column column) {
-            addCriterion(new StringBuilder("publish_vedio_url <> ").append(column.getEscapedColumnName()).toString());
+        public Criteria andPublishVideoUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("publish_video_url = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlGreaterThan(String value) {
-            addCriterion("publish_vedio_url >", value, "publishVedioUrl");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table litemall_platform
-         *
-         * @mbg.generated
-         * @project https://github.com/itfsw/mybatis-generator-plugin
-         */
-        public Criteria andPublishVedioUrlGreaterThanColumn(LitemallPlatform.Column column) {
-            addCriterion(new StringBuilder("publish_vedio_url > ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishVedioUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("publish_vedio_url >=", value, "publishVedioUrl");
+        public Criteria andPublishVideoUrlNotEqualTo(String value) {
+            addCriterion("publish_video_url <>", value, "publishVideoUrl");
             return (Criteria) this;
         }
 
@@ -1569,30 +1535,13 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishVedioUrlGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
-            addCriterion(new StringBuilder("publish_vedio_url >= ").append(column.getEscapedColumnName()).toString());
+        public Criteria andPublishVideoUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("publish_video_url <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlLessThan(String value) {
-            addCriterion("publish_vedio_url <", value, "publishVedioUrl");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table litemall_platform
-         *
-         * @mbg.generated
-         * @project https://github.com/itfsw/mybatis-generator-plugin
-         */
-        public Criteria andPublishVedioUrlLessThanColumn(LitemallPlatform.Column column) {
-            addCriterion(new StringBuilder("publish_vedio_url < ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishVedioUrlLessThanOrEqualTo(String value) {
-            addCriterion("publish_vedio_url <=", value, "publishVedioUrl");
+        public Criteria andPublishVideoUrlGreaterThan(String value) {
+            addCriterion("publish_video_url >", value, "publishVideoUrl");
             return (Criteria) this;
         }
 
@@ -1603,38 +1552,89 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishVedioUrlLessThanOrEqualToColumn(LitemallPlatform.Column column) {
-            addCriterion(new StringBuilder("publish_vedio_url <= ").append(column.getEscapedColumnName()).toString());
+        public Criteria andPublishVideoUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("publish_video_url > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlLike(String value) {
-            addCriterion("publish_vedio_url like", value, "publishVedioUrl");
+        public Criteria andPublishVideoUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("publish_video_url >=", value, "publishVideoUrl");
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlNotLike(String value) {
-            addCriterion("publish_vedio_url not like", value, "publishVedioUrl");
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPublishVideoUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("publish_video_url >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlIn(List<String> values) {
-            addCriterion("publish_vedio_url in", values, "publishVedioUrl");
+        public Criteria andPublishVideoUrlLessThan(String value) {
+            addCriterion("publish_video_url <", value, "publishVideoUrl");
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlNotIn(List<String> values) {
-            addCriterion("publish_vedio_url not in", values, "publishVedioUrl");
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPublishVideoUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("publish_video_url < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlBetween(String value1, String value2) {
-            addCriterion("publish_vedio_url between", value1, value2, "publishVedioUrl");
+        public Criteria andPublishVideoUrlLessThanOrEqualTo(String value) {
+            addCriterion("publish_video_url <=", value, "publishVideoUrl");
             return (Criteria) this;
         }
 
-        public Criteria andPublishVedioUrlNotBetween(String value1, String value2) {
-            addCriterion("publish_vedio_url not between", value1, value2, "publishVedioUrl");
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPublishVideoUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("publish_video_url <= ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishVideoUrlLike(String value) {
+            addCriterion("publish_video_url like", value, "publishVideoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishVideoUrlNotLike(String value) {
+            addCriterion("publish_video_url not like", value, "publishVideoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishVideoUrlIn(List<String> values) {
+            addCriterion("publish_video_url in", values, "publishVideoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishVideoUrlNotIn(List<String> values) {
+            addCriterion("publish_video_url not in", values, "publishVideoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishVideoUrlBetween(String value1, String value2) {
+            addCriterion("publish_video_url between", value1, value2, "publishVideoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishVideoUrlNotBetween(String value1, String value2) {
+            addCriterion("publish_video_url not between", value1, value2, "publishVideoUrl");
             return (Criteria) this;
         }
 
@@ -1660,7 +1660,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishPicsUrlEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishPicsUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_pics_url = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1677,7 +1677,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishPicsUrlNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishPicsUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_pics_url <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1694,7 +1694,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishPicsUrlGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishPicsUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_pics_url > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1711,7 +1711,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishPicsUrlGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishPicsUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_pics_url >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1728,7 +1728,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishPicsUrlLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishPicsUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_pics_url < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1745,7 +1745,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andPublishPicsUrlLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andPublishPicsUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("publish_pics_url <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1780,6 +1780,432 @@ public class LitemallPlatformExample {
             return (Criteria) this;
         }
 
+        public Criteria andArticlesUrlIsNull() {
+            addCriterion("articles_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlIsNotNull() {
+            addCriterion("articles_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlEqualTo(String value) {
+            addCriterion("articles_url =", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andArticlesUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("articles_url = ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlNotEqualTo(String value) {
+            addCriterion("articles_url <>", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andArticlesUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("articles_url <> ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlGreaterThan(String value) {
+            addCriterion("articles_url >", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andArticlesUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("articles_url > ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("articles_url >=", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andArticlesUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("articles_url >= ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlLessThan(String value) {
+            addCriterion("articles_url <", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andArticlesUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("articles_url < ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlLessThanOrEqualTo(String value) {
+            addCriterion("articles_url <=", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andArticlesUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("articles_url <= ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlLike(String value) {
+            addCriterion("articles_url like", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlNotLike(String value) {
+            addCriterion("articles_url not like", value, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlIn(List<String> values) {
+            addCriterion("articles_url in", values, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlNotIn(List<String> values) {
+            addCriterion("articles_url not in", values, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlBetween(String value1, String value2) {
+            addCriterion("articles_url between", value1, value2, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticlesUrlNotBetween(String value1, String value2) {
+            addCriterion("articles_url not between", value1, value2, "articlesUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlIsNull() {
+            addCriterion("pics_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlIsNotNull() {
+            addCriterion("pics_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlEqualTo(String value) {
+            addCriterion("pics_url =", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPicsUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("pics_url = ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlNotEqualTo(String value) {
+            addCriterion("pics_url <>", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPicsUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("pics_url <> ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlGreaterThan(String value) {
+            addCriterion("pics_url >", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPicsUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("pics_url > ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("pics_url >=", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPicsUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("pics_url >= ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlLessThan(String value) {
+            addCriterion("pics_url <", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPicsUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("pics_url < ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlLessThanOrEqualTo(String value) {
+            addCriterion("pics_url <=", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andPicsUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("pics_url <= ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlLike(String value) {
+            addCriterion("pics_url like", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlNotLike(String value) {
+            addCriterion("pics_url not like", value, "picsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlIn(List<String> values) {
+            addCriterion("pics_url in", values, "picsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlNotIn(List<String> values) {
+            addCriterion("pics_url not in", values, "picsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlBetween(String value1, String value2) {
+            addCriterion("pics_url between", value1, value2, "picsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicsUrlNotBetween(String value1, String value2) {
+            addCriterion("pics_url not between", value1, value2, "picsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlIsNull() {
+            addCriterion("videos_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlIsNotNull() {
+            addCriterion("videos_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlEqualTo(String value) {
+            addCriterion("videos_url =", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andVideosUrlEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("videos_url = ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlNotEqualTo(String value) {
+            addCriterion("videos_url <>", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andVideosUrlNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("videos_url <> ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlGreaterThan(String value) {
+            addCriterion("videos_url >", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andVideosUrlGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("videos_url > ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("videos_url >=", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andVideosUrlGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("videos_url >= ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlLessThan(String value) {
+            addCriterion("videos_url <", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andVideosUrlLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("videos_url < ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlLessThanOrEqualTo(String value) {
+            addCriterion("videos_url <=", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        /**
+         * This method was generated by MyBatis Generator.
+         * This method corresponds to the database table litemall_platform
+         *
+         * @mbg.generated
+         * @project https://github.com/itfsw/mybatis-generator-plugin
+         */
+        public Criteria andVideosUrlLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
+            addCriterion(new StringBuilder("videos_url <= ").append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlLike(String value) {
+            addCriterion("videos_url like", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlNotLike(String value) {
+            addCriterion("videos_url not like", value, "videosUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlIn(List<String> values) {
+            addCriterion("videos_url in", values, "videosUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlNotIn(List<String> values) {
+            addCriterion("videos_url not in", values, "videosUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlBetween(String value1, String value2) {
+            addCriterion("videos_url between", value1, value2, "videosUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideosUrlNotBetween(String value1, String value2) {
+            addCriterion("videos_url not between", value1, value2, "videosUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andSortedIsNull() {
             addCriterion("sorted is null");
             return (Criteria) this;
@@ -1802,7 +2228,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andSortedEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andSortedEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("sorted = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1819,7 +2245,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andSortedNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andSortedNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("sorted <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1836,7 +2262,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andSortedGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andSortedGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("sorted > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1853,7 +2279,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andSortedGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andSortedGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("sorted >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1870,7 +2296,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andSortedLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andSortedLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("sorted < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1887,7 +2313,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andSortedLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andSortedLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("sorted <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1934,7 +2360,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andAddTimeEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andAddTimeEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("add_time = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1951,7 +2377,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andAddTimeNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andAddTimeNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("add_time <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1968,7 +2394,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andAddTimeGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andAddTimeGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("add_time > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -1985,7 +2411,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andAddTimeGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andAddTimeGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("add_time >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2002,7 +2428,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andAddTimeLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andAddTimeLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("add_time < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2019,7 +2445,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andAddTimeLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andAddTimeLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("add_time <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2066,7 +2492,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andUpdateTimeEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andUpdateTimeEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("update_time = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2083,7 +2509,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andUpdateTimeNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andUpdateTimeNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("update_time <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2100,7 +2526,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andUpdateTimeGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andUpdateTimeGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("update_time > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2117,7 +2543,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andUpdateTimeGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andUpdateTimeGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("update_time >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2134,7 +2560,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andUpdateTimeLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andUpdateTimeLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("update_time < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2151,7 +2577,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andUpdateTimeLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andUpdateTimeLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("update_time <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2198,7 +2624,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDeletedEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDeletedEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("deleted = ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2215,7 +2641,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDeletedNotEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDeletedNotEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("deleted <> ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2232,7 +2658,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDeletedGreaterThanColumn(LitemallPlatform.Column column) {
+        public Criteria andDeletedGreaterThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("deleted > ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2249,7 +2675,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDeletedGreaterThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDeletedGreaterThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("deleted >= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2266,7 +2692,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDeletedLessThanColumn(LitemallPlatform.Column column) {
+        public Criteria andDeletedLessThanColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("deleted < ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2283,7 +2709,7 @@ public class LitemallPlatformExample {
          * @mbg.generated
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
-        public Criteria andDeletedLessThanOrEqualToColumn(LitemallPlatform.Column column) {
+        public Criteria andDeletedLessThanOrEqualToColumn(LitemallPlatformWithBLOBs.Column column) {
             addCriterion(new StringBuilder("deleted <= ").append(column.getEscapedColumnName()).toString());
             return (Criteria) this;
         }
@@ -2370,7 +2796,7 @@ public class LitemallPlatformExample {
          * @project https://github.com/itfsw/mybatis-generator-plugin
          */
         public Criteria andLogicalDeleted(boolean deleted) {
-            return deleted ? andDeletedEqualTo(LitemallPlatform.IS_DELETED) : andDeletedNotEqualTo(LitemallPlatform.IS_DELETED);
+            return deleted ? andDeletedEqualTo(LitemallPlatformWithBLOBs.IS_DELETED) : andDeletedNotEqualTo(LitemallPlatformWithBLOBs.IS_DELETED);
         }
 
         /**

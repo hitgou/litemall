@@ -79,8 +79,9 @@ public class QwfbAccountBLLService {
     }
 
     public void updateLoginInfo(LitemallUser user, Integer accountId, String accountName, String headIcon,
-            String loginName, String password, String authToken) {
-        qwfbAccountService.updateLoginInfo(user, accountId, accountName, headIcon, loginName, password, authToken);
+            String headIconSite, String loginName, String password, String authToken) {
+        qwfbAccountService.updateLoginInfo(user, accountId, accountName, headIcon, headIconSite, loginName, password,
+                authToken);
         qwfbAccountGroupBLLService.refreshPublishAccountGroupListCacheAyns(user.getId());
     }
 

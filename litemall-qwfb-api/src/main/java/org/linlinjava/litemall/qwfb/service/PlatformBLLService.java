@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.linlinjava.litemall.core.redis.RedisConfig;
-import org.linlinjava.litemall.db.domain.LitemallPlatform;
+import org.linlinjava.litemall.db.domain.LitemallPlatformWithBLOBs;
 import org.linlinjava.litemall.db.service.LitemallPlatformService;
 import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class PlatformBLLService {
     @Autowired
     private LitemallPlatformService platformService;
 
-    public List<LitemallPlatform> getPlatformList() {
+    public List<LitemallPlatformWithBLOBs> getPlatformList() {
         List publishAccountGroupVMList = null;
         String key = RedisKey.getKey(RedisKey.Key_Platform_List);
         if (!redisTemplate.hasKey(key)) {

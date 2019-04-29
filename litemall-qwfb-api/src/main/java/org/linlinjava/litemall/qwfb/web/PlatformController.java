@@ -6,11 +6,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.linlinjava.litemall.core.util.ResponseUtil;
-import org.linlinjava.litemall.db.domain.LitemallPlatform;
+import org.linlinjava.litemall.db.domain.LitemallPlatformWithBLOBs;
 import org.linlinjava.litemall.db.service.LitemallPlatformService;
-import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +26,9 @@ public class PlatformController {
     @Autowired
     private LitemallPlatformService platformService;
 
-    @RequiresPermissions("admin:ad:list")
-    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
     @GetMapping("/list")
     public Object list() {
-        List<LitemallPlatform> adList = platformService.querySelective();
+        List<LitemallPlatformWithBLOBs> adList = platformService.querySelective();
         long total = PageInfo.of(adList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);

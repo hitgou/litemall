@@ -113,10 +113,11 @@ public class QwfbAccountService {
     }
 
     public void updateLoginInfo(LitemallUser user, Integer accountId, String accountName, String headIcon,
-            String loginName, String password, String authToken) {
+            String headIconSite, String loginName, String password, String authToken) {
         LitemallQwfbAccount account = new LitemallQwfbAccount();
         account.setShowName(accountName);
         account.setHeadIcon(headIcon);
+        account.setHeadIconSite(headIconSite);
         account.setLoginName(loginName);
         account.setPassword(password);
         account.setAuthToken(authToken);

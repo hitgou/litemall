@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.util.StringUtil;
 import org.linlinjava.litemall.db.domain.LitemallPlatform;
+import org.linlinjava.litemall.db.domain.LitemallPlatformWithBLOBs;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticle;
@@ -82,8 +83,8 @@ public class QwfbPublishBLLService {
             defaultGroup.setName("默认组");
             accountGroupDBList.add(0, defaultGroup);
 
-            List<LitemallPlatform> platformList = platformService.getPlatformList();
-            Map<Integer, LitemallPlatform> platforms = new HashMap<>();
+            List<LitemallPlatformWithBLOBs> platformList = platformService.getPlatformList();
+            Map<Integer, LitemallPlatformWithBLOBs> platforms = new HashMap<>();
             platformList.forEach(item -> {
                 platforms.put(item.getId(), item);
             });
@@ -138,7 +139,7 @@ public class QwfbPublishBLLService {
     public Object changeArticleByStep(Integer userId, Long articleId, Integer accountGroupId,
             Map<String, LitemallQwfbArticleDetail> articleDetails) {
         LitemallQwfbArticle article = qwfbArticleService.findById(articleId, userId);
-        if (article == null) {
+        if (article == null || (article.getStatus() != 99 && article.getStatus() != 1)) {
             return ResponseUtil.badArgument();
         }
 
@@ -150,10 +151,11 @@ public class QwfbPublishBLLService {
         // 更改article的group id
         article.setGroupId(accountGroupId);
         article.setStatus(1);
+        article.setLastPublishTime(LocalDateTime.now());
         qwfbArticleService.updateByPrimaryKey(article);
 
-        List<LitemallPlatform> platformList = platformService.getPlatformList();
-        Map<Integer, LitemallPlatform> platforms = new HashMap<>();
+        List<LitemallPlatformWithBLOBs> platformList = platformService.getPlatformList();
+        Map<Integer, LitemallPlatformWithBLOBs> platforms = new HashMap<>();
         platformList.forEach(item -> {
             platforms.put(item.getId(), item);
         });
@@ -161,9 +163,9 @@ public class QwfbPublishBLLService {
         List<LitemallQwfbAccount> accountList = qwfbAccountGroupService.queryAccountList(userId, accountGroupId, true);
         for (int i = 0; i < accountList.size(); i++) {
             LitemallQwfbAccount account = accountList.get(i);
-            LitemallPlatform platform = platforms.get(account.getPlatformId());
+            LitemallPlatformWithBLOBs platform = platforms.get(account.getPlatformId());
             LitemallQwfbArticleDetail detail = articleDetails.get(account.getId() + "");
-            if (!StringUtil.isNullOrEmpty(platform.getCategoryRule())
+            if (!StringUtil.isNullOrEmpty(platform.getCategoryRules())
                     && (detail == null || StringUtil.isNullOrEmpty(detail.getCategoryId()))) {
                 return ResponseUtil.badArgument();
             }
@@ -203,7 +205,7 @@ public class QwfbPublishBLLService {
 
         PublishArticleVM publishArticleVM = new PublishArticleVM(article.getId(), article.getTitle(),
                 article.getContent(), article.getType(), article.getCoverMode(), article.getStatus(),
-                article.getGroupId());
+                article.getGroupId(), article.getLastPublishTime());
         publishArticleVM.articleDetailList = new ArrayList<>();
 
         List<LitemallQwfbArticleDetail> articleDetailList = qwfbArticleDetailService.findListByArticleId(articleId,
@@ -222,6 +224,7 @@ public class QwfbPublishBLLService {
         return qwfbArticleService.findById(articleId, userId);
     }
 
+    @Transactional
     public PublishArticleVM getArticleQueueList(Integer userId, LocalDateTime lastAccessTime, Integer page,
             Integer limit) {
         LitemallQwfbArticle article = qwfbArticleService.findAfterTime(userId, lastAccessTime);
@@ -234,7 +237,7 @@ public class QwfbPublishBLLService {
 
         PublishArticleVM publishArticleVM = new PublishArticleVM(article.getId(), article.getTitle(),
                 article.getContent(), article.getType(), article.getCoverMode(), article.getStatus(),
-                article.getGroupId());
+                article.getGroupId(), article.getLastPublishTime());
         publishArticleVM.articleDetailList = new ArrayList<>();
 
         List<LitemallQwfbArticleDetail> articleDetailList = qwfbArticleDetailService

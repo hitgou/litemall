@@ -85,10 +85,11 @@ public class QwfbAccountController {
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "添加")
     @PostMapping("/updateLoginInfo")
     public Object updateLoginInfo(@NotNull Integer accountId, @NotNull String accountName, String headIcon,
-            String loginName, String password, String authToken) {
+            String headIconSite, String loginName, String password, String authToken) {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
-        qwfbAccountBLLService.updateLoginInfo(user, accountId, accountName, headIcon, loginName, password, authToken);
+        qwfbAccountBLLService.updateLoginInfo(user, accountId, accountName, headIcon, headIconSite, loginName, password,
+                authToken);
         return ResponseUtil.ok();
     }
 

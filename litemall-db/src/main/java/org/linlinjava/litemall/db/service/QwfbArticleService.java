@@ -71,7 +71,7 @@ public class QwfbArticleService {
 
         LitemallQwfbArticleExample.Criteria criteria1 = example.createCriteria();
         criteria1.andUserIdEqualTo(userId).andDeletedEqualTo(false)
-                .andLastPublishTimeGreaterThan(LocalDateTime.now().minusHours(1)).andStatusIn(statusList);
+                .andLastPublishTimeLessThan(LocalDateTime.now().minusHours(1)).andStatusIn(statusList);
         example.or(criteria1);
 
         LitemallQwfbArticleExample.Criteria criteria2 = example.createCriteria();
