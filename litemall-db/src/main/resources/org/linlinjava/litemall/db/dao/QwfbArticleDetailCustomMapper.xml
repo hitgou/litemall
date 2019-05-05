@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.linlinjava.litemall.db.dao.QwfbArticleDetailCustomMapper">
+
+	<resultMap id="BaseResultMap"
+		type="org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="article_id" jdbcType="BIGINT" property="articleId" />
+		<result column="account_group_id" jdbcType="INTEGER" property="accountGroupId" />
+		<result column="platform_id" jdbcType="INTEGER" property="platformId" />
+		<result column="account_id" jdbcType="INTEGER" property="accountId" />
+		<result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+		<result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+		<result column="published_url" jdbcType="VARCHAR" property="publishedUrl" />
+		<result column="published_id" jdbcType="VARCHAR" property="publishedId" />
+		<result column="published_type" jdbcType="INTEGER" property="publishedType" />
+		<result column="published_attempt_times" jdbcType="INTEGER"
+			property="publishedAttemptTimes" />
+		<result column="last_published_time" jdbcType="TIMESTAMP"
+			property="lastPublishedTime" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="statusHint" jdbcType="VARCHAR" property="statushint" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="deleted" jdbcType="BIT" property="deleted" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail">
+		<result column="content" jdbcType="LONGVARCHAR" property="content" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, title, user_id, article_id, account_group_id,
+		platform_id,
+		account_id, category_id,
+		category_name, published_url,
+		published_id, published_type, published_attempt_times,
+		last_published_time, `status`, statusHint, add_time, update_time,
+		deleted
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+
+	<select id="selectByExampleSelectiveCustom" parameterType="map"
+		resultMap="ResultMapWithBLOBs">
+		select
+			articleDetail.id, articleDetail.user_id,
+			articleDetail.article_id,
+			articleDetail.account_group_id,articleDetail.platform_id,
+			IFNULL(articleDetail.title, article.title) as title,
+			articleDetail.account_id,
+			articleDetail.category_id,
+			articleDetail.category_name,
+			articleDetail.published_url,
+			articleDetail.published_id,
+			articleDetail.published_type,
+			articleDetail.published_attempt_times,
+			articleDetail.last_published_time, articleDetail.`status`,
+			articleDetail.status_hint
+		from litemall_qwfb_article_detail articleDetail
+		left join
+		litemall_qwfb_article article on articleDetail.article_id = article.id
+		where articleDetail.user_id = #{userId,jdbcType=INTEGER} and articleDetail.deleted = 0
+		and articleDetail.last_published_time > #{lastPublishedTime,jdbcType=TIMESTAMP}
+		and articleDetail.platform_id = #{platformId,jdbcType=INTEGER} and articleDetail.status != 3
+	</select>
+</mapper>

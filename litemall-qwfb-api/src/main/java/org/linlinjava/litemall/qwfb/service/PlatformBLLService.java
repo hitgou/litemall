@@ -20,26 +20,24 @@ public class PlatformBLLService {
     private final Log logger = LogFactory.getLog(PlatformBLLService.class);
 
     @Resource
-    private RedisConfig redisConfig;
-
-    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private LitemallPlatformService platformService;
 
     public List<LitemallPlatformWithBLOBs> getPlatformList() {
-        List publishAccountGroupVMList = null;
+        // 下面的list不能指定具体的类型，否则加入redis的是一个arraylist，具体原因待查中
+        List platformList = null;
         String key = RedisKey.getKey(RedisKey.Key_Platform_List);
         if (!redisTemplate.hasKey(key)) {
-            ListOperations<String, Object> valueOperations = redisTemplate.opsForList();
-            publishAccountGroupVMList = platformService.querySelective();
-            valueOperations.leftPushAll(RedisKey.Key_Platform_List, publishAccountGroupVMList);
+            ListOperations<String, Object> listOperations = redisTemplate.opsForList();
+            platformList = platformService.querySelective();
+            listOperations.rightPushAll(RedisKey.Key_Platform_List, platformList);
         } else {
-            ListOperations<String, Object> valueOperations = redisTemplate.opsForList();
-            publishAccountGroupVMList = valueOperations.range(key, 0, -1);
+            ListOperations<String, Object> listOperations = redisTemplate.opsForList();
+            platformList = listOperations.range(key, 0, -1);
         }
 
-        return publishAccountGroupVMList;
+        return platformList;
     }
 }

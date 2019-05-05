@@ -21,7 +21,7 @@
     <result column="published_attempt_times" jdbcType="INTEGER" property="publishedAttemptTimes" />
     <result column="last_published_time" jdbcType="TIMESTAMP" property="lastPublishedTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="statusHint" jdbcType="VARCHAR" property="statushint" />
+    <result column="status_hint" jdbcType="VARCHAR" property="statusHint" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -106,7 +106,7 @@
     -->
     id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
     category_name, published_url, published_id, published_type, published_attempt_times, 
-    last_published_time, `status`, statusHint, add_time, update_time, deleted
+    last_published_time, `status`, status_hint, add_time, update_time, deleted
   </sql>
   <sql id="Blob_Column_List">
     <!--
@@ -172,7 +172,7 @@
       <otherwise>
         id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
           category_name, published_url, published_id, published_type, published_attempt_times, 
-          last_published_time, `status`, statusHint, add_time, update_time, deleted, content
+          last_published_time, `status`, status_hint, add_time, update_time, deleted, content
           
       </otherwise>
     </choose>
@@ -238,7 +238,7 @@
       <otherwise>
         id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
           category_name, published_url, published_id, published_type, published_attempt_times, 
-          last_published_time, `status`, statusHint, add_time, update_time, deleted, content
+          last_published_time, `status`, status_hint, add_time, update_time, deleted, content
           
       </otherwise>
     </choose>
@@ -275,14 +275,14 @@
       account_group_id, platform_id, account_id, 
       category_id, category_name, published_url, 
       published_id, published_type, published_attempt_times, 
-      last_published_time, `status`, statusHint, 
+      last_published_time, `status`, status_hint, 
       add_time, update_time, deleted, 
       content)
     values (#{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=BIGINT}, 
       #{accountGroupId,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER}, 
       #{categoryId,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, #{publishedUrl,jdbcType=VARCHAR}, 
       #{publishedId,jdbcType=VARCHAR}, #{publishedType,jdbcType=INTEGER}, #{publishedAttemptTimes,jdbcType=INTEGER}, 
-      #{lastPublishedTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{statushint,jdbcType=VARCHAR}, 
+      #{lastPublishedTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{statusHint,jdbcType=VARCHAR}, 
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
@@ -338,8 +338,8 @@
       <if test="status != null">
         `status`,
       </if>
-      <if test="statushint != null">
-        statusHint,
+      <if test="statusHint != null">
+        status_hint,
       </if>
       <if test="addTime != null">
         add_time,
@@ -397,8 +397,8 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="statushint != null">
-        #{statushint,jdbcType=VARCHAR},
+      <if test="statusHint != null">
+        #{statusHint,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -476,8 +476,8 @@
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.statushint != null">
-        statusHint = #{record.statushint,jdbcType=VARCHAR},
+      <if test="record.statusHint != null">
+        status_hint = #{record.statusHint,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -517,7 +517,7 @@
       published_attempt_times = #{record.publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{record.lastPublishedTime,jdbcType=TIMESTAMP},
       `status` = #{record.status,jdbcType=INTEGER},
-      statusHint = #{record.statushint,jdbcType=VARCHAR},
+      status_hint = #{record.statusHint,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT},
@@ -547,7 +547,7 @@
       published_attempt_times = #{record.publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{record.lastPublishedTime,jdbcType=TIMESTAMP},
       `status` = #{record.status,jdbcType=INTEGER},
-      statusHint = #{record.statushint,jdbcType=VARCHAR},
+      status_hint = #{record.statusHint,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -604,8 +604,8 @@
       <if test="status != null">
         `status` = #{status,jdbcType=INTEGER},
       </if>
-      <if test="statushint != null">
-        statusHint = #{statushint,jdbcType=VARCHAR},
+      <if test="statusHint != null">
+        status_hint = #{statusHint,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -642,7 +642,7 @@
       published_attempt_times = #{publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{lastPublishedTime,jdbcType=TIMESTAMP},
       `status` = #{status,jdbcType=INTEGER},
-      statusHint = #{statushint,jdbcType=VARCHAR},
+      status_hint = #{statusHint,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT},
@@ -669,7 +669,7 @@
       published_attempt_times = #{publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{lastPublishedTime,jdbcType=TIMESTAMP},
       `status` = #{status,jdbcType=INTEGER},
-      statusHint = #{statushint,jdbcType=VARCHAR},
+      status_hint = #{statusHint,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
@@ -727,7 +727,7 @@
       <otherwise>
         id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
           category_name, published_url, published_id, published_type, published_attempt_times, 
-          last_published_time, `status`, statusHint, add_time, update_time, deleted, content
+          last_published_time, `status`, status_hint, add_time, update_time, deleted, content
           
       </otherwise>
     </choose>

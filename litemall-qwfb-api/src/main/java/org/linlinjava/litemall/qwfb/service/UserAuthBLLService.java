@@ -2,7 +2,6 @@ package org.linlinjava.litemall.qwfb.service;
 
 import static org.linlinjava.litemall.qwfb.util.ResponseCode.USER_INVALID_NAME;
 import static org.linlinjava.litemall.qwfb.util.ResponseCode.USER_INVALID_PASSWORD;
-import static org.linlinjava.litemall.qwfb.util.ResponseCode.USER_MOBILE_EXIST;
 import static org.linlinjava.litemall.qwfb.util.ResponseCode.USER_NAME_EXIST;
 
 import java.util.List;
@@ -44,6 +43,9 @@ public class UserAuthBLLService {
 
     @Autowired
     private TencentValidator tencentValidator;
+
+    @Autowired
+    private QwfbArticleBLLService qwfbArticleBLLService;
 
     @Resource
     private RedisConfig redisConfig;
@@ -180,6 +182,15 @@ public class UserAuthBLLService {
         // 检查
 
         return null;
+    }
+
+    public void initWhenLogin(Integer userId) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                qwfbArticleBLLService.initNoPublishedArticleList(userId);
+            }
+        }).start();
     }
 
 }

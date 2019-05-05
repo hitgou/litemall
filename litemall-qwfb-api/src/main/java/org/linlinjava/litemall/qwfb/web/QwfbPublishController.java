@@ -11,14 +11,18 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.linlinjava.litemall.core.util.JacksonUtil;
 import org.linlinjava.litemall.core.util.ResponseUtil;
+import org.linlinjava.litemall.core.util.StringUtil;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticle;
+import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail;
 import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
 import org.linlinjava.litemall.qwfb.service.QwfbAccountBLLService;
+import org.linlinjava.litemall.qwfb.service.QwfbArticleBLLService;
 import org.linlinjava.litemall.qwfb.service.QwfbPublishBLLService;
 import org.linlinjava.litemall.qwfb.vm.ArticleStepVM;
 import org.linlinjava.litemall.qwfb.vm.PublishArticleVM;
+import org.linlinjava.litemall.qwfb.vm.UpdateArticleVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.StringUtils;
@@ -44,6 +48,9 @@ public class QwfbPublishController {
 
     @Autowired
     private QwfbAccountBLLService qwfbAccountBLLService;
+
+    @Autowired
+    private QwfbArticleBLLService qwfbArticleBLLService;
 
     @Autowired
     private QwfbPublishBLLService qwfbPublishBLLService;
@@ -95,7 +102,7 @@ public class QwfbPublishController {
         if (publishArticleVM != null) {
             result.add(publishArticleVM);
         }
-        
+
         return ResponseUtil.ok(result);
     }
 
@@ -192,6 +199,44 @@ public class QwfbPublishController {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
         qwfbAccountBLLService.deleteById(id, user.getId());
+        return ResponseUtil.ok();
+    }
+
+    @RequiresPermissions("admin:ad:update")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "编辑")
+    @PostMapping("/article/detail/updateArticlePublished")
+    public Object updateArticlePublished(@RequestBody UpdateArticleVM articleDetail) {
+        Long detailId = articleDetail.detailId;
+        Integer status = articleDetail.status;
+        if (detailId == null || detailId <= 0 || !StringUtil.isIn(status.toString(), "2", "3", "4")) {
+            return ResponseUtil.badArgument();
+        }
+
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        Object result = qwfbArticleBLLService.updateArticlePublished(user.getId(), articleDetail);
+        if (result != null) {
+            return result;
+        }
+
+        return ResponseUtil.ok();
+    }
+
+    @RequiresPermissions("admin:ad:update")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "编辑")
+    @PostMapping("/article/detail/updateArticleList")
+    public Object updateArticleList(@RequestBody List<UpdateArticleVM> articleList) {
+        if (articleList.size() == 0) {
+            return ResponseUtil.ok();
+        }
+
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        Object result = qwfbPublishBLLService.updateArticleList(user.getId(), articleList);
+        if (result != null) {
+            return result;
+        }
+
         return ResponseUtil.ok();
     }
 

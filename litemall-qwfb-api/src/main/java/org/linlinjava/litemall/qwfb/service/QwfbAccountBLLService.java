@@ -31,16 +31,16 @@ public class QwfbAccountBLLService {
     QwfbAccountGroupBLLService qwfbAccountGroupBLLService;
 
     public List<LitemallQwfbAccount> querySelective(Integer userId) {
-        return querySelective(userId, null, null, 1, 10000, null, null);
+        return querySelective(userId, null, null, null, 1, 10000, null, null);
     }
 
     public List<LitemallQwfbAccount> querySelective(Integer userId, Integer accountGroupId) {
-        return querySelective(userId, null, accountGroupId, 1, 10000, null, null);
+        return querySelective(userId, null, accountGroupId, null, 1, 10000, null, null);
     }
 
     public List<LitemallQwfbAccount> querySelective(Integer userId, Integer platformId, Integer accountGroupId,
-            Integer page, Integer limit, String sort, String order) {
-        return qwfbAccountService.querySelective(userId, platformId, accountGroupId, page, limit, sort, order);
+            Integer expired, Integer page, Integer limit, String sort, String order) {
+        return qwfbAccountService.querySelective(userId, platformId, accountGroupId, expired, page, limit, sort, order);
     }
 
     public void add(LitemallQwfbAccount ad, Integer userId) {
@@ -83,6 +83,11 @@ public class QwfbAccountBLLService {
         qwfbAccountService.updateLoginInfo(user, accountId, accountName, headIcon, headIconSite, loginName, password,
                 authToken);
         qwfbAccountGroupBLLService.refreshPublishAccountGroupListCacheAyns(user.getId());
+    }
+
+    public void setExpired(Integer accountId, Integer userId) {
+        qwfbAccountService.setExpired(accountId, userId);
+        qwfbAccountGroupBLLService.refreshPublishAccountGroupListCacheAyns(userId);
     }
 
 }

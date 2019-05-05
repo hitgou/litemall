@@ -22,7 +22,6 @@ public class JacksonUtil {
         return null;
     }
 
-
     public static List<String> parseStringList(String body, String field) {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = null;
@@ -69,6 +68,34 @@ public class JacksonUtil {
         return null;
     }
 
+    public static Long parseLong(String body, String field) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = null;
+        try {
+            node = mapper.readTree(body);
+            JsonNode leaf = node.get(field);
+            if (leaf != null)
+                return leaf.asLong();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<Long> parseLongList(String body, String field) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = null;
+        try {
+            node = mapper.readTree(body);
+            JsonNode leaf = node.get(field);
+            if (leaf != null)
+                return mapper.convertValue(leaf, new TypeReference<List<Long>>() {
+                });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static Boolean parseBoolean(String body, String field) {
         ObjectMapper mapper = new ObjectMapper();

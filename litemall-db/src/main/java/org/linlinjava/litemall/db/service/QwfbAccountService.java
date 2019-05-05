@@ -24,15 +24,15 @@ public class QwfbAccountService {
     private LitemallQwfbAccountMapper qwfbAccountMapper;
 
     public List<LitemallQwfbAccount> querySelective(Integer userId) {
-        return querySelective(userId, null, null, 1, 10000, null, null);
+        return querySelective(userId, null, null, null, 1, 10000, null, null);
     }
 
     public List<LitemallQwfbAccount> querySelective(Integer userId, Integer accountGroupId) {
-        return querySelective(userId, null, accountGroupId, 1, 10000, null, null);
+        return querySelective(userId, null, accountGroupId, null, 1, 10000, null, null);
     }
 
     public List<LitemallQwfbAccount> querySelective(Integer userId, Integer platformId, Integer accountGroupId,
-            Integer page, Integer limit, String sort, String order) {
+            Integer expired, Integer page, Integer limit, String sort, String order) {
         LitemallQwfbAccountExample example = new LitemallQwfbAccountExample();
         LitemallQwfbAccountExample.Criteria criteria = example.createCriteria();
 
@@ -47,6 +47,10 @@ public class QwfbAccountService {
             criteria.andAccountGroupIdEqualTo(accountGroupId);
         }
 
+        if (expired != null) {
+            criteria.andExpiredEqualTo(expired);
+        }
+
         criteria.andDeletedEqualTo(false);
 
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
@@ -56,6 +60,14 @@ public class QwfbAccountService {
         PageHelper.startPage(page, limit);
 
         return qwfbAccountMapper.selectByExample(example);
+    }
+
+    public List<LitemallQwfbAccount> getExpiredAccountList(Integer userId, Column[] selective) {
+        LitemallQwfbAccountExample example = new LitemallQwfbAccountExample();
+        LitemallQwfbAccountExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false).andExpiredEqualTo(1);
+
+        return qwfbAccountMapper.selectByExampleSelective(example, selective);
     }
 
     public int updateById(LitemallQwfbAccount ad, Integer userId) {
@@ -77,6 +89,18 @@ public class QwfbAccountService {
         updated.setUpdateTime(LocalDateTime.now());
 
         return qwfbAccountMapper.updateByExampleSelective(updated, example);
+    }
+
+    public void setExpired(Integer accountId, Integer userId) {
+        LitemallQwfbAccountExample example = new LitemallQwfbAccountExample();
+        LitemallQwfbAccountExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andIdEqualTo(accountId);
+
+        LitemallQwfbAccount updated = new LitemallQwfbAccount();
+        updated.setExpired(1);
+        updated.setUpdateTime(LocalDateTime.now());
+
+        qwfbAccountMapper.updateByExampleSelective(updated, example);
     }
 
     public int resetGroup(Integer originalGroupId, Integer newGroupId, Integer userId) {

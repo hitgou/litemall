@@ -65,15 +65,16 @@ public class QwfbArticleService {
         criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false).andLastPublishTimeGreaterThan(lastAccessTime)
                 .andStatusEqualTo(1);
 
+        // 状态为 1/2 但发布时间已经超过 1 小时的文章
         List<Integer> statusList = new ArrayList<>();
         statusList.add(1);
         statusList.add(2);
-
         LitemallQwfbArticleExample.Criteria criteria1 = example.createCriteria();
         criteria1.andUserIdEqualTo(userId).andDeletedEqualTo(false)
                 .andLastPublishTimeLessThan(LocalDateTime.now().minusHours(1)).andStatusIn(statusList);
         example.or(criteria1);
 
+        // 状态为 1/2 但还未发布
         LitemallQwfbArticleExample.Criteria criteria2 = example.createCriteria();
         criteria2.andUserIdEqualTo(userId).andDeletedEqualTo(false).andLastPublishTimeIsNull().andStatusIn(statusList);
         example.or(criteria2);

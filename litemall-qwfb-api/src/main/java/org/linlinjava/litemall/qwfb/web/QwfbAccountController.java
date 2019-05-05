@@ -43,14 +43,14 @@ public class QwfbAccountController {
     @RequiresPermissions("admin:ad:list")
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
     @GetMapping("/list")
-    public Object list(Integer platformId, Integer accountGroupId, @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "10") Integer limit,
+    public Object list(Integer platformId, Integer accountGroupId, Integer expired,
+            @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "add_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
         List<LitemallQwfbAccount> adList = qwfbAccountBLLService.querySelective(user.getId(), platformId,
-                accountGroupId, page, limit, sort, order);
+                accountGroupId, expired, page, limit, sort, order);
         long total = PageInfo.of(adList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
@@ -152,6 +152,22 @@ public class QwfbAccountController {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
         qwfbAccountBLLService.changeGroup(id, accountGroupId, user.getId());
+
+        return ResponseUtil.ok();
+    }
+
+    @RequiresPermissions("admin:ad:update")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "编辑")
+    @PostMapping("/setExpired")
+    public Object setExpired(@RequestBody String body) {
+        Integer accountId = JacksonUtil.parseInteger(body, "accountId");
+        if (accountId <= 0) {
+            return ResponseUtil.badArgument();
+        }
+
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        qwfbAccountBLLService.setExpired(accountId, user.getId());
 
         return ResponseUtil.ok();
     }

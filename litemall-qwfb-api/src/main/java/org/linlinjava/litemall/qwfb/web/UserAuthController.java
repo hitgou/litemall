@@ -23,7 +23,6 @@ import org.linlinjava.litemall.core.util.JacksonUtil;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.util.StringUtil;
 import org.linlinjava.litemall.core.util.bcrypt.BCryptPasswordEncoder;
-import org.linlinjava.litemall.db.domain.LitemallAdmin;
 import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.linlinjava.litemall.db.service.LitemallAdminService;
 import org.linlinjava.litemall.db.service.LitemallPermissionService;
@@ -210,6 +209,11 @@ public class UserAuthController {
         } catch (AuthenticationException ae) {
             return ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, ae.getMessage());
         }
+
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+        Integer userId = user.getId();
+        userAuthService.initWhenLogin(userId);
+
         return ResponseUtil.ok(currentUser.getSession().getId());
     }
 

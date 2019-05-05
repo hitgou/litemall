@@ -3,6 +3,7 @@ package org.linlinjava.litemall.qwfb.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.linlinjava.litemall.core.util.StringUtil;
 import org.linlinjava.litemall.db.domain.LitemallPlatform;
 import org.linlinjava.litemall.db.domain.LitemallPlatformWithBLOBs;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
+import org.linlinjava.litemall.db.domain.LitemallQwfbAccount.Column;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticle;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail;
@@ -27,7 +29,7 @@ import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM;
 import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM.PlatformVM;
 import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM.PublishAccountVM;
 import org.linlinjava.litemall.qwfb.vm.PublishArticleVM;
-import org.linlinjava.litemall.qwfb.vm.PublishArticleVM.ArticleDetailVM;
+import org.linlinjava.litemall.qwfb.vm.UpdateArticleVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -39,6 +41,7 @@ import com.github.pagehelper.PageInfo;
 @Service
 public class QwfbPublishBLLService {
     private final Log logger = LogFactory.getLog(QwfbPublishBLLService.class);
+    private final Column[] columnsAccount = new Column[] { Column.id };
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -54,6 +57,9 @@ public class QwfbPublishBLLService {
 
     @Autowired
     private QwfbArticleService qwfbArticleService;
+
+    @Autowired
+    private QwfbArticleBLLService qwfbArticleBLLService;
 
     @Autowired
     private QwfbArticleDetailService qwfbArticleDetailService;
@@ -165,6 +171,7 @@ public class QwfbPublishBLLService {
             LitemallQwfbAccount account = accountList.get(i);
             LitemallPlatformWithBLOBs platform = platforms.get(account.getPlatformId());
             LitemallQwfbArticleDetail detail = articleDetails.get(account.getId() + "");
+            detail.setPlatformId(account.getPlatformId());
             if (!StringUtil.isNullOrEmpty(platform.getCategoryRules())
                     && (detail == null || StringUtil.isNullOrEmpty(detail.getCategoryId()))) {
                 return ResponseUtil.badArgument();
@@ -200,25 +207,30 @@ public class QwfbPublishBLLService {
         return null;
     }
 
-    public PublishArticleVM getPublishArticle(Integer userId, Long articleId) {
-        LitemallQwfbArticle article = getArticle(userId, articleId);
-
-        PublishArticleVM publishArticleVM = new PublishArticleVM(article.getId(), article.getTitle(),
-                article.getContent(), article.getType(), article.getCoverMode(), article.getStatus(),
-                article.getGroupId(), article.getLastPublishTime());
-        publishArticleVM.articleDetailList = new ArrayList<>();
-
-        List<LitemallQwfbArticleDetail> articleDetailList = qwfbArticleDetailService.findListByArticleId(articleId,
-                userId);
-        articleDetailList.forEach(item -> {
-            PublishArticleVM.ArticleDetailVM articleDetailVM = new ArticleDetailVM(item.getId(), item.getTitle(),
-                    item.getContent(), item.getPlatformId(), item.getAccountId(), item.getCategoryId(),
-                    item.getCategoryName(), item.getStatus(), item.getStatushint());
-            publishArticleVM.articleDetailList.add(articleDetailVM);
-        });
-
-        return publishArticleVM;
-    }
+    // public PublishArticleVM getPublishArticle(Integer userId, Long articleId) {
+    // LitemallQwfbArticle article = getArticle(userId, articleId);
+    //
+    // PublishArticleVM publishArticleVM = new PublishArticleVM(article.getId(),
+    // article.getTitle(),
+    // article.getContent(), article.getType(), article.getCoverMode(),
+    // article.getStatus(),
+    // article.getGroupId(), article.getLastPublishTime());
+    // publishArticleVM.articleDetailList = new ArrayList<>();
+    //
+    // List<LitemallQwfbArticleDetail> articleDetailList =
+    // qwfbArticleDetailService.findListByArticleId(articleId,
+    // userId);
+    // articleDetailList.forEach(item -> {
+    // PublishArticleVM.ArticleDetailVM articleDetailVM = new
+    // ArticleDetailVM(item.getId(), item.getTitle(),
+    // item.getContent(), item.getPlatformId(), item.getAccountId(),
+    // item.getCategoryId(),
+    // item.getCategoryName(), item.getStatus(), item.getStatushint());
+    // publishArticleVM.articleDetailList.add(articleDetailVM);
+    // });
+    //
+    // return publishArticleVM;
+    // }
 
     public LitemallQwfbArticle getArticle(Integer userId, Long articleId) {
         return qwfbArticleService.findById(articleId, userId);
@@ -227,29 +239,67 @@ public class QwfbPublishBLLService {
     @Transactional
     public PublishArticleVM getArticleQueueList(Integer userId, LocalDateTime lastAccessTime, Integer page,
             Integer limit) {
-        LitemallQwfbArticle article = qwfbArticleService.findAfterTime(userId, lastAccessTime);
-        if (article == null) {
+        // 获取
+        List<LitemallQwfbAccount> accountList = qwfbAccountService.getExpiredAccountList(userId, columnsAccount);
+        List<Integer> expiredAccountIdList = new ArrayList<>();
+        accountList.forEach(item -> {
+            expiredAccountIdList.add(item.getId());
+        });
+
+        LitemallQwfbArticleDetail articleDetail = qwfbArticleDetailService.findAfterTime(userId, lastAccessTime,
+                expiredAccountIdList);
+        if (articleDetail == null) {
             return null;
         }
 
-        // article.setLastPublishTime(lastAccessTime);
-        // qwfbArticleService.updateByPrimaryKey(article);
+        PublishArticleVM publishArticleVM = new PublishArticleVM(articleDetail.getArticleId(), articleDetail.getId(),
+                articleDetail.getTitle(), articleDetail.getContent(), articleDetail.getPlatformId(),
+                articleDetail.getAccountId(), articleDetail.getCategoryId(), articleDetail.getCategoryName(),
+                articleDetail.getStatus(), articleDetail.getStatusHint(), articleDetail.getLastPublishedTime());
 
-        PublishArticleVM publishArticleVM = new PublishArticleVM(article.getId(), article.getTitle(),
-                article.getContent(), article.getType(), article.getCoverMode(), article.getStatus(),
-                article.getGroupId(), article.getLastPublishTime());
-        publishArticleVM.articleDetailList = new ArrayList<>();
-
-        List<LitemallQwfbArticleDetail> articleDetailList = qwfbArticleDetailService
-                .findListByArticleId(article.getId(), userId);
-        articleDetailList.forEach(item -> {
-            PublishArticleVM.ArticleDetailVM articleDetailVM = new ArticleDetailVM(item.getId(), item.getTitle(),
-                    item.getContent(), item.getPlatformId(), item.getAccountId(), item.getCategoryId(),
-                    item.getCategoryName(), item.getStatus(), item.getStatushint());
-            publishArticleVM.articleDetailList.add(articleDetailVM);
-        });
+        LitemallQwfbArticle article = qwfbArticleService.findById(articleDetail.getArticleId(), userId);
+        publishArticleVM.setArticle(article.getTitle(), article.getContent(), article.getType(), article.getCoverMode(),
+                article.getGroupId());
 
         return publishArticleVM;
+    }
+
+    public Object updateArticleList(Integer userId, List<UpdateArticleVM> articleDetailList) {
+        if (articleDetailList.size() == 0) {
+            return null;
+        }
+
+        qwfbArticleBLLService.initNoPublishedArticleList(userId);
+
+        Integer platformId = articleDetailList.get(0).platformId;
+        String key = RedisKey.getKey(RedisKey.Key_article_no_published_set, userId, platformId);
+        // List<PublishAccountGroupVM> publishAccountGroupVMList = null;
+        if (redisTemplate.hasKey(key)) {
+            ListOperations<String, Object> listOperations = redisTemplate.opsForList();
+            List articleDetailRedisList = listOperations.range(key, 0, -1);
+            Iterator<LitemallQwfbArticleDetail> it = articleDetailRedisList.iterator();
+            while (it.hasNext()) {
+                LitemallQwfbArticleDetail redisArticleDetail = (LitemallQwfbArticleDetail) it.next();
+                for (int i = 0; i < articleDetailList.size(); i++) {
+                    UpdateArticleVM updateArticleVM = articleDetailList.get(i);
+                    updateArticleVM.detailId = redisArticleDetail.getId();
+                    updateArticleVM.articleId = redisArticleDetail.getArticleId();
+                    if (updateArticleVM.title.equalsIgnoreCase(redisArticleDetail.getTitle())) {
+                        // 找到文章，更新detail的状态、如果是发布完成，移出列表
+                        qwfbArticleBLLService.updateArticleStatus(userId, updateArticleVM);
+                        it.remove();
+                        listOperations.remove(key, 1, redisArticleDetail);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void initNoPublishedArticleList(Integer userId) {
+        String key = RedisKey.getKey(RedisKey.Key_article_no_published_set, userId);
+
     }
 
 }
