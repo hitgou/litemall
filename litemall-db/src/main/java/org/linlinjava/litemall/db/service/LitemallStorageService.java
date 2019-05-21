@@ -43,7 +43,8 @@ public class LitemallStorageService {
         return storageMapper.selectByPrimaryKey(id);
     }
 
-    public List<LitemallStorage> querySelective(String key, String name, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallStorage> querySelective(String key, String name, Integer page, Integer limit, String sort,
+            String order) {
         LitemallStorageExample example = new LitemallStorageExample();
         LitemallStorageExample.Criteria criteria = example.createCriteria();
 

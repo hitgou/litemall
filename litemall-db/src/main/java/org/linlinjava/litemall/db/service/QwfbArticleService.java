@@ -113,7 +113,7 @@ public class QwfbArticleService {
 
     public int updateByPrimaryKey(LitemallQwfbArticle article) {
         article.setUpdateTime(LocalDateTime.now());
-        return qwfbArticleMapper.updateByPrimaryKey(article);
+        return qwfbArticleMapper.updateByPrimaryKeySelective(article);
     }
 
     // public List<LitemallQwfbAccount> querySelective(Integer userId) {

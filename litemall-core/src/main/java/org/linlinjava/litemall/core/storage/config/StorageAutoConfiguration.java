@@ -52,6 +52,7 @@ public class StorageAutoConfiguration {
         aliyunStorage.setAccessKeySecret(aliyun.getAccessKeySecret());
         aliyunStorage.setBucketName(aliyun.getBucketName());
         aliyunStorage.setEndpoint(aliyun.getEndpoint());
+        aliyunStorage.setDomain(aliyun.getDomain());
         return aliyunStorage;
     }
 

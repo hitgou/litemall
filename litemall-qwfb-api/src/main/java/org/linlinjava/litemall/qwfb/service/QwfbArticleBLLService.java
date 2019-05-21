@@ -9,10 +9,12 @@ import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.linlinjava.litemall.core.util.ResponseUtil;
+import org.linlinjava.litemall.core.util.StringUtil;
 import org.linlinjava.litemall.db.domain.LitemallPlatformWithBLOBs;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount.Column;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticle;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail;
+import org.linlinjava.litemall.db.domain.QwfbArticleDetailCustom;
 import org.linlinjava.litemall.db.service.QwfbArticleDetailService;
 import org.linlinjava.litemall.db.service.QwfbArticleService;
 import org.linlinjava.litemall.qwfb.util.RedisKey;
@@ -44,12 +46,9 @@ public class QwfbArticleBLLService {
         // 获取当前的平台数
         List<LitemallPlatformWithBLOBs> platformList = platformService.getPlatformList();
         ListOperations<String, Object> listOperations = redisTemplate.opsForList();
-        for (LitemallPlatformWithBLOBs litemallPlatformWithBLOBs : platformList) {
-            String key = RedisKey.getKey(RedisKey.Key_article_no_published_set, userId,
-                    litemallPlatformWithBLOBs.getId());
-            List articleDetailList = qwfbArticleDetailService.selectByExampleSelectiveCustom(userId,
-                    litemallPlatformWithBLOBs.getId());
-
+        for (LitemallPlatformWithBLOBs platform : platformList) {
+            String key = RedisKey.getKey(RedisKey.Key_article_no_published_set, userId, platform.getId());
+            List articleDetailList = qwfbArticleDetailService.getPlatNoPublishedList(userId, platform.getId());
             if (articleDetailList.size() > 0) {
                 redisTemplate.delete(key);
                 listOperations.rightPushAll(key, articleDetailList);
@@ -57,23 +56,20 @@ public class QwfbArticleBLLService {
         }
     }
 
-    public List<LitemallPlatformWithBLOBs> getPlatformList() {
-        List publishAccountGroupVMList = null;
-        String key = RedisKey.getKey(RedisKey.Key_Platform_List);
-        if (!redisTemplate.hasKey(key)) {
-            ListOperations<String, Object> listOperations = redisTemplate.opsForList();
-            // publishAccountGroupVMList = platformService.querySelective();
-
-            List<LitemallQwfbArticleDetail> articleDetailList = qwfbArticleDetailService
-                    .selectByExampleSelectiveCustom(13, 6);
-
-            listOperations.rightPushAll(RedisKey.Key_Platform_List, articleDetailList);
-        } else {
-            ListOperations<String, Object> listOperations = redisTemplate.opsForList();
-            publishAccountGroupVMList = listOperations.range(key, 0, -1);
+    public Object getDetailList(Integer userId, Long articleId) {
+        LitemallQwfbArticle articleDb = qwfbArticleService.findById(articleId, userId);
+        if (articleDb == null) {
+            return ResponseUtil.badArgument();
         }
 
-        return publishAccountGroupVMList;
+        List<QwfbArticleDetailCustom> articleList = qwfbArticleDetailService.getArticleDetailList(userId, articleId);
+        articleList.forEach(item -> {
+            if (StringUtil.isNullOrEmpty(item.getTitle())) {
+                item.setTitle(articleDb.getTitle());
+            }
+        });
+
+        return ResponseUtil.ok(articleList);
     }
 
     /**

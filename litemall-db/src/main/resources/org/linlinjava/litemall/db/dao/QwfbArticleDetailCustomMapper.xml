@@ -3,7 +3,7 @@
 <mapper namespace="org.linlinjava.litemall.db.dao.QwfbArticleDetailCustomMapper">
 
 	<resultMap id="BaseResultMap"
-		type="org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail">
+		type="org.linlinjava.litemall.db.domain.QwfbArticleDetailCustom">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="title" jdbcType="VARCHAR" property="title" />
 		<result column="user_id" jdbcType="INTEGER" property="userId" />
@@ -11,6 +11,7 @@
 		<result column="account_group_id" jdbcType="INTEGER" property="accountGroupId" />
 		<result column="platform_id" jdbcType="INTEGER" property="platformId" />
 		<result column="account_id" jdbcType="INTEGER" property="accountId" />
+		<result column="account_name" jdbcType="VARCHAR" property="accountName" />
 		<result column="category_id" jdbcType="VARCHAR" property="categoryId" />
 		<result column="category_name" jdbcType="VARCHAR" property="categoryName" />
 		<result column="published_url" jdbcType="VARCHAR" property="publishedUrl" />
@@ -43,27 +44,42 @@
 		content
 	</sql>
 
-	<select id="selectByExampleSelectiveCustom" parameterType="map"
-		resultMap="ResultMapWithBLOBs">
+	<select id="getPlatNoPublishedList" parameterType="map" resultMap="BaseResultMap">
 		select
-			articleDetail.id, articleDetail.user_id,
-			articleDetail.article_id,
-			articleDetail.account_group_id,articleDetail.platform_id,
-			IFNULL(articleDetail.title, article.title) as title,
-			articleDetail.account_id,
-			articleDetail.category_id,
-			articleDetail.category_name,
-			articleDetail.published_url,
-			articleDetail.published_id,
-			articleDetail.published_type,
-			articleDetail.published_attempt_times,
-			articleDetail.last_published_time, articleDetail.`status`,
-			articleDetail.status_hint
-		from litemall_qwfb_article_detail articleDetail
-		left join
-		litemall_qwfb_article article on articleDetail.article_id = article.id
-		where articleDetail.user_id = #{userId,jdbcType=INTEGER} and articleDetail.deleted = 0
-		and articleDetail.last_published_time > #{lastPublishedTime,jdbcType=TIMESTAMP}
-		and articleDetail.platform_id = #{platformId,jdbcType=INTEGER} and articleDetail.status != 3
+			ad.id, ad.user_id, ad.article_id, ad.account_id, ad.account_group_id, ad.platform_id,
+			IFNULL(ad.title, article.title) as title, ad.category_id, ad.category_name, ad.`status`, ad.status_hint, 
+			ad.published_url, ad.published_id, ad.published_type, ad.published_attempt_times, ad.last_published_time 
+		from litemall_qwfb_article_detail ad
+			left join litemall_qwfb_article article on ad.article_id = article.id
+		where ad.user_id = #{userId,jdbcType=INTEGER} and ad.deleted = 0
+			and ad.last_published_time > #{lastPublishedTime,jdbcType=TIMESTAMP}
+			and ad.platform_id = #{platformId,jdbcType=INTEGER} and ad.status != 3
 	</select>
+	
+	<select id="getArticleDetailList" parameterType="map" resultMap="BaseResultMap">
+		select
+			ad.id, ad.user_id, ad.article_id, ad.account_id, ad.account_group_id, ad.platform_id, account.show_name as account_name, 
+			IFNULL(ad.title, article.title) as title, ad.category_id, ad.category_name, ad.`status`, ad.status_hint, 
+			ad.published_url, ad.published_id, ad.published_type, ad.published_attempt_times, ad.last_published_time 
+		from litemall_qwfb_article_detail ad
+			left join litemall_qwfb_article article on ad.article_id = article.id
+			left join litemall_qwfb_account account on ad.account_id = account.id
+		where ad.user_id = #{userId,jdbcType=INTEGER} and ad.deleted = 0
+			and ad.article_id = #{articleId,jdbcType=BIGINT} 
+	</select>
+	
+	
+	<select id="getArticleDetailListDashboard" parameterType="map" resultMap="BaseResultMap">
+		select
+			ad.id, ad.user_id, ad.article_id, ad.account_id, ad.account_group_id, ad.platform_id, account.show_name as account_name, 
+			IFNULL(ad.title, article.title) as title, ad.category_id, ad.category_name, ad.`status`, ad.status_hint, 
+			ad.published_url, ad.published_id, ad.published_type, ad.published_attempt_times, ad.last_published_time 
+		from litemall_qwfb_article_detail ad
+			left join litemall_qwfb_article article on ad.article_id = article.id
+			left join litemall_qwfb_account account on ad.account_id = account.id
+		where ad.user_id = #{userId,jdbcType=INTEGER} and ad.deleted = 0 and ad.status = 4
+			and ad.article_id = #{articleId,jdbcType=BIGINT} 
+	</select>
+	
+	
 </mapper>

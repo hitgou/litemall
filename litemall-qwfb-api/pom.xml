@@ -44,7 +44,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<!-- 配置 log4j2 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -57,9 +56,6 @@
 			<artifactId>jackson-dataformat-yaml</artifactId>
 			<version>2.9.8</version>
 		</dependency>
-
-
-
 
 		<dependency>
 			<groupId>org.linlinjava</groupId>

@@ -14,7 +14,6 @@ import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.util.StringUtil;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticle;
-import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail;
 import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.linlinjava.litemall.qwfb.annotation.RequiresPermissionsDesc;
 import org.linlinjava.litemall.qwfb.service.QwfbAccountBLLService;
@@ -119,8 +118,8 @@ public class QwfbPublishController {
      */
     @RequiresPermissions("admin:ad:create")
     @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "添加")
-    @PostMapping("/createArticle")
-    public Object createArticle(@RequestBody LitemallQwfbArticle article) {
+    @PostMapping("/createOrUpdateArticle")
+    public Object createOrUpdateArticle(@RequestBody LitemallQwfbArticle article) {
         Object error = validate(article);
         if (error != null) {
             return error;
@@ -128,7 +127,7 @@ public class QwfbPublishController {
 
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
-        article = qwfbPublishBLLService.createArticle(article, user.getId());
+        article = qwfbPublishBLLService.createOrUpdateArticle(article, user.getId());
 
         return ResponseUtil.ok(article);
     }

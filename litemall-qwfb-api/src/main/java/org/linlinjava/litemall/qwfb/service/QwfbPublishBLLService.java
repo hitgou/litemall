@@ -64,6 +64,9 @@ public class QwfbPublishBLLService {
     @Autowired
     private QwfbArticleDetailService qwfbArticleDetailService;
 
+    @Autowired
+    private PlatformBLLService platformBLLService;
+
     public Object getArticleList(Integer userId, String title, Integer status, Integer page, Integer limit) {
         List<LitemallQwfbArticle> goodsList = qwfbArticleService.getArticleList(userId, title, status, page, limit);
         long total = PageInfo.of(goodsList).getTotal();
@@ -137,8 +140,17 @@ public class QwfbPublishBLLService {
         }
     }
 
-    public LitemallQwfbArticle createArticle(LitemallQwfbArticle article, Integer userId) {
-        return qwfbArticleService.add(article, userId);
+    public LitemallQwfbArticle createOrUpdateArticle(LitemallQwfbArticle article, Integer userId) {
+        if (article.getId() != null && article.getId() > 0) {
+            LitemallQwfbArticle articleDb = qwfbArticleService.findById(article.getId(), userId);
+            articleDb.setTitle(article.getTitle());
+            articleDb.setContent(article.getContent());
+            articleDb.setCoverMode(article.getCoverMode());
+            qwfbArticleService.updateByPrimaryKey(articleDb);
+            return article;
+        } else {
+            return qwfbArticleService.add(article, userId);
+        }
     }
 
     @Transactional
@@ -239,15 +251,24 @@ public class QwfbPublishBLLService {
     @Transactional
     public PublishArticleVM getArticleQueueList(Integer userId, LocalDateTime lastAccessTime, Integer page,
             Integer limit) {
-        // 获取
+        // TODO 改为 redis
         List<LitemallQwfbAccount> accountList = qwfbAccountService.getExpiredAccountList(userId, columnsAccount);
         List<Integer> expiredAccountIdList = new ArrayList<>();
         accountList.forEach(item -> {
             expiredAccountIdList.add(item.getId());
         });
 
+        List<LitemallPlatformWithBLOBs> platformList = platformBLLService.getPlatformList();
+        List<Integer> validPlatformList = new ArrayList<>();
+        platformList.forEach(item -> {
+            if (item.getStatus() == 1) {
+                validPlatformList.add(item.getId());
+            }
+        });
+
+        // TODO 改为 redis
         LitemallQwfbArticleDetail articleDetail = qwfbArticleDetailService.findAfterTime(userId, lastAccessTime,
-                expiredAccountIdList);
+                expiredAccountIdList, validPlatformList);
         if (articleDetail == null) {
             return null;
         }

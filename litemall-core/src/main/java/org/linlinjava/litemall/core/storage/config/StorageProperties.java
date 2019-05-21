@@ -115,6 +115,7 @@ public class StorageProperties {
         private String accessKeyId;
         private String accessKeySecret;
         private String bucketName;
+        private String domain;
 
         public String getEndpoint() {
             return endpoint;
@@ -146,6 +147,14 @@ public class StorageProperties {
 
         public void setBucketName(String bucketName) {
             this.bucketName = bucketName;
+        }
+
+        public String getDomain() {
+            return domain;
+        }
+
+        public void setDomain(String domain) {
+            this.domain = domain;
         }
     }
 

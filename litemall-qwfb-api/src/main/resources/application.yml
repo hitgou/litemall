@@ -23,6 +23,13 @@ spring:
     maxPoolPreparedStatementPerConnectionSize:  20
     filters:  stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+#    filter:
+#      slf4j: 
+#        enabled: true
+#        statement-create-after-log-enabled: true
+#        statement-close-after-log-enabled: true
+#        result-set-open-after-log-enabled: true
+#        result-set-close-after-log-enabled: true
     
     
     
@@ -30,12 +37,13 @@ server:
   port: 8080
 
 logging:
+#  config: classpath:log4j2.yml
   level:
     root:  INFO
     org.springframework:  INFO
     org.mybatis:  INFO
     org.linlinjava.litemall.core:  INFO
-    org.linlinjava.litemall.db:  INFO
+    org.linlinjava.litemall.db:  DEBUG
     org.linlinjava.litemall.admin:  INFO
     org.linlinjava.litemall.wx:  INFO
     org.linlinjava.litemall:  INFO
@@ -78,4 +86,5 @@ litemall:
       accessKeyId: LTAIaUIhUePCKGwn
       accessKeySecret: OmSsuIk1JWAuYxZ3u0miuLWLZFfKEi
       bucketName: qwfb-img
+      domain: qwfbimg.51taoke.cc #外部img访问url
 

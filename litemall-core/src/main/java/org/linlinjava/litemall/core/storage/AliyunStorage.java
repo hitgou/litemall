@@ -4,6 +4,8 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+
+import org.linlinjava.litemall.core.util.StringUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
@@ -24,6 +26,7 @@ public class AliyunStorage implements Storage {
     private String accessKeyId;
     private String accessKeySecret;
     private String bucketName;
+    private String domain;
 
     public String getEndpoint() {
         return endpoint;
@@ -57,6 +60,14 @@ public class AliyunStorage implements Storage {
         this.bucketName = bucketName;
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     /**
      * 获取阿里云OSS客户端对象
      *
@@ -67,7 +78,11 @@ public class AliyunStorage implements Storage {
     }
 
     private String getBaseUrl() {
-        return "https://" + bucketName + "." + endpoint + "/";
+        if (StringUtil.isNullOrEmpty(this.domain)) {
+            return "https://" + bucketName + "." + endpoint + "/";
+        } else {
+            return "https://" + this.domain + "/";
+        }
     }
 
     /**

@@ -11,11 +11,13 @@ import org.linlinjava.litemall.db.dao.QwfbArticleDetailCustomMapper;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail.Column;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetailExample;
+import org.linlinjava.litemall.db.domain.QwfbArticleDetailCustom;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QwfbArticleDetailService {
     private final Column[] columns = Column.excludes(Column.deleted);
+    private final Column[] columnsList = Column.excludes(Column.deleted, Column.content);
 
     @Resource
     private LitemallQwfbArticleDetailMapper qwfbArticleDetailMapper;
@@ -23,10 +25,15 @@ public class QwfbArticleDetailService {
     @Resource
     private QwfbArticleDetailCustomMapper qwfbArticleDetailCustomMapper;
 
-    public List<LitemallQwfbArticleDetail> selectByExampleSelectiveCustom(Integer userId, Integer platformId) {
+    public List<LitemallQwfbArticleDetail> getPlatNoPublishedList(Integer userId, Integer platformId) {
         // 仅包含最近30天以内的文章
-        return qwfbArticleDetailCustomMapper.selectByExampleSelectiveCustom(userId, platformId,
+        return qwfbArticleDetailCustomMapper.getPlatNoPublishedList(userId, platformId,
                 LocalDateTime.now().minusDays(30));
+    }
+
+    public List<QwfbArticleDetailCustom> getArticleDetailList(Integer userId, Long articleId) {
+        // 仅包含最近30天以内的文章
+        return qwfbArticleDetailCustomMapper.getArticleDetailList(userId, articleId);
     }
 
     public void deleteByArticleId(Long articleId, Integer userId) {
@@ -57,7 +64,7 @@ public class QwfbArticleDetailService {
         LitemallQwfbArticleDetailExample.Criteria criteria = example.createCriteria();
         criteria.andArticleIdEqualTo(articleId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
 
-        return qwfbArticleDetailMapper.selectByExample(example);
+        return qwfbArticleDetailMapper.selectByExampleSelective(example, columnsList);
     }
 
     public Long getDetailsCountByStatus(Integer userId, Long articleId, List<String> statusList) {
@@ -118,35 +125,41 @@ public class QwfbArticleDetailService {
      *            @return2019-01-01T00:00
      */
     public LitemallQwfbArticleDetail findAfterTime(Integer userId, LocalDateTime lastAccessTime,
-            List<Integer> expiredAccountIdList) {
+            List<Integer> expiredAccountIdList, List<Integer> validPlatformList) {
+        lastAccessTime = LocalDateTime.now();
+
         LitemallQwfbArticleDetailExample example = new LitemallQwfbArticleDetailExample();
         LitemallQwfbArticleDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false).andLastPublishedTimeGreaterThan(lastAccessTime)
-                .andStatusEqualTo(1).andAccountIdNotIn(expiredAccountIdList);
 
-        // 状态为 1/2 但发布时间已经超过 1 小时的文章
+        // 1、状态为1-待发布且发布时间小于 lastAccessTime 时间
+        criteria.andUserIdEqualTo(userId).andDeletedEqualTo(false).andLastPublishedTimeLessThan(lastAccessTime)
+                .andStatusEqualTo(1).andAccountIdNotIn(expiredAccountIdList).andPlatformIdIn(validPlatformList);
+
+        // 2、状态为 2 但发布时间已经超过 1 小时的文章
         List<Integer> statusList = new ArrayList<>();
-        statusList.add(1);
+        // statusList.add(1);
         statusList.add(2);
+
         LitemallQwfbArticleDetailExample.Criteria criteria1 = example.createCriteria();
         criteria1.andUserIdEqualTo(userId).andDeletedEqualTo(false)
                 .andLastPublishedTimeLessThan(LocalDateTime.now().minusHours(1)).andStatusIn(statusList)
-                .andAccountIdNotIn(expiredAccountIdList);
+                .andAccountIdNotIn(expiredAccountIdList).andPlatformIdIn(validPlatformList);
         example.or(criteria1);
 
         // 状态为 1/2 但还未发布
-        LitemallQwfbArticleDetailExample.Criteria criteria2 = example.createCriteria();
-        criteria2.andUserIdEqualTo(userId).andDeletedEqualTo(false).andLastPublishedTimeIsNull().andStatusIn(statusList)
-                .andAccountIdNotIn(expiredAccountIdList);
-        example.or(criteria2);
-
-        LitemallQwfbArticleDetail article = qwfbArticleDetailMapper.selectOneByExampleWithBLOBs(example);
-        if (article != null && article.getLastPublishedTime() == null) {
-            article.setLastPublishedTime(lastAccessTime);
-            qwfbArticleDetailMapper.updateByPrimaryKey(article);
-        }
+        // LitemallQwfbArticleDetailExample.Criteria criteria2 =
+        // example.createCriteria();
+        // criteria2.andUserIdEqualTo(userId).andDeletedEqualTo(false).andLastPublishedTimeIsNull().andStatusIn(statusList)
+        // .andAccountIdNotIn(expiredAccountIdList);
+        // example.or(criteria2);
 
         example.orderBy("id asc ");
+
+        LitemallQwfbArticleDetail article = qwfbArticleDetailMapper.selectOneByExampleWithBLOBs(example);
+        if (article != null) {
+            article.setLastPublishedTime(LocalDateTime.now().plusHours(1));
+            qwfbArticleDetailMapper.updateByPrimaryKey(article);
+        }
 
         return article;
     }
