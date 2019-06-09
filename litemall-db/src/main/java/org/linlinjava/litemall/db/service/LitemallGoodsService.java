@@ -15,7 +15,8 @@ import java.util.List;
 
 @Service
 public class LitemallGoodsService {
-    Column[] columns = new Column[]{Column.id, Column.name, Column.brief, Column.picUrl, Column.isHot, Column.isNew, Column.counterPrice, Column.retailPrice};
+    Column[] columns = new Column[] { Column.id, Column.name, Column.brief, Column.picUrl, Column.isHot, Column.isNew,
+            Column.counterPrice, Column.retailPrice };
     @Resource
     private LitemallGoodsMapper goodsMapper;
 
@@ -68,7 +69,6 @@ public class LitemallGoodsService {
         return goodsMapper.selectByExampleSelective(example, columns);
     }
 
-
     /**
      * 获取分类下的商品
      *
@@ -86,8 +86,8 @@ public class LitemallGoodsService {
         return goodsMapper.selectByExampleSelective(example, columns);
     }
 
-
-    public List<LitemallGoods> querySelective(Integer catId, Integer brandId, String keywords, Boolean isHot, Boolean isNew, Integer offset, Integer limit, String sort, String order) {
+    public List<LitemallGoods> querySelective(Integer catId, Integer brandId, String keywords, Boolean isHot,
+            Boolean isNew, Integer offset, Integer limit, String sort, String order) {
         LitemallGoodsExample example = new LitemallGoodsExample();
         LitemallGoodsExample.Criteria criteria1 = example.or();
         LitemallGoodsExample.Criteria criteria2 = example.or();
@@ -126,7 +126,8 @@ public class LitemallGoodsService {
         return goodsMapper.selectByExampleSelective(example, columns);
     }
 
-    public List<LitemallGoods> querySelective(String goodsSn, String name, Integer page, Integer size, String sort, String order) {
+    public List<LitemallGoods> querySelective(String goodsSn, String name, Integer page, Integer size, String sort,
+            String order) {
         LitemallGoodsExample example = new LitemallGoodsExample();
         LitemallGoodsExample.Criteria criteria = example.createCriteria();
 
@@ -169,7 +170,6 @@ public class LitemallGoodsService {
         example.or().andIdEqualTo(id).andIsOnSaleEqualTo(true).andDeletedEqualTo(false);
         return goodsMapper.selectOneByExampleSelective(example, columns);
     }
-
 
     /**
      * 获取所有在售物品总数

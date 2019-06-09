@@ -26,6 +26,7 @@ import org.linlinjava.litemall.db.service.LitemallUserService;
 import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.linlinjava.litemall.qwfb.util.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ import org.springframework.util.StringUtils;
 @Service
 public class UserAuthBLLService {
     private final Log logger = LogFactory.getLog(UserAuthBLLService.class);
+
+    @Value("${shiro.redis.timeout}")
+    private Integer timeout;
 
     @Autowired
     private LitemallUserService userService;
@@ -184,10 +188,13 @@ public class UserAuthBLLService {
         return null;
     }
 
-    public void initWhenLogin(Integer userId) {
+    public void initWhenLogin(Integer userId, String sessionId) {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String key = RedisKey.getKey(RedisKey.Key_SessionId_UserId_, sessionId);
+                redisTemplate.opsForValue().set(key, userId, timeout, TimeUnit.MILLISECONDS);
+
                 qwfbArticleBLLService.initNoPublishedArticleList(userId);
             }
         }).start();

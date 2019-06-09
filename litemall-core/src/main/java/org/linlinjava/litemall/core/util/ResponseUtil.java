@@ -36,14 +36,14 @@ import java.util.Map;
  * </ul>
  */
 public class ResponseUtil {
-    public static Object ok() {
+    public static Map<String, Object> ok() {
         Map<String, Object> obj = new HashMap<String, Object>();
         obj.put("errno", 0);
         obj.put("errmsg", "成功");
         return obj;
     }
 
-    public static Object ok(Object data) {
+    public static Map<String, Object> ok(Object data) {
         Map<String, Object> obj = new HashMap<String, Object>();
         obj.put("errno", 0);
         obj.put("errmsg", "成功");
@@ -51,7 +51,7 @@ public class ResponseUtil {
         return obj;
     }
 
-    public static Object ok(String errmsg, Object data) {
+    public static Map<String, Object> ok(String errmsg, Object data) {
         Map<String, Object> obj = new HashMap<String, Object>();
         obj.put("errno", 0);
         obj.put("errmsg", errmsg);
@@ -59,21 +59,21 @@ public class ResponseUtil {
         return obj;
     }
 
-    public static Object fail() {
+    public static Map<String, Object> fail() {
         Map<String, Object> obj = new HashMap<String, Object>();
         obj.put("errno", -1);
         obj.put("errmsg", "错误");
         return obj;
     }
 
-    public static Object fail(int errno, String errmsg) {
+    public static Map<String, Object> fail(int errno, String errmsg) {
         Map<String, Object> obj = new HashMap<String, Object>();
         obj.put("errno", errno);
         obj.put("errmsg", errmsg);
         return obj;
     }
 
-    public static Object fail(int errno, String errmsg, String data) {
+    public static Map<String, Object> fail(int errno, String errmsg, String data) {
         Map<String, Object> obj = new HashMap<String, Object>();
         obj.put("errno", errno);
         obj.put("errmsg", errmsg);
@@ -81,35 +81,35 @@ public class ResponseUtil {
         return obj;
     }
 
-    public static Object badArgument() {
+    public static Map<String, Object> badArgument() {
         return fail(401, "参数不对");
     }
 
-    public static Object badArgumentValue() {
+    public static Map<String, Object> badArgumentValue() {
         return fail(402, "参数值不对");
     }
 
-    public static Object unlogin() {
+    public static Map<String, Object> unlogin() {
         return fail(501, "请登录");
     }
 
-    public static Object serious() {
+    public static Map<String, Object> serious() {
         return fail(502, "系统内部错误");
     }
 
-    public static Object unsupport() {
+    public static Map<String, Object> unsupport() {
         return fail(503, "业务不支持");
     }
 
-    public static Object updatedDateExpired() {
+    public static Map<String, Object> updatedDateExpired() {
         return fail(504, "更新数据已经失效");
     }
 
-    public static Object updatedDataFailed() {
+    public static Map<String, Object> updatedDataFailed() {
         return fail(505, "更新数据失败");
     }
 
-    public static Object unauthz() {
+    public static Map<String, Object> unauthz() {
         return fail(506, "无操作权限");
     }
 }

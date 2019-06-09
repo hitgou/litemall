@@ -2,7 +2,9 @@ package org.linlinjava.litemall.qwfb.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -24,6 +26,8 @@ import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class QwfbArticleBLLService {
@@ -56,20 +60,32 @@ public class QwfbArticleBLLService {
         }
     }
 
-    public Object getDetailList(Integer userId, Long articleId) {
-        LitemallQwfbArticle articleDb = qwfbArticleService.findById(articleId, userId);
-        if (articleDb == null) {
-            return ResponseUtil.badArgument();
+    public Object getDetailList(Integer userId, Integer status, Long articleId, Integer page, Integer limit) {
+        List<QwfbArticleDetailCustom> articleList = null;
+        if (articleId == null || articleId <= 0) {
+            articleList = qwfbArticleDetailService.getDetailList(userId, status, page, limit);
+        } else {
+            // 获取某个文章下面的明细
+            LitemallQwfbArticle articleDb = qwfbArticleService.findById(articleId, userId);
+            if (articleDb == null) {
+                return ResponseUtil.badArgument();
+            }
+
+            articleList = qwfbArticleDetailService.getArticleDetailList(userId, articleId);
+            articleList.forEach(item -> {
+                if (StringUtil.isNullOrEmpty(item.getTitle())) {
+                    item.setTitle(articleDb.getTitle());
+                }
+            });
+
+            return articleList;
         }
 
-        List<QwfbArticleDetailCustom> articleList = qwfbArticleDetailService.getArticleDetailList(userId, articleId);
-        articleList.forEach(item -> {
-            if (StringUtil.isNullOrEmpty(item.getTitle())) {
-                item.setTitle(articleDb.getTitle());
-            }
-        });
-
-        return ResponseUtil.ok(articleList);
+        long total = PageInfo.of(articleList).getTotal();
+        Map<String, Object> data = new HashMap<>();
+        data.put("total", total);
+        data.put("items", articleList);
+        return ResponseUtil.ok(data);
     }
 
     /**

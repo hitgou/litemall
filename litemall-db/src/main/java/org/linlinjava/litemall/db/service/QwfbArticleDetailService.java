@@ -14,6 +14,8 @@ import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetailExample;
 import org.linlinjava.litemall.db.domain.QwfbArticleDetailCustom;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+
 @Service
 public class QwfbArticleDetailService {
     private final Column[] columns = Column.excludes(Column.deleted);
@@ -34,6 +36,15 @@ public class QwfbArticleDetailService {
     public List<QwfbArticleDetailCustom> getArticleDetailList(Integer userId, Long articleId) {
         // 仅包含最近30天以内的文章
         return qwfbArticleDetailCustomMapper.getArticleDetailList(userId, articleId);
+    }
+
+    public List<QwfbArticleDetailCustom> getDetailList(Integer userId, Integer status, int page, int limit) {
+        // int start = (page - 1) * limit;
+
+        PageHelper.startPage(page, limit);
+
+        // return qwfbArticleDetailCustomMapper.getDetailList(userId, start, limit);
+        return qwfbArticleDetailCustomMapper.getDetailList(userId, status);
     }
 
     public void deleteByArticleId(Long articleId, Integer userId) {

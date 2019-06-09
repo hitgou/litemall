@@ -24,6 +24,8 @@ import org.linlinjava.litemall.db.service.QwfbAccountGroupService;
 import org.linlinjava.litemall.db.service.QwfbAccountService;
 import org.linlinjava.litemall.db.service.QwfbArticleDetailService;
 import org.linlinjava.litemall.db.service.QwfbArticleService;
+import org.linlinjava.litemall.qwfb.message.MessageService;
+import org.linlinjava.litemall.qwfb.net.MessageKey;
 import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM;
 import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM.PlatformVM;
@@ -66,6 +68,9 @@ public class QwfbPublishBLLService {
 
     @Autowired
     private PlatformBLLService platformBLLService;
+
+    @Autowired
+    private MessageService messageService;
 
     public Object getArticleList(Integer userId, String title, Integer status, Integer page, Integer limit) {
         List<LitemallQwfbArticle> goodsList = qwfbArticleService.getArticleList(userId, title, status, page, limit);
@@ -147,8 +152,13 @@ public class QwfbPublishBLLService {
             articleDb.setContent(article.getContent());
             articleDb.setCoverMode(article.getCoverMode());
             qwfbArticleService.updateByPrimaryKey(articleDb);
+
+            notifyArticleChange(userId);
+
             return article;
         } else {
+            notifyArticleChange(userId);
+
             return qwfbArticleService.add(article, userId);
         }
     }
@@ -165,12 +175,6 @@ public class QwfbPublishBLLService {
         if (accountGroupId > 0 && accountGroup == null) {
             return ResponseUtil.badArgument();
         }
-
-        // 更改article的group id
-        article.setGroupId(accountGroupId);
-        article.setStatus(1);
-        article.setLastPublishTime(LocalDateTime.now());
-        qwfbArticleService.updateByPrimaryKey(article);
 
         List<LitemallPlatformWithBLOBs> platformList = platformService.getPlatformList();
         Map<Integer, LitemallPlatformWithBLOBs> platforms = new HashMap<>();
@@ -189,6 +193,12 @@ public class QwfbPublishBLLService {
                 return ResponseUtil.badArgument();
             }
         }
+
+        // 更改article的group id
+        article.setGroupId(accountGroupId);
+        article.setStatus(1);
+        article.setLastPublishTime(LocalDateTime.now());
+        qwfbArticleService.updateByPrimaryKey(article);
 
         // 判断分组是否跟之前的文章分组一致
         // 如果不一致，需要删除之前的detail
@@ -215,6 +225,8 @@ public class QwfbPublishBLLService {
                 qwfbArticleDetailService.add(articleDetail);
             }
         });
+
+        notifyArticleChange(userId);
 
         return null;
     }
@@ -251,7 +263,6 @@ public class QwfbPublishBLLService {
     @Transactional
     public PublishArticleVM getArticleQueueList(Integer userId, LocalDateTime lastAccessTime, Integer page,
             Integer limit) {
-        // TODO 改为 redis
         List<LitemallQwfbAccount> accountList = qwfbAccountService.getExpiredAccountList(userId, columnsAccount);
         List<Integer> expiredAccountIdList = new ArrayList<>();
         accountList.forEach(item -> {
@@ -315,12 +326,17 @@ public class QwfbPublishBLLService {
             }
         }
 
+        notifyArticleChange(userId);
+
         return null;
     }
 
     public void initNoPublishedArticleList(Integer userId) {
         String key = RedisKey.getKey(RedisKey.Key_article_no_published_set, userId);
+    }
 
+    public void notifyArticleChange(Integer userId) {
+        messageService.sendMessageToClient(userId, MessageKey.Key_Article_Changed, "", null);
     }
 
 }

@@ -212,7 +212,7 @@ public class UserAuthController {
 
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
         Integer userId = user.getId();
-        userAuthService.initWhenLogin(userId);
+        userAuthService.initWhenLogin(userId, currentUser.getSession().getId().toString());
 
         return ResponseUtil.ok(currentUser.getSession().getId());
     }

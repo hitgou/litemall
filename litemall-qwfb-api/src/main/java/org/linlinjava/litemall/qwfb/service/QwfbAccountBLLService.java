@@ -2,27 +2,18 @@ package org.linlinjava.litemall.qwfb.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccount;
 import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.linlinjava.litemall.db.service.QwfbAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QwfbAccountBLLService {
     private final Log logger = LogFactory.getLog(QwfbAccountBLLService.class);
-
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    private QwfbPublishBLLService qwfbPublishBLLService;
 
     @Autowired
     private QwfbAccountService qwfbAccountService;
