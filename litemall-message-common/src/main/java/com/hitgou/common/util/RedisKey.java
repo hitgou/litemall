@@ -1,4 +1,4 @@
-package org.linlinjava.litemall.qwfb.util;
+package com.hitgou.common.util;
 
 import java.util.ArrayList;
 import java.util.List;

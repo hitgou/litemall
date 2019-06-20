@@ -1,7 +1,6 @@
 package org.linlinjava.litemall.qwfb.web;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -54,6 +53,17 @@ public class QwfbPublishController {
     @Autowired
     private QwfbPublishBLLService qwfbPublishBLLService;
 
+    @RequiresPermissions("admin:ad:list")
+    @RequiresPermissionsDesc(menu = { "推广管理", "广告管理" }, button = "查询")
+    @GetMapping("/account/list")
+    public Object getAccountList(
+            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam @ModelAttribute LocalDateTime lastAccessTime) {
+        Subject currentUser = SecurityUtils.getSubject();
+        LitemallUser user = (LitemallUser) currentUser.getPrincipal();
+
+        return qwfbPublishBLLService.getAccountList(user.getId());
+    }
+
     /**
      * 获取用户的发布队列
      * 
@@ -94,13 +104,8 @@ public class QwfbPublishController {
         Subject currentUser = SecurityUtils.getSubject();
         LitemallUser user = (LitemallUser) currentUser.getPrincipal();
 
-        PublishArticleVM publishArticleVM = qwfbPublishBLLService.getArticleQueueList(user.getId(), lastAccessTime,
-                page, limit);
-
-        List<PublishArticleVM> result = new ArrayList<>();
-        if (publishArticleVM != null) {
-            result.add(publishArticleVM);
-        }
+        List<PublishArticleVM> result = qwfbPublishBLLService.getArticleQueueList(user.getId(), lastAccessTime, page,
+                limit);
 
         return ResponseUtil.ok(result);
     }

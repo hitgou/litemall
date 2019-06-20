@@ -23,7 +23,8 @@ public interface QwfbArticleDetailCustomMapper {
 
     List<QwfbArticleDetailCustom> getArticleDetailListDashboard(@Param("userId") Integer userId);
 
-    List<QwfbArticleDetailCustom> getPublishedQueue(@Param("userId") Integer userId);
+    List<QwfbArticleDetailCustom> getPublishedQueue(@Param("userId") Integer userId,
+            @Param("fetchTime") LocalDateTime fetchTime);
 
     // List<LitemallQwfbArticleDetail> getDetailList(@Param("userId") Integer
     // userId,

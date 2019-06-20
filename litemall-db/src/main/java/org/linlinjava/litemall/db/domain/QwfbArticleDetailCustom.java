@@ -5,7 +5,8 @@ import java.io.Serializable;
 public class QwfbArticleDetailCustom extends LitemallQwfbArticleDetail implements Serializable {
 
     private String accountName;
-    private int type;
+    private Byte type;
+    private int coverMode;
 
     private static final long serialVersionUID = 1L;
 
@@ -17,12 +18,20 @@ public class QwfbArticleDetailCustom extends LitemallQwfbArticleDetail implement
         this.accountName = accountName;
     }
 
-    public int getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Byte type) {
         this.type = type;
+    }
+
+    public int getCoverMode() {
+        return coverMode;
+    }
+
+    public void setCoverMode(int coverMode) {
+        this.coverMode = coverMode;
     }
 
 }

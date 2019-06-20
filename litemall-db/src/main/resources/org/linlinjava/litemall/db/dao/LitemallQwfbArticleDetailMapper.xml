@@ -20,6 +20,8 @@
     <result column="published_type" jdbcType="INTEGER" property="publishedType" />
     <result column="published_attempt_times" jdbcType="INTEGER" property="publishedAttemptTimes" />
     <result column="last_published_time" jdbcType="TIMESTAMP" property="lastPublishedTime" />
+    <result column="publish_fetch_time" jdbcType="TIMESTAMP" property="publishFetchTime" />
+    <result column="publish_fetch_user_id" jdbcType="INTEGER" property="publishFetchUserId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="status_hint" jdbcType="VARCHAR" property="statusHint" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -106,7 +108,8 @@
     -->
     id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
     category_name, published_url, published_id, published_type, published_attempt_times, 
-    last_published_time, `status`, status_hint, add_time, update_time, deleted
+    last_published_time, publish_fetch_time, publish_fetch_user_id, `status`, status_hint, 
+    add_time, update_time, deleted
   </sql>
   <sql id="Blob_Column_List">
     <!--
@@ -172,8 +175,8 @@
       <otherwise>
         id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
           category_name, published_url, published_id, published_type, published_attempt_times, 
-          last_published_time, `status`, status_hint, add_time, update_time, deleted, content
-          
+          last_published_time, publish_fetch_time, publish_fetch_user_id, `status`, status_hint, 
+          add_time, update_time, deleted, content
       </otherwise>
     </choose>
     from litemall_qwfb_article_detail
@@ -238,8 +241,8 @@
       <otherwise>
         id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
           category_name, published_url, published_id, published_type, published_attempt_times, 
-          last_published_time, `status`, status_hint, add_time, update_time, deleted, content
-          
+          last_published_time, publish_fetch_time, publish_fetch_user_id, `status`, status_hint, 
+          add_time, update_time, deleted, content
       </otherwise>
     </choose>
     from litemall_qwfb_article_detail
@@ -275,14 +278,16 @@
       account_group_id, platform_id, account_id, 
       category_id, category_name, published_url, 
       published_id, published_type, published_attempt_times, 
-      last_published_time, `status`, status_hint, 
+      last_published_time, publish_fetch_time, 
+      publish_fetch_user_id, `status`, status_hint, 
       add_time, update_time, deleted, 
       content)
     values (#{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=BIGINT}, 
       #{accountGroupId,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER}, 
       #{categoryId,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, #{publishedUrl,jdbcType=VARCHAR}, 
       #{publishedId,jdbcType=VARCHAR}, #{publishedType,jdbcType=INTEGER}, #{publishedAttemptTimes,jdbcType=INTEGER}, 
-      #{lastPublishedTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{statusHint,jdbcType=VARCHAR}, 
+      #{lastPublishedTime,jdbcType=TIMESTAMP}, #{publishFetchTime,jdbcType=TIMESTAMP}, 
+      #{publishFetchUserId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{statusHint,jdbcType=VARCHAR}, 
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
@@ -334,6 +339,12 @@
       </if>
       <if test="lastPublishedTime != null">
         last_published_time,
+      </if>
+      <if test="publishFetchTime != null">
+        publish_fetch_time,
+      </if>
+      <if test="publishFetchUserId != null">
+        publish_fetch_user_id,
       </if>
       <if test="status != null">
         `status`,
@@ -393,6 +404,12 @@
       </if>
       <if test="lastPublishedTime != null">
         #{lastPublishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishFetchTime != null">
+        #{publishFetchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishFetchUserId != null">
+        #{publishFetchUserId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -473,6 +490,12 @@
       <if test="record.lastPublishedTime != null">
         last_published_time = #{record.lastPublishedTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.publishFetchTime != null">
+        publish_fetch_time = #{record.publishFetchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.publishFetchUserId != null">
+        publish_fetch_user_id = #{record.publishFetchUserId,jdbcType=INTEGER},
+      </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=INTEGER},
       </if>
@@ -516,6 +539,8 @@
       published_type = #{record.publishedType,jdbcType=INTEGER},
       published_attempt_times = #{record.publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{record.lastPublishedTime,jdbcType=TIMESTAMP},
+      publish_fetch_time = #{record.publishFetchTime,jdbcType=TIMESTAMP},
+      publish_fetch_user_id = #{record.publishFetchUserId,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=INTEGER},
       status_hint = #{record.statusHint,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -546,6 +571,8 @@
       published_type = #{record.publishedType,jdbcType=INTEGER},
       published_attempt_times = #{record.publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{record.lastPublishedTime,jdbcType=TIMESTAMP},
+      publish_fetch_time = #{record.publishFetchTime,jdbcType=TIMESTAMP},
+      publish_fetch_user_id = #{record.publishFetchUserId,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=INTEGER},
       status_hint = #{record.statusHint,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -601,6 +628,12 @@
       <if test="lastPublishedTime != null">
         last_published_time = #{lastPublishedTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="publishFetchTime != null">
+        publish_fetch_time = #{publishFetchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishFetchUserId != null">
+        publish_fetch_user_id = #{publishFetchUserId,jdbcType=INTEGER},
+      </if>
       <if test="status != null">
         `status` = #{status,jdbcType=INTEGER},
       </if>
@@ -641,6 +674,8 @@
       published_type = #{publishedType,jdbcType=INTEGER},
       published_attempt_times = #{publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{lastPublishedTime,jdbcType=TIMESTAMP},
+      publish_fetch_time = #{publishFetchTime,jdbcType=TIMESTAMP},
+      publish_fetch_user_id = #{publishFetchUserId,jdbcType=INTEGER},
       `status` = #{status,jdbcType=INTEGER},
       status_hint = #{statusHint,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -668,6 +703,8 @@
       published_type = #{publishedType,jdbcType=INTEGER},
       published_attempt_times = #{publishedAttemptTimes,jdbcType=INTEGER},
       last_published_time = #{lastPublishedTime,jdbcType=TIMESTAMP},
+      publish_fetch_time = #{publishFetchTime,jdbcType=TIMESTAMP},
+      publish_fetch_user_id = #{publishFetchUserId,jdbcType=INTEGER},
       `status` = #{status,jdbcType=INTEGER},
       status_hint = #{statusHint,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -727,8 +764,8 @@
       <otherwise>
         id, title, user_id, article_id, account_group_id, platform_id, account_id, category_id, 
           category_name, published_url, published_id, published_type, published_attempt_times, 
-          last_published_time, `status`, status_hint, add_time, update_time, deleted, content
-          
+          last_published_time, publish_fetch_time, publish_fetch_user_id, `status`, status_hint, 
+          add_time, update_time, deleted, content
       </otherwise>
     </choose>
     from litemall_qwfb_article_detail

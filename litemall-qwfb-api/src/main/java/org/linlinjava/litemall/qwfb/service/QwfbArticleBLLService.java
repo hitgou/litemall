@@ -19,7 +19,6 @@ import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail;
 import org.linlinjava.litemall.db.domain.QwfbArticleDetailCustom;
 import org.linlinjava.litemall.db.service.QwfbArticleDetailService;
 import org.linlinjava.litemall.db.service.QwfbArticleService;
-import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.linlinjava.litemall.qwfb.vm.UpdateArticleVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
@@ -28,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageInfo;
+import com.hitgou.common.util.RedisKey;
 
 @Service
 public class QwfbArticleBLLService {
@@ -101,8 +101,11 @@ public class QwfbArticleBLLService {
         Long articleDetailId = articleDetail.detailId;
         Integer status = articleDetail.status;
         LitemallQwfbArticleDetail articleDetailDb = qwfbArticleDetailService.findById(articleDetailId, userId);
+        if (articleDetailDb == null) {
+            return ResponseUtil.badArgument();
+        }
         LitemallQwfbArticle articleDb = qwfbArticleService.findById(articleDetailDb.getArticleId(), userId);
-        if (articleDetailDb == null || articleDb == null) {
+        if (articleDb == null) {
             return ResponseUtil.badArgument();
         }
 

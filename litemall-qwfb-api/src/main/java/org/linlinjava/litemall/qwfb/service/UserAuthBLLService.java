@@ -23,7 +23,6 @@ import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.util.StringUtil;
 import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.linlinjava.litemall.db.service.LitemallUserService;
-import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.linlinjava.litemall.qwfb.util.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +30,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.hitgou.common.util.RedisKey;
 
 @Service
 public class UserAuthBLLService {

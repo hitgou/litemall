@@ -47,11 +47,11 @@ public class QwfbArticleDetailService {
         return qwfbArticleDetailCustomMapper.getDetailList(userId, status);
     }
 
-    public void deleteByArticleId(Long articleId, Integer userId) {
-        LitemallQwfbArticleDetailExample example = new LitemallQwfbArticleDetailExample();
-        LitemallQwfbArticleDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andUserIdEqualTo(userId).andArticleIdEqualTo(articleId);
-        qwfbArticleDetailMapper.logicalDeleteByExample(example);
+    public List<QwfbArticleDetailCustom> getPublishedQueue(Integer userId, LocalDateTime fetchTime, int page,
+            int limit) {
+        PageHelper.startPage(page, limit);
+
+        return qwfbArticleDetailCustomMapper.getPublishedQueue(userId, fetchTime);
     }
 
     public LitemallQwfbArticleDetail findById(Long articleId, Integer accountId, Integer userId) {
@@ -113,19 +113,60 @@ public class QwfbArticleDetailService {
         return count;
     }
 
+    public void add(LitemallQwfbArticleDetail detail) {
+        LocalDateTime now = LocalDateTime.now();
+        detail.setAddTime(now);
+        detail.setPublishFetchTime(now);
+        detail.setUpdateTime(now);
+        qwfbArticleDetailMapper.insertSelective(detail);
+    }
+
     public int updateById(LitemallQwfbArticleDetail detail, Integer userId) {
         LitemallQwfbArticleDetailExample example = new LitemallQwfbArticleDetailExample();
         LitemallQwfbArticleDetailExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId).andIdEqualTo(detail.getId());
 
-        detail.setUpdateTime(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        detail.setPublishFetchTime(now);
+        detail.setUpdateTime(now);
         return qwfbArticleDetailMapper.updateByExampleSelective(detail, example);
     }
 
-    public void add(LitemallQwfbArticleDetail detail) {
-        detail.setAddTime(LocalDateTime.now());
-        detail.setUpdateTime(LocalDateTime.now());
-        qwfbArticleDetailMapper.insertSelective(detail);
+    public int updateFetchTimeById(Long articleId, Integer userId) {
+        LitemallQwfbArticleDetailExample example = new LitemallQwfbArticleDetailExample();
+        LitemallQwfbArticleDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andArticleIdEqualTo(articleId);
+
+        LitemallQwfbArticleDetail detail = new LitemallQwfbArticleDetail();
+        LocalDateTime now = LocalDateTime.now();
+        detail.setPublishFetchTime(now);
+
+        return qwfbArticleDetailMapper.updateByExampleSelective(detail, example);
+    }
+
+    public int updateFetchTimeById(List<Long> detailIdList, Integer userId, LocalDateTime fetchTime) {
+        LitemallQwfbArticleDetailExample example = new LitemallQwfbArticleDetailExample();
+        LitemallQwfbArticleDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andIdIn(detailIdList);
+
+        LitemallQwfbArticleDetail detail = new LitemallQwfbArticleDetail();
+        detail.setPublishFetchTime(fetchTime);
+
+        return qwfbArticleDetailMapper.updateByExampleSelective(detail, example);
+    }
+
+    public void deleteByArticleId(Long articleId, Integer userId) {
+        LitemallQwfbArticleDetailExample example = new LitemallQwfbArticleDetailExample();
+        LitemallQwfbArticleDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId).andArticleIdEqualTo(articleId);
+
+        LitemallQwfbArticleDetail detail = new LitemallQwfbArticleDetail();
+        LocalDateTime now = LocalDateTime.now();
+        detail.setPublishFetchTime(now);
+        detail.setUpdateTime(now);
+        qwfbArticleDetailMapper.updateByExampleSelective(detail, example);
+
+        qwfbArticleDetailMapper.logicalDeleteByExample(example);
     }
 
     /**

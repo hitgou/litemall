@@ -24,7 +24,9 @@
 		<module>litemall-db</module>
 		<module>litemall-wx-api</module>
 		<module>litemall-admin-api</module>
-		<module>litemall-net</module>
+		<module>litemall-qwfb-api</module>
+		<module>litemall-message-common</module>
+		<module>litemall-message</module>
 		<module>litemall-all</module>
 	</modules>
 

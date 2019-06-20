@@ -6,14 +6,14 @@ import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.linlinjava.litemall.core.redis.RedisConfig;
 import org.linlinjava.litemall.db.domain.LitemallPlatformWithBLOBs;
 import org.linlinjava.litemall.db.service.LitemallPlatformService;
-import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import com.hitgou.common.util.RedisKey;
 
 @Service
 public class PlatformBLLService {

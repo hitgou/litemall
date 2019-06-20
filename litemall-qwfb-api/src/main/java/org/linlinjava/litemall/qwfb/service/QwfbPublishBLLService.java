@@ -20,13 +20,13 @@ import org.linlinjava.litemall.db.domain.LitemallQwfbAccount.Column;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticle;
 import org.linlinjava.litemall.db.domain.LitemallQwfbArticleDetail;
+import org.linlinjava.litemall.db.domain.QwfbArticleDetailCustom;
 import org.linlinjava.litemall.db.service.QwfbAccountGroupService;
 import org.linlinjava.litemall.db.service.QwfbAccountService;
 import org.linlinjava.litemall.db.service.QwfbArticleDetailService;
 import org.linlinjava.litemall.db.service.QwfbArticleService;
-import org.linlinjava.litemall.qwfb.message.MessageService;
+import org.linlinjava.litemall.qwfb.message.MessageProxyService;
 import org.linlinjava.litemall.qwfb.net.MessageKey;
-import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM;
 import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM.PlatformVM;
 import org.linlinjava.litemall.qwfb.vm.PublishAccountGroupVM.PublishAccountVM;
@@ -36,9 +36,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageInfo;
+import com.hitgou.common.util.RedisKey;
 
 @Service
 public class QwfbPublishBLLService {
@@ -70,14 +72,20 @@ public class QwfbPublishBLLService {
     private PlatformBLLService platformBLLService;
 
     @Autowired
-    private MessageService messageService;
+    private MessageProxyService messageService;
+
+    public Object getAccountList(Integer userId) {
+        List<LitemallQwfbAccount> accountList = qwfbAccountService.querySelective(userId);
+
+        return ResponseUtil.ok(accountList);
+    }
 
     public Object getArticleList(Integer userId, String title, Integer status, Integer page, Integer limit) {
-        List<LitemallQwfbArticle> goodsList = qwfbArticleService.getArticleList(userId, title, status, page, limit);
-        long total = PageInfo.of(goodsList).getTotal();
+        List<LitemallQwfbArticle> articleList = qwfbArticleService.getArticleList(userId, title, status, page, limit);
+        long total = PageInfo.of(articleList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
-        data.put("items", goodsList);
+        data.put("items", articleList);
 
         return ResponseUtil.ok(data);
     }
@@ -145,6 +153,7 @@ public class QwfbPublishBLLService {
         }
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public LitemallQwfbArticle createOrUpdateArticle(LitemallQwfbArticle article, Integer userId) {
         if (article.getId() != null && article.getId() > 0) {
             LitemallQwfbArticle articleDb = qwfbArticleService.findById(article.getId(), userId);
@@ -153,12 +162,12 @@ public class QwfbPublishBLLService {
             articleDb.setCoverMode(article.getCoverMode());
             qwfbArticleService.updateByPrimaryKey(articleDb);
 
+            qwfbArticleDetailService.updateFetchTimeById(article.getId(), userId);
+
             notifyArticleChange(userId);
 
             return article;
         } else {
-            notifyArticleChange(userId);
-
             return qwfbArticleService.add(article, userId);
         }
     }
@@ -261,39 +270,31 @@ public class QwfbPublishBLLService {
     }
 
     @Transactional
-    public PublishArticleVM getArticleQueueList(Integer userId, LocalDateTime lastAccessTime, Integer page,
+    public List<PublishArticleVM> getArticleQueueList(Integer userId, LocalDateTime lastAccessTime, Integer page,
             Integer limit) {
-        List<LitemallQwfbAccount> accountList = qwfbAccountService.getExpiredAccountList(userId, columnsAccount);
-        List<Integer> expiredAccountIdList = new ArrayList<>();
-        accountList.forEach(item -> {
-            expiredAccountIdList.add(item.getId());
-        });
-
-        List<LitemallPlatformWithBLOBs> platformList = platformBLLService.getPlatformList();
-        List<Integer> validPlatformList = new ArrayList<>();
-        platformList.forEach(item -> {
-            if (item.getStatus() == 1) {
-                validPlatformList.add(item.getId());
-            }
-        });
-
-        // TODO 改为 redis
-        LitemallQwfbArticleDetail articleDetail = qwfbArticleDetailService.findAfterTime(userId, lastAccessTime,
-                expiredAccountIdList, validPlatformList);
-        if (articleDetail == null) {
+        List<QwfbArticleDetailCustom> articleDetailList = qwfbArticleDetailService.getPublishedQueue(userId,
+                lastAccessTime, page, limit);
+        if (articleDetailList.size() == 0) {
             return null;
         }
 
-        PublishArticleVM publishArticleVM = new PublishArticleVM(articleDetail.getArticleId(), articleDetail.getId(),
-                articleDetail.getTitle(), articleDetail.getContent(), articleDetail.getPlatformId(),
-                articleDetail.getAccountId(), articleDetail.getCategoryId(), articleDetail.getCategoryName(),
-                articleDetail.getStatus(), articleDetail.getStatusHint(), articleDetail.getLastPublishedTime());
+        List<Long> detailIdList = new ArrayList<>();
+        List<PublishArticleVM> publishArticleVMList = new ArrayList<>();
+        articleDetailList.forEach(articleDetail -> {
+            PublishArticleVM publishArticleVM = new PublishArticleVM(articleDetail.getArticleId(),
+                    articleDetail.getId(), articleDetail.getTitle(), articleDetail.getContent(),
+                    articleDetail.getPlatformId(), articleDetail.getAccountId(), articleDetail.getCategoryId(),
+                    articleDetail.getCategoryName(), articleDetail.getStatus(), articleDetail.getStatusHint(),
+                    articleDetail.getDeleted(), articleDetail.getLastPublishedTime());
+            publishArticleVM.setArticle(articleDetail.getType(), articleDetail.getCoverMode(),
+                    articleDetail.getAccountGroupId());
+            publishArticleVMList.add(publishArticleVM);
+            detailIdList.add(articleDetail.getId());
+        });
 
-        LitemallQwfbArticle article = qwfbArticleService.findById(articleDetail.getArticleId(), userId);
-        publishArticleVM.setArticle(article.getTitle(), article.getContent(), article.getType(), article.getCoverMode(),
-                article.getGroupId());
+        qwfbArticleDetailService.updateFetchTimeById(detailIdList, userId, lastAccessTime);
 
-        return publishArticleVM;
+        return publishArticleVMList;
     }
 
     public Object updateArticleList(Integer userId, List<UpdateArticleVM> articleDetailList) {

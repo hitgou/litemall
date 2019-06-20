@@ -24,10 +24,11 @@ public class PublishArticleVM implements Serializable {
     public Integer status;
     public String statusHint;
     public LocalDateTime lastPublishTime;
+    public Boolean deleted;
 
     public PublishArticleVM(Long articleId, Long detailId, String title, String content, Integer platformId,
             Integer accountId, String categoryId, String categoryName, Integer status, String statusHint,
-            LocalDateTime lastPublishTime) {
+            Boolean deleted, LocalDateTime lastPublishTime) {
         this.articleId = articleId;
         this.detailId = detailId;
         this.title = title;
@@ -39,20 +40,12 @@ public class PublishArticleVM implements Serializable {
         this.status = status;
         this.statusHint = statusHint;
         this.lastPublishTime = lastPublishTime;
+        this.deleted = deleted;
     }
 
-    public void setArticle(String title, String content, Byte type, Integer coverMode, Integer accountGroupId) {
-        if (StringUtil.isNullOrEmpty(this.title)) {
-            this.title = title;
-        }
-
-        if (StringUtil.isNullOrEmpty(this.content)) {
-            this.content = content;
-        }
-
+    public void setArticle(Byte type, Integer coverMode, Integer accountGroupId) {
         this.type = type;
         this.coverMode = coverMode;
-        this.status = status;
         this.accountGroupId = accountGroupId;
     }
 

@@ -12,10 +12,11 @@ import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup;
 import org.linlinjava.litemall.db.domain.LitemallQwfbAccountGroup.Column;
 import org.linlinjava.litemall.db.service.QwfbAccountGroupService;
 import org.linlinjava.litemall.db.service.QwfbAccountService;
-import org.linlinjava.litemall.qwfb.util.RedisKey;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.hitgou.common.util.RedisKey;
 
 @Service
 public class QwfbAccountGroupBLLService {

@@ -15,11 +15,14 @@
 		<result column="account_name" jdbcType="VARCHAR" property="accountName" />
 		<result column="category_id" jdbcType="VARCHAR" property="categoryId" />
 		<result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+		<result column="cover_mode" jdbcType="INTEGER" property="coverMode" />
 		<result column="published_url" jdbcType="VARCHAR" property="publishedUrl" />
 		<result column="published_id" jdbcType="VARCHAR" property="publishedId" />
 		<result column="published_type" jdbcType="INTEGER" property="publishedType" />
 		<result column="published_attempt_times" jdbcType="INTEGER" property="publishedAttemptTimes" />
 		<result column="last_published_time" jdbcType="TIMESTAMP" property="lastPublishedTime" />
+		<result column="publish_fetch_time" jdbcType="TIMESTAMP" property="publishFetchTime" />
+		<result column="publish_fetch_user_id" jdbcType="INTEGER" property="publishFetchUserId" />
 		<result column="status" jdbcType="INTEGER" property="status" />
 		<result column="status_hint" jdbcType="VARCHAR" property="statusHint" />
 		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -105,14 +108,18 @@
 	
 	
 	<select id="getPublishedQueue" parameterType="map" resultMap="BaseResultMap">
-		select
-			ad.id, ad.user_id, ad.article_id, ad.account_id, ad.account_group_id, ad.platform_id, account.show_name as account_name, 
-			IFNULL(ad.title, article.title) as title, ad.category_id, ad.category_name, ad.`status`, ad.status_hint, 
-			ad.published_url, ad.published_id, ad.published_type, ad.published_attempt_times, ad.last_published_time 
+		select ad.id, ad.user_id, ad.article_id, ad.account_id, ad.account_group_id, ad.platform_id, account.show_name as account_name, 
+			IFNULL(ad.title, article.title) as title, IFNULL(ad.content, article.content) as content, 
+		    ad.category_id, ad.category_name, ad.`status`, ad.status_hint, 
+			ad.published_url, ad.published_id, ad.published_type, ad.published_attempt_times, ad.last_published_time,
+			ad.publish_fetch_time, ad.publish_fetch_user_id, ad.deleted, 
+			article.type, article.cover_mode
 		from litemall_qwfb_article_detail ad
 			left join litemall_qwfb_article article on ad.article_id = article.id
 			left join litemall_qwfb_account account on ad.account_id = account.id
-		where ad.user_id = #{userId,jdbcType=INTEGER} and ad.deleted = 0 and ad.status = 4
+		where ad.user_id = #{userId,jdbcType=INTEGER} and ad.status in (1, 2, 4) 
+			and (ad.publish_fetch_time > #{fetchTime,jdbcType=TIMESTAMP} or ad.publish_fetch_time is null)
+		order by ad.update_time desc 
 	</select>
 	
 </mapper>
