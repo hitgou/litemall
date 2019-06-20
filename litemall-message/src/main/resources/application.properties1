@@ -1,0 +1,22 @@
+server.port=8086
+
+## Dubbo 服务提供者配置
+spring.dubbo.application.name=consumer
+spring.dubbo.application.qos.enable=true
+spring.dubbo.application.qos.port=33335
+spring.dubbo.application.qos.accept.foreign.ip=false
+
+spring.dubbo.registry.address=redis://127.0.0.1:6379
+spring.dubbo.registry.username=root
+spring.dubbo.registry.password=123456
+spring.dubbo.registry.check=false
+
+spring.dubbo.protocol.name=dubbo
+spring.dubbo.protocol.port=20883
+
+spring.dubbo.scan=org.linlinjava.litemall.message
+
+spring.dubbo.reference.check=false
+spring.dubbo.consumer.check=false
+
+
