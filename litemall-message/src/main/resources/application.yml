@@ -16,13 +16,12 @@ spring:
     protocol:
       name: dubbo
       port: 20881
-      serialization: kryo
   redis:
     host: localhost
     port: 6379
     timeout: 1800000
     password: 123456 
-    
+
 wss:
   server:
     host: localhost
