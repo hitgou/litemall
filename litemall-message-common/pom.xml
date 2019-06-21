@@ -62,8 +62,6 @@
 			<version>2.4.2</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo-serialization-api -->
-
 
 
 	</dependencies>
