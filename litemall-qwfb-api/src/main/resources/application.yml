@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: db, core, admin, wx
+  main:
+    allow-bean-definition-overriding: true    
   messages:
     encoding: UTF-8
   datasource:

@@ -7,7 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>java:org.linlinjava.litemall.qwfb.Application</config>
+		<config>java:org.linlinjava.litemall.qwfb.ApplicationQwfb</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

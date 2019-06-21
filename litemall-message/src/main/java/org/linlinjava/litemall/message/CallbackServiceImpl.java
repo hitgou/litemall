@@ -44,7 +44,7 @@ public class CallbackServiceImpl implements CallbackService {
     @Override
     public String insert(User user) {
         if (user != null) {
-            return user.getUserName() + " return";
+            return user.getUserName() + " return 1";
         }
 
         return "null";
