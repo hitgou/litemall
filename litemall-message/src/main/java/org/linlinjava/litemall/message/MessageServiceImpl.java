@@ -4,11 +4,11 @@ import java.util.concurrent.CompletableFuture;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.rpc.RpcContext;
 import com.corundumstudio.socketio.AckCallback;
 import com.hitgou.common.message.BusinessCallback;
 import com.hitgou.common.message.MessageService;
@@ -26,7 +26,7 @@ public class MessageServiceImpl implements MessageService {
     /**
      * The default value of ${dubbo.application.name} is ${spring.application.name}
      */
-    @Value("${spring.dubbo.application.name}")
+    @Value("${dubbo.application.name}")
     private String serviceName;
 
     private static final int timeout = 10000;

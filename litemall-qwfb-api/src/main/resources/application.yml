@@ -26,23 +26,25 @@ spring:
     filters:  stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     
-  dubbo:
-    reference:
-      check: false
-    registry:
-      password: 123456
-      address: redis://127.0.0.1:6379
-      check: false
-      username: root
-    protocol:
-      port: 20880
-      name: dubbo
-      serialization: kryo
-    application:
-      name: qwfbApi
-    scan: org.linlinjava.litemall.qwfb
-    consumer:
-      check: false
+dubbo:
+  reference:
+    check: false
+  registry:
+    password: 123456
+    address: redis://127.0.0.1:6379
+    check: false
+    username: root
+  protocol:
+    port: 20880
+    name: dubbo
+    serialization: kryo
+  application:
+    name: qwfbApi
+  consumer:
+    check: false
+  annotation:
+    package: org.linlinjava.litemall.qwfb.message
+#  scan: org.linlinjava.litemall.qwfb
     
 #    filter:
 #      slf4j: 

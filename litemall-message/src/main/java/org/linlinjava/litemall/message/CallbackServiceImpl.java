@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.alibaba.dubbo.config.annotation.Service;
+import org.apache.dubbo.config.annotation.Service;
+
 import com.hitgou.common.message.CallbackListener;
 import com.hitgou.common.message.CallbackService;
 import com.hitgou.common.message.User;

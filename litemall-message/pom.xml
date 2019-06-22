@@ -40,15 +40,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>io.dubbo.springboot</groupId>
-			<artifactId>spring-boot-starter-dubbo</artifactId>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-spring-boot-starter</artifactId>
+			<version>${dubbo_version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
 		<dependency>
-			<groupId>com.alibaba</groupId>
+			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
@@ -58,22 +58,22 @@
 			<artifactId>jedis</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
-
+ -->
 		<dependency>
 			<groupId>com.corundumstudio.socketio</groupId>
 			<artifactId>netty-socketio</artifactId>
 		</dependency>
 
 		<!-- Spring Context Extras -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.alibaba.spring</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>1.0.2</version>
-		</dependency>
+		</dependency> -->
 
 	</dependencies>
 

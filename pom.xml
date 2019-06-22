@@ -11,7 +11,7 @@
 		<java.version>1.8</java.version>
 		<spring_boot_version>2.1.5.RELEASE</spring_boot_version>
 		<maven.test.skip>true</maven.test.skip>
-		<dubbo_version>2.6.5</dubbo_version>
+		<dubbo_version>2.7.1</dubbo_version>
 	</properties>
 
 	<parent>
@@ -235,23 +235,31 @@
 				<version>1.7.17</version>
 			</dependency>
 
+			<!-- Apache Dubbo -->
 			<dependency>
-				<groupId>io.dubbo.springboot</groupId>
-				<artifactId>spring-boot-starter-dubbo</artifactId>
-				<version>1.0.0</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>dubbo</artifactId>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-dependencies-bom</artifactId>
 				<version>${dubbo_version}</version>
 			</dependency>
-			
-			<!-- https://mvnrepository.com/artifact/de.javakaffee/kryo-serializers -->
+
 			<dependency>
-				<groupId>de.javakaffee</groupId>
-				<artifactId>kryo-serializers</artifactId>
-				<version>0.42</version>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo</artifactId>
+				<version>${dubbo_version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.servlet</groupId>
+						<artifactId>servlet-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 		</dependencies>
@@ -278,6 +286,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 	</dependencies>
 
 </project>

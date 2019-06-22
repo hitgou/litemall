@@ -3,11 +3,11 @@ package org.linlinjava.litemall.qwfb.message;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.hitgou.common.message.BusinessCallback;
 import com.hitgou.common.message.CallbackListener;
 import com.hitgou.common.message.CallbackListenerImpl;
