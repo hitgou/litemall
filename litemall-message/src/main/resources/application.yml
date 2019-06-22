@@ -18,9 +18,12 @@ dubbo:
     address: redis://127.0.0.1:6379
     username: root
     password: 123456
+    timeout: 10000
   protocol:
     name: dubbo
     port: 20881
+  provider:
+    wait: 10000
   scan.base-packages: org.linlinjava.litemall.message
   annotation:
     package: org.linlinjava.litemall.message

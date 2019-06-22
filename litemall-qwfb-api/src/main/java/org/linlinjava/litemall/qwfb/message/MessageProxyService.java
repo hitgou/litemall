@@ -1,6 +1,8 @@
 
 package org.linlinjava.litemall.qwfb.message;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
 import org.apache.dubbo.config.annotation.Reference;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.hitgou.common.message.BusinessCallback;
 import com.hitgou.common.message.CallbackListener;
-import com.hitgou.common.message.CallbackListenerImpl;
 import com.hitgou.common.message.CallbackService;
 import com.hitgou.common.message.MessageService;
 import com.hitgou.common.message.User;
@@ -62,8 +63,13 @@ public class MessageProxyService {
     }
 
     public void addListener(String key) {
-        CallbackListener c = new CallbackListenerImpl();
+        CallbackListener c = new CallbackListenerImpl2();
+        // c.changed(getChanged(key));
         callbackService.addListener(key, c);
+    }
+
+    private String getChanged(String key) {
+        return " consumer: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
 }

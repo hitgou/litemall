@@ -241,7 +241,6 @@
 				<artifactId>dubbo-dependencies-bom</artifactId>
 				<version>${dubbo_version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo</artifactId>
@@ -260,6 +259,12 @@
 						<artifactId>log4j</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-dependencies-zookeeper</artifactId>
+				<version>${dubbo_version}</version>
+				<type>pom</type>
 			</dependency>
 
 		</dependencies>
