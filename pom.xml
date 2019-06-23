@@ -12,6 +12,7 @@
 		<spring_boot_version>2.1.5.RELEASE</spring_boot_version>
 		<maven.test.skip>true</maven.test.skip>
 		<dubbo_version>2.7.1</dubbo_version>
+		<maven-jar-plugin.version>3.0.0</maven-jar-plugin.version>
 	</properties>
 
 	<parent>
