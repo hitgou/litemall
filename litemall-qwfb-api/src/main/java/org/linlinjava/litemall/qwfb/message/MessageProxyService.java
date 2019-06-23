@@ -5,9 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
+import javax.annotation.Resource;
+
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.hitgou.common.message.BusinessCallback;
@@ -29,25 +32,27 @@ public class MessageProxyService {
     @Reference(version = "1.0.0", check = false, timeout = 60000)
     private CallbackService callbackService;
 
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
+
     public String priceChanged(String newPrice) {
         String result = messageService.priceChanged(newPrice);
         return result;
     }
 
-    public void sendMessageToClient(Integer userId, String eventType, String message,
-            BusinessCallback<?> businessCallback) {
-        CompletableFuture<String> future = messageService.sendToClient(userId, eventType, message, businessCallback);
-        if (businessCallback != null) {
-            // 增加回调
-            future.whenComplete((response, ex) -> {
-                if (ex != null) {
-                    logger.error("MessageProxyService error", ex);
-                } else {
-                    logger.info(response);
-                }
-            });
-        }
-    }
+//    public void sendMessageToClient(Integer userId, String eventType, String message) {
+//        CompletableFuture<String> future = messageService.sendToClient(userId, eventType, message, businessCallback);
+//        if (businessCallback != null) {
+//            // 增加回调
+//            future.whenComplete((response, ex) -> {
+//                if (ex != null) {
+//                    logger.error("MessageProxyService error", ex);
+//                } else {
+//                    logger.info(response);
+//                }
+//            });
+//        }
+//    }
 
     public String callTest(String newPrice) {
         String result = callbackService.test(newPrice);

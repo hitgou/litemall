@@ -1,23 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.hitgou</groupId>
 	<artifactId>litemall-message</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>litemall-message</name>
-	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging>
+
 	<parent>
 		<groupId>org.linlinjava</groupId>
 		<artifactId>litemall</artifactId>
 		<version>0.1.0</version>
 	</parent>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<dependencies>
+
+		<dependency>
+			<groupId>org.linlinjava</groupId>
+			<artifactId>litemall-message-common</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -60,12 +59,18 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
 		<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-pool2</artifactId> 
 			</dependency> -->
+
 		<dependency>
 			<groupId>com.corundumstudio.socketio</groupId>
 			<artifactId>netty-socketio</artifactId>

@@ -51,6 +51,12 @@ public class RedisKey {
     public static final String Key_message_token_clientId_ = "msg:token:%s:clientId:";
     public static final String Key_message_userId_clientId_ = "msg:userId:%d:clientId:";
 
+    /**
+     * 待发送的文章列表
+     */
+    public static final String Key_message_ArticleSendList = "msg:articleSendList:";
+    
+    
     // public static String getKey(String prefix, String... keys) {
     // return prefix + "_" + String.join("_", keys);
     // }

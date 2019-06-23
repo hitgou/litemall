@@ -105,7 +105,8 @@ public class SocketService {
         logger.info("用户进入" + data);
     }
 
-    public void sendMessageToClient(String clientId, String eventType, String message, AckCallback<?> ackCallback) {
+    public void sendMessageToClient(String clientId, String eventType, String message,
+            AckCallback<String> ackCallback) {
         SocketIOClient client = server.getClient(UUID.fromString(clientId));
         if (ackCallback != null) {
             client.sendEvent(eventType, ackCallback, message);

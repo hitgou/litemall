@@ -13,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.linlinjava.litemall.core.redis.RedisConfig;
 import org.linlinjava.litemall.core.sms.SmsSender;
 import org.linlinjava.litemall.core.sms.TencentValidator;
 import org.linlinjava.litemall.core.system.SystemConfig;
@@ -31,6 +30,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.hitgou.common.redis.RedisConfig;
 import com.hitgou.common.util.RedisKey;
 
 @Service

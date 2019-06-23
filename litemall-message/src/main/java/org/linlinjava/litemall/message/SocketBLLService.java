@@ -2,8 +2,6 @@
 package org.linlinjava.litemall.message;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
@@ -17,6 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.corundumstudio.socketio.AckCallback;
+import com.hitgou.common.message.MessageInfo;
 import com.hitgou.common.util.RedisKey;
 
 /**
@@ -97,19 +96,40 @@ public class SocketBLLService {
         redisTemplate.delete(keyReverse);
     }
 
-    public void sendMessageToClient(Integer userId, String eventType, String message, AckCallback<?> ackCallback) {
-        ExecutorService cachedThreadPool = Executors.newFixedThreadPool(5);
-        cachedThreadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                String key = RedisKey.getKey(RedisKey.Key_message_userId_clientId_, userId);
-                Object clientObject = redisTemplate.opsForValue().get(key);
-                if (clientObject != null) {
-                    String clientId = clientObject.toString();
-                    socketService.sendMessageToClient(clientId, eventType, message, ackCallback);
-                }
+    public void sendMessageToClient(MessageInfo messageInfo) {
+        switch (messageInfo.getMessageType()) {
+        case MessageInfo.MessageTypeUser:
+            String key = RedisKey.getKey(RedisKey.Key_message_userId_clientId_, messageInfo.getUserId());
+            Object clientObject = redisTemplate.opsForValue().get(key);
+            if (clientObject != null) {
+                socketService.sendMessageToClient(clientObject.toString(), messageInfo.getEventType(),
+                        messageInfo.getExtra(), new AckCallback<String>(String.class) {
+                            @Override
+                            public void onSuccess(String result) {
+                                logger.debug("发送成功：userId=%d, eventType=%s", messageInfo.getUserId(),
+                                        messageInfo.getEventType());
+                            }
+                        });
             }
-        });
+            break;
+        case MessageInfo.MessageTypeGroup:
+            String key1 = RedisKey.getKey(RedisKey.Key_message_userId_clientId_, messageInfo.getUserId());
+            Object clientObject1 = redisTemplate.opsForValue().get(key1);
+            socketService.sendMessageToClient(clientObject1.toString(), messageInfo.getEventType(),
+                    messageInfo.getExtra(), new AckCallback<String>(String.class) {
+                        @Override
+                        public void onSuccess(String result) {
+                            logger.debug("发送成功：userId=%d, eventType=%s", messageInfo.getUserId(),
+                                    messageInfo.getEventType());
+                        }
+                    });
+            break;
+        case MessageInfo.MessageTypeAll:
+            socketService.sendMessageToAllClient(messageInfo.getEventType(), messageInfo.getExtra());
+            break;
+        default:
+            break;
+        }
     }
 
 }

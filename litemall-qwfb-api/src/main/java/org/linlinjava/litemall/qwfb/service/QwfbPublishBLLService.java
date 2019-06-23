@@ -40,6 +40,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageInfo;
+import com.hitgou.common.message.MessageInfo;
 import com.hitgou.common.util.RedisKey;
 
 @Service
@@ -337,7 +338,8 @@ public class QwfbPublishBLLService {
     }
 
     public void notifyArticleChange(Integer userId) {
-        messageService.sendMessageToClient(userId, MessageKey.Key_Article_Changed, "", null);
+        MessageInfo messageInfo = new MessageInfo(userId, MessageKey.Key_Article_Changed);
+        redisTemplate.opsForList().leftPush(RedisKey.Key_message_ArticleSendList, messageInfo);
     }
 
 }

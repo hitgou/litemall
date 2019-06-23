@@ -89,6 +89,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.linlinjava</groupId>
+				<artifactId>litemall-message-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.linlinjava</groupId>
 				<artifactId>litemall-db</artifactId>
 				<version>${project.version}</version>
 			</dependency>

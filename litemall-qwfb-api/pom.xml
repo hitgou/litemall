@@ -20,8 +20,14 @@
 
 		<dependency>
 			<groupId>org.linlinjava</groupId>
+			<artifactId>litemall-message-common</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.linlinjava</groupId>
 			<artifactId>litemall-db</artifactId>
 		</dependency>
+
 
 		<dependency>
 			<groupId>com.github.binarywang</groupId>

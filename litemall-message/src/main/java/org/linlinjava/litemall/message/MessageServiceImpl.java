@@ -39,25 +39,25 @@ public class MessageServiceImpl implements MessageService {
         return String.format("[%s] newPrice, %s", serviceName, newPrice);
     }
 
-    @Override
-    public CompletableFuture<String> sendToClient(Integer userId, String eventType, String message,
-            BusinessCallback businessCallback) {
-        RpcContext savedContext = RpcContext.getContext();
-        // 建议为supplyAsync提供自定义线程池，避免使用JDK公用线程池
-        return CompletableFuture.supplyAsync(() -> {
-            socketBLLService.sendMessageToClient(userId, eventType, message, new AckCallback(Object.class, timeout) {
-                @Override
-                public void onTimeout() {
-                    businessCallback.onTimeout();
-                }
-
-                @Override
-                public void onSuccess(Object result) {
-                    businessCallback.onSuccess(result);
-                }
-            });
-            return "received";
-        });
-    }
+//    @Override
+//    public CompletableFuture<String> sendToClient(Integer userId, String eventType, String message,
+//            BusinessCallback businessCallback) {
+//        RpcContext savedContext = RpcContext.getContext();
+//        // 建议为supplyAsync提供自定义线程池，避免使用JDK公用线程池
+//        return CompletableFuture.supplyAsync(() -> {
+//            socketBLLService.sendMessageToClient(userId, eventType, message, new AckCallback(Object.class, timeout) {
+//                @Override
+//                public void onTimeout() {
+//                    businessCallback.onTimeout();
+//                }
+//
+//                @Override
+//                public void onSuccess(Object result) {
+//                    businessCallback.onSuccess(result);
+//                }
+//            });
+//            return "received";
+//        });
+//    }
 
 }
