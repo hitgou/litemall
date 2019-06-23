@@ -57,7 +57,7 @@ public class MessageProxyService {
     public String insert() {
         User user = new User();
         user.setAge(20);
-        user.setUserName("Colin-Wang a");
+        user.setUserName("Colin-Wang a 2 1 ");
         String result = callbackService.insert(user);
         return result;
     }

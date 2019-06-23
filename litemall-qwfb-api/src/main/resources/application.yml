@@ -32,10 +32,10 @@ dubbo:
   reference:
     check: false
   registry:
-    password: 123456
-    address: redis://127.0.0.1:6379
+    address: zookeeper://127.0.0.1:2181
     check: false
-    username: root
+#    username: root
+#    password: 123456
     timeout: 10000
   protocol:
     port: 20880

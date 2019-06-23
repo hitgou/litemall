@@ -8,6 +8,8 @@ spring:
     timeout: 1800000
     password: 123456 
 
+embedded.zookeeper.port: 2181
+
 dubbo:
   application:
     name: message
@@ -15,9 +17,9 @@ dubbo:
     qosPort: 33333
     qosAcceptForeignIp: false
   registry:
-    address: redis://127.0.0.1:6379
-    username: root
-    password: 123456
+    address: zookeeper://127.0.0.1:2181
+#    username: root
+#    password: 123456
     timeout: 10000
   protocol:
     name: dubbo
