@@ -7,6 +7,7 @@ spring:
     port: 6379
     timeout: 1800000
     password: 123456 
+  jackson.time-zone: GMT+8
 
 embedded.zookeeper.port: 2181
 

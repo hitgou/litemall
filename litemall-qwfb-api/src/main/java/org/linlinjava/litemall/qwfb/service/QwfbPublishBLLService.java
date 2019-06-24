@@ -286,7 +286,8 @@ public class QwfbPublishBLLService {
                     articleDetail.getId(), articleDetail.getTitle(), articleDetail.getContent(),
                     articleDetail.getPlatformId(), articleDetail.getAccountId(), articleDetail.getCategoryId(),
                     articleDetail.getCategoryName(), articleDetail.getStatus(), articleDetail.getStatusHint(),
-                    articleDetail.getDeleted(), articleDetail.getLastPublishedTime());
+                    articleDetail.getDeleted(), articleDetail.getLastPublishedTime(),
+                    articleDetail.getPublishFetchTime());
             publishArticleVM.setArticle(articleDetail.getType(), articleDetail.getCoverMode(),
                     articleDetail.getAccountGroupId());
             publishArticleVMList.add(publishArticleVM);
